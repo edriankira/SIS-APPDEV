@@ -84,9 +84,9 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="index.html">Homepage</a></li>
-										<li><a href="generic.html">Generic</a></li>
-										<li><a href="elements.html">Elements</a></li>
+										<li><a href="homepage.php">Homepage</a></li>
+										<li><a href="generic.php">Generic</a></li>
+										<li><a href="elements.php">Elements</a></li>
 										<li>
 											<span class="opener">Submenu</span>
 											<ul>
