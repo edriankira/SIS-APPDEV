@@ -5,23 +5,49 @@
 		<title>Admin Creation</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/mainAdmin.css" />
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 	<style>
-		/* @media screen and (max-width: ) {
-			
+		#addbtn{
+			text-align: center;
+			width: 60px;
+			height: 35px;
+			font-size: 12px;
+			float: right;
+			margin: 0;
+			text-decoration: none;
+		}
+		a{
+			text-decoration: none;	
+		}
+		#modify{
+			width:65px;
+			height: 30px;	
+		}
+		/* #viewScreen{
+			width: 500px;
+			height: 500px;
+			display: block;
+			background-color: black;
+			z-index: 1;
+			border: 1px solid black;
+
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 		} */
 	</style>
 
 	</head>
 	<body class="is-preload">
-
+		<!-- <div id="viewScreen">
+			aaaaaaaaaaaa
+		</div> -->
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -31,28 +57,36 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index.html" class="logo"><strong>Admin </strong>Creation</a>
+									<a href="" class="logo"><strong>Admin </strong>Creation</a>
 								</header>
 
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h2>Admin Users List</h2>
+											<h2>Admin Users List<button id="addbtn">add</button></h2>
 										</header>
 										<table>
                                             <tr>
-                                                <th>Admin ID</th>
-                                                <th>Admin Name</th>
-                                                <th>Admin Username</th>
-                                                <th>Admin Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            <?php Display(); ?>
+											<?php
+											include "connection/mobilecheck.php";
+											if(isMobileDevice()){
+												echo "<th>Admin Name</th>";
+												echo "<th>Admin Status</th>";
+												echo "<th>Action</th>";
+											}else{
+												echo "<th>Admin ID</th>";
+												echo "<th>Admin Name</th>";
+												echo "<th>Admin Username</th>";
+												echo "<th>Admin Status</th>";
+												echo "<th>Action</th>";
+											}
+                                                
+                                            echo "</tr>";
+
+                                            Display(); 
+											?>
                                         </table>
-										<ul class="actions">
-											<li><a href="https://bcp.edu.ph/home" class="button big">Learn More</a></li>
-										</ul>
 									</div>
 									
 								</section>
@@ -100,6 +134,8 @@
 					</div>
 
 			</div>
+		
+			
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
@@ -112,7 +148,8 @@
 </html>
 
 
-<?php    
+<?php  
+
 function Display(){
     require_once "connection/config.php";
 
@@ -125,23 +162,40 @@ function Display(){
                     $mnameholder = "";
                 }
                 else $mnameholder = ", ";
-                echo "<tr>";
-                    echo "<td>" . $row['adm_adminUserNum'] . "</td>";
-                    echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
-                    echo "<td>" . $row['adm_username'] . "</td>";
-                    echo "<td>" . $row['adm_status'] . "</td>";
-                    echo "<td>";
-                        echo '<a href="read.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                        echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                        echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                    echo "</td>";
-                echo "</tr>";
+				
+				if(isMobileDevice()){
+					echo "<tr>";
+						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
+						echo "<td>" . $row['adm_status'] . "</td>";
+						echo "<td>";
+							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">Modify</button></a>';
+							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+						echo "</td>";
+					echo "</tr>";
+				}
+				else{
+					echo "<td>" . $row['adm_adminUserNum'] . "</td>";
+						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
+						echo "<td>" . $row['adm_username'] . "</td>";
+						echo "<td>" . $row['adm_status'] . "</td>";
+						echo "<td>";
+							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">Modify</button></a>';
+							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+						echo "</td>";
+					echo "</tr>";
+    
+				}
+					
             }
         }
     }
     mysqli_close($db);
 }
-    
+
+echo "<tr>";
+						
 
     
 
