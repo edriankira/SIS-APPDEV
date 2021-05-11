@@ -1,3 +1,6 @@
+Create database SISAPPDEV;
+user SISAPPDEV;
+
 
 CREATE TABLE adm_adminUser(
 
