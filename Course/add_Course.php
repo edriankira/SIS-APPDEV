@@ -241,18 +241,18 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="homepage.php">Homepage</a></li>
+										<li><a href="../homepage.php">Homepage</a></li>
 										<li>
 											<span class="opener">Account Creation</span>
 											<ul>
-												<li><a href="#">Admin Registration</a></li>
+												<li><a href="../AdminRegistration.php">Admin Registration</a></li>
 												<li><a href="#">Faculty Registration</a></li>
 												<li><a href="#">Parent Registration</a></li>
 												<li><a href="#">User Registration</a></li>
 											</ul>
 										</li>
 										<li><a href="generic.php">Event Notification</a></li>									
-										<li><a href="elements.php">List of Courses</a></li>									
+										<li><a href="#">List of Courses</a></li>									
 										<li><a href="#">Campus Map</a></li>
 										<li><a href="#">Announcement</a></li>
 									</ul>

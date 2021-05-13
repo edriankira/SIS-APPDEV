@@ -51,14 +51,97 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         }
         body{
             overflow:visible;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
         td, th{
             text-align: center;
+        }
+
+        .confirmation{
+            width: 200%;
+            height: 200%;
+            margin-left:0px;
+            padding: 0px;
+            z-index: 3;
+            background-color: grey;
+            opacity: 0.7;
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            display: block;
+        }
+        #delcontainer{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width:22%;
+            height:22%;
+            border: 1px solid white;
+            background-color: white;
+            opacity:1;
+            z-index: 6;
+            border-radius: 15px;
+
+            display: block;
+        }
+        #delbtn{
+            position: fixed;
+            top: 70%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            z-index:6;
+            width:100px;
+            height:30px;
+            cursor: pointer;
+            outline: none;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold !important;
+        }
+        #backtoread{
+            position: fixed;
+            top: 70%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            z-index:6; 
+            width:100px;
+            height:30px;
+            cursor: pointer;
+            outline: none;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 15px;
+            font-weight: bold !important;
+            transition: border 0.2s ease-in-out, border 0.2s ease-in-out;
+        }
+        #backtoread:hover{
+            border: 1px solid black;
+            
         }
        
     </style>
 </head>
 <body>
+
+    <div class="confirmation">
+   
+    </div>
+        <div id="delcontainer">
+            <h3 align="center">Are you sure you want to deactivate this user?<h3>
+            <form action="delete.php">
+            <input type="submit" id="delbtn" Value="Delete">
+            <input type="button" id="backtoread" Value="Cancel" onclick='hideContainer'>
+            </form>
+
+        </div>
+    
 
     <div id="container">
         
@@ -67,18 +150,21 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <button id="modifyingbtn"><i class="fa fa-trash" style="color:white; font-size:20px;"></i></button>
            <?php echo '<a href="Edit.php?id='.$row['adm_AdminId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
             <tr>
-                <th colspan = 3 id="detailst"><h3> Details</h3></td>
+                <th colspan = 3 id="detailst"><?php  
+                    if($row['adm_status'] == "Active"){
+                        echo '<span style="color:green;float:right; line-height: 10px;font-size:18px;"> &bull; active</span>';
+                    }
+                    else{
+                        echo '<span style="color:red; font-size:18px;""> &bull;</span>';  
+                    }; ?><br>
+
+                    <h3> Details</h3></td>
             </tr>
             <tr>
                 <td id="nameY">Name:</td>
                 <td colspan = 2 id="namet"><b><?php 
                     echo $row["adm_fname"]. " ". $row["adm_mname"]. " ". $row["adm_lname"];
-                    if($row['adm_status'] == "Active"){
-                        echo '<span style="color:green; font-size:18px;"> &bull;</span>';
-                    }
-                    else{
-                        echo '<span style="color:red; font-size:18px;""> &bull;</span>';  
-                    }; ?>
+                    ?>
                     <b></td>
             </tr>
             <tr>
@@ -110,5 +196,15 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
         </table>
         <input type="submit" class="backread" value="Back" onClick="location.href='AdminRegistration.php'"/>
     </div>
+
+    <script>
+
+        function hideContainer(){
+            
+            document.getElementsByclass("confirmation").style["display"] = "none";
+            document.getElementsById("delcontainer").style["display"] = "none";
+        }
+
+    </script>
 </body>
 </html>

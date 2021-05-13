@@ -58,6 +58,7 @@
         border-left: none;
         border-right: none;
         height: 30px;
+        line-height: 10px;
     }
     #nameY{
         width:120px;
@@ -194,6 +195,7 @@
         border-left: none;
         border-right: none;
         height: 30px;
+        line-height: 10px;
     }
     #nameY{
         width:120px;
