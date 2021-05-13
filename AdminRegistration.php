@@ -170,7 +170,7 @@ function Display(){
 						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
 						echo "<td>" . $row['adm_status'] . "</td>";
 						echo "<td>";
-							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">Modify</button></a>';
+							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
 							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
 							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
 						echo "</td>";

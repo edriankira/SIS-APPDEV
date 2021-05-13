@@ -30,7 +30,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     mysqli_close($db);
 
     // ." ".$row['adm_mname']." ".$row['adm_lname']
-} else{
+}   else{
     echo "error";
 }
 ?>
@@ -40,15 +40,16 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <link rel="stylesheet" href="CSS/GeneralCSS.css" />
     <link rel="stylesheet" href="CSS/crud.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
     <title>Document</title>
     <style>
-
-        body{
+        *{
             font-family: "Open Sans", sans-serif;
+        }
+        body{
             overflow:visible;
         }
         td, th{
@@ -107,7 +108,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 <td colspan = 3 id="emailt"><?php echo $row["adm_address"] ?><br><b>Address</b></td>
             </tr>
         </table>
-        <input type="submit" id="back" value="Back" onClick="location.href='AdminRegistration.php'"/>
+        <input type="submit" class="backread" value="Back" onClick="location.href='AdminRegistration.php'"/>
     </div>
 </body>
 </html>
