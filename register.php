@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "connection/config.php";
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; margin-top: 15%; 
-                background-image: url("bg.jpg");
+                /*background-image: url("images/bg.jpg");*/s
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;}

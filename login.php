@@ -38,7 +38,7 @@ if(isset($_POST["login"])){
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Generic - Editorial by HTML5 UP</title>
+		<title>Login - Student Information Admins</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <link rel="stylesheet" href="CSS/GeneralCSS.css" />
