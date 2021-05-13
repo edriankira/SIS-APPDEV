@@ -149,8 +149,8 @@ $pfname_err = $pmname_err = $plname_err = $pusername =$pbday_err = $gender_err =
                 
                 
                 if(mysqli_stmt_execute($stmt)){
-                    // header("location: read.php?id=$id");
-                    // exit();
+                    header("location: read.php?id=$id");
+                    exit();
                 } else{
                     echo "Oops! Something went wrong. Please try again later.";
                 }
@@ -164,6 +164,7 @@ $pfname_err = $pmname_err = $plname_err = $pusername =$pbday_err = $gender_err =
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -197,12 +198,11 @@ td, th{
     /* border: 1px solid black; */
     
 }
-
     </style>
 </head>
 <body>
+<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
     <div id="container">
-        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
         <table id="crudtable">
             <tr>
                 <th colspan = 3 id="detailst"><h3>Edit Details</h3></td>
@@ -260,9 +260,9 @@ td, th{
                 ?><br><b>Address</b></td>
             </tr>
         </table>
+       
+        </form> 
         <input type="submit" name="goEdit" id="save" value="Save"/><br> 
-        </form>
-        
         <input type="button" class="backread" value="Back" onClick="location.href='AdminRegistration.php'">
 </body>
 </html>
