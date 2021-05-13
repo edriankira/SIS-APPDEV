@@ -1,149 +1,161 @@
 <?php
-if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-    require_once "connection/config.php";
-    $sql = "SELECT * FROM adm_adminuser WHERE adm_adminId = ?";
-    
-    if($stmt = mysqli_prepare($db, $sql)){
-
-        mysqli_stmt_bind_param($stmt, "i", $param_id);
-        
-        $param_id = trim($_GET["id"]);
-        
-        if(mysqli_stmt_execute($stmt)){
-            $result = mysqli_stmt_get_result($stmt);
-    
-            if(mysqli_num_rows($result) == 1){
-                $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            } else{
-                header("location: error.php");
-                exit();
-            }
-            
-        } else{
-            echo "Oops! Something went wrong. Please try again later.";
-        }
-    }
-     
-    mysqli_stmt_close($stmt);
-    
-    mysqli_close($db);
-
-    // ." ".$row['adm_mname']." ".$row['adm_lname']
-} else{
-    echo "error";
-}
-// require_once "connection/config.php";
+require_once "connection/config.php";
  
 
-// $pfname = $pmname = $plname = $pbday = $gender = $pemail= $pmobile= $address = "";
-// $pfnameerr = $pmnameerr = $plnameerr = $pbdayerr = $gendererr = $pemailerr= $pmobileerr= $addresserr = "";
+$pfname = $pmname = $plname = $pbday = $gender = $pemail= $pmobile= $paddress= $pid= $pusername = "";
+$pfname_err = $pmname_err = $plname_err = $pusername =$pbday_err = $gender_err = $pemail_err= $pmobile_err= $address_err= $pid_err = "";
 
-// if(isset($_POST["id"]) && !empty($_POST["id"])){
+if(isset($_POST["id"]) && !empty($_POST["id"])){
 
-//     $id = $_POST["id"];
+    $id = $_POST["id"];
    
-//     //first name
-//     $input_fname = trim($_POST["fname"]); 
-//     if(empty($input_fname)){
-//         $name_err = "Please enter a first name."; 
-//     } elseif(!filter_var($input_fname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-//         $name_err = "Please enter a valid first name.";
-//     } else{
-//         $pfname = $input_fname;
-//     }
-//     //middle name
-//     $input_mname = trim($_POST["mname"]); 
-//     if(!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-//         $name_err = "Please enter a valid first name.";
-//     } else{
-//         $pmname = $input_mname;
-//     }
+    //first name
+    $input_fname = trim($_POST["fname"]); 
+    if(empty($input_fname)){
+        $pfname_err = "Please enter a first name."; 
+    } elseif(!filter_var($input_fname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $pfname_err = "Please enter a valid first name.";
+    } else{
+        $pfname = $input_fname;
+    }
 
-//     //last name
-//     $input_name = trim($_POST["lname"]); 
-//     if(empty($input_name)){
-//         $name_err = "Please enter a first name."; 
-//     } elseif(!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-//         $name_err = "Please enter a valid first name.";
-//     } else{
-//         $name = $input_name;
-//     }
-    
+    //middle name
+    if(!filter_var($input_mname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $pmname_err = "Please enter a valid middle name.";
+    } else{
+        $pmname = $input_mname;
+    }
 
-//     $input_address = trim($_POST["address"]);
-//     if(empty($input_address)){
-//         $address_err = "Please enter an address.";     
-//     } else{
-//         $address = $input_address;
-//     }
+    //last name
+    $input_lname = trim($_POST["lname"]);
+    if(empty($input_lname)){
+        $name_err = "Please enter a last name."; 
+    } elseif(!filter_var($input_lname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+        $name_err = "Please enter a valid last name.";
+    } else{
+        $plname = $input_lname;
+    }
     
-//     $input_salary = trim($_POST["salary"]);
-//     if(empty($input_salary)){
-//         $salary_err = "Please enter the salary amount.";     
-//     } elseif(!ctype_digit($input_salary)){
-//         $salary_err = "Please enter a positive integer value.";
-//     } else{
-//         $salary = $input_salary;
-//     }
-    
-//     if(empty($name_err) && empty($address_err) && empty($salary_err)){
-//         $sql = "UPDATE employees SET name=?, address=?, salary=? WHERE id=?";
+    //email
+    $input_email = trim($_POST["email"]);
+    if (filter_var($input_email, FILTER_VALIDATE_EMAIL)) {
+        $pemail = $input_email;
+    } else {
+    $pemail_err = "$email is not a valid email address";
+    }
+
+    $input_bday = trim($_POST["bday"]);
+    if(empty($input_lname)){
+        $pbday_err = "Please enter a birthday."; 
+    }
+    else{
+        $pbday = date('Y-m-d', strtotime($_POST['dateFrom']));
+    }
+
+    $input_mobile = trim($_POST["mobile"]);
+    if(empty($input_mobile)){
+        $pmobile_err = "Please enter a mobile number.";
+    }else if(!is_numeric($input_mobile)){
+        $pmobile = $input_mobile;
+    }
+    else{
+        $pmobile_err = "Please enter a valid number";
+    }
+
+    $input_address = trim($_POST["address"]);
+    if(empty($input_address)){
+        $paddress_err = "Please enter an address."; 
+    }else{
+        $paddress = $input_address;
+    }
+
+    $input_username = trim($_POST["username"]);
+    if(empty($input_username)){
+        $username_err = "Please enter a username."; 
+    } else{
+        $pusername = $input_username;
+    }
+
+    if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
+    empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
+    empty($pusername_err) &&empty($pgender_err)){
+        $sql = "UPDATE adm_adminUser SET adm_username=?, adm_bday=?,  adm_fname = ?,adm_mname = ?, 
+        adm_lname = ?,adm_email = ?, adm_mobile = ?, adm_address = ?, adm_gender =?
+         WHERE adm_adminUserNum = ?";
          
-//         if($stmt = mysqli_prepare($db, $sql)){
-//             mysqli_stmt_bind_param($stmt, "sssi", $param_name, $param_address, $param_salary, $param_id);
+        if($stmt = mysqli_prepare($db, $sql)){
+            mysqli_stmt_bind_param($stmt, "sssssssssi",
+            $param_username, $paam_bday,$param_fname,$param_mname,$param_lname,
+            $param_email,$param_mobile,$param_address,$param_gender, $param_id);
             
-//             $param_name = $name;
-//             $param_address = $address;
-//             $param_salary = $salary;
-//             $param_id = $id;
+              
+            $param_username = $pusername;
+            $param_bday = $pbday;
+            $param_fname = $pfname;
+            $param_mname = $pmname ;
+            $param_lname = $plname ;
+            $param_email = $pemail;
+            $param_mobile = $pmobile;
+            $param_address = $paddress;
+            $param_gender = $gender ;
+            $param_id = $id;
             
-//             if(mysqli_stmt_execute($stmt)){
-//                 header("location: home.php");
-//                 exit();
-//             } else{
-//                 echo "Oops! Something went wrong. Please try again later.";
-//             }
-//         }
+            
+            if(mysqli_stmt_execute($stmt)){
+                header("location: read.php?id=$id");
+                exit();
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
          
-//         mysqli_stmt_close($stmt);
-//     }
+        mysqli_stmt_close($stmt);
+    }
     
-//     mysqli_close($db);
-// } else{
-//     if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
-//         $id =  trim($_GET["id"]);
+    mysqli_close($db);
+    
+}else{
+    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+        require_once "connection/config.php";
+        $sql = "SELECT * FROM adm_adminuser WHERE adm_adminId = ?";
         
-//         $sql = "SELECT * FROM employees WHERE id = ?";
-//         if($stmt = mysqli_prepare($db, $sql)){
-//             mysqli_stmt_bind_param($stmt, "i", $param_id);
-            
-//             $param_id = $id;
-            
-//             if(mysqli_stmt_execute($stmt)){
-//                 $result = mysqli_stmt_get_result($stmt);
+        if($stmt = mysqli_prepare($db, $sql)){
     
-//                 if(mysqli_num_rows($result) == 1){
-//                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                    
-//                     $name = $row["name"];
-//                     $address = $row["address"];
-//                     $salary = $row["salary"];
-//                 } else{
-//                     header("location: error.php");
-//                     exit();
-//                 }
+            mysqli_stmt_bind_param($stmt, "i", $param_id);
+            
+            $param_id = trim($_GET["id"]);
+            
+            if(mysqli_stmt_execute($stmt)){
+                $result = mysqli_stmt_get_result($stmt);
+        
+                if(mysqli_num_rows($result) == 1){
+                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                    $pfname = $row['adm_fname'];
+                    $pmname = $row['adm_mname'];
+                    $plname = $row['adm_lname'];
+                    $pbirthday = $row['adm_bday'];
+                    $pgender = $row['adm_gender'];
+                    $pmobile = $row['adm_mobile'];
+                    $pemail = $row['adm_email'];
+                    $paddress = $row['adm_address'];
+                    $pusername = $row['adm_username'];
+
+
+                } else{
+                    header("location: error.php");
+                    exit();
+                }
                 
-//             } else{
-//                 echo "Oops! Something went wrong. Please try again later.";
-//             }
-//         }
-//         mysqli_stmt_close($stmt);
-//         mysqli_close($$db);
-//     }  else{
-//         header("location: error.php");
-//         exit();
-//     }
-// }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+     
+        mysqli_stmt_close($stmt);
+        
+        mysqli_close($db);
+    }
+}   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,7 +180,7 @@ input[type="text"], input[type="email"]{
     border-radius: 10px;
     text-decoration: none;
 }
-input[type="text"]:focus{
+input[type="text"]:focus,input[type="email"]:focus{
     outline: none;
     border: 2px solid #f56a6a;
 }
@@ -186,6 +198,7 @@ td, th{
 </head>
 <body>
     <div id="container">
+        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
         <table id="crudtable">
             <tr>
                 <th colspan = 3 id="detailst"><h3>Edit Details</h3></td>
@@ -232,7 +245,7 @@ td, th{
             </tr>
             <tr>
                 <td colspan = 2 id="emailt"><?php echo '<input name ="email" id="emailText" type ="email" value='. $row["adm_email"].' ><br><b>Email</b></td>
-                <td> <input type ="text" id="mobileText" value='. $row["adm_mobile"].' ><br><b>Mobile<b></td>
+                <td> <input type ="text" name="mobile" id="mobileText" value='. $row["adm_mobile"].' ><br><b>Mobile<b></td>
             </tr>'; ?>
             <tr>
                 <td colspan=3 id="firstline"></td>
@@ -243,7 +256,8 @@ td, th{
                 ?><br><b>Address</b></td>
             </tr>
         </table>
-        <input type="submit" id="back" value="Save"/><br>
-        <input type="submit" id="back" value="Back" onClick="location.href='read.php?id='<?php echo $row['adm_AdminId'];?> '" />
+        <input type="submit" id="back" value="Save"/><br> 
+        </form>
+        <input type="button" class="backread" value="Back" onClick="location.href='AdminRegistration.php'">
 </body>
 </html>
