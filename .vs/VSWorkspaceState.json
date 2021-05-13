@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\connection",
+    "\\Course CRD"
   ],
-  "SelectedNode": "\\CSS",
+  "SelectedNode": "\\Course CRD\\delete.php",
   "PreviewInSolutionExplorer": false
 }
