@@ -1,7 +1,12 @@
 <?php
 
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
 if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     require_once "connection/config.php";
+    
     $sql = "SELECT * FROM adm_adminuser WHERE adm_adminId = ?";
     
     if($stmt = mysqli_prepare($db, $sql)){
@@ -15,6 +20,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     
             if(mysqli_num_rows($result) == 1){
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+                include "delete.php";
             } else{
                 header("location: error.php");
                 exit();
@@ -71,7 +78,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             left: 50%;
             transform: translate(-50%, -50%);
 
-            display: block;
+            display: none;
         }
         #delcontainer{
             position: fixed;
@@ -86,7 +93,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             z-index: 6;
             border-radius: 15px;
 
-            display: block;
+            display: none;
         }
         #delbtn{
             position: fixed;
@@ -133,11 +140,22 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <div class="confirmation">
    
     </div>
-        <div id="delcontainer">
-            <h3 align="center">Are you sure you want to deactivate this user?<h3>
-            <form action="delete.php">
-            <input type="submit" id="delbtn" Value="Delete">
-            <input type="button" id="backtoread" Value="Cancel" onclick='hideContainer'>
+        <div id="delcontainer"><?php
+            if($row['adm_status'] == "Active"){
+                echo'
+                <h3 align="center">Are you sure you want to deactivate this user?<h3>
+                <form method="post">
+                    <input type="submit" id="delbtn" Value="Delete" name="delete">
+                    <input type="button" id="backtoread" Value="Cancel" onclick="hideContainer()">';
+            }else{
+                echo'
+                <h3 align="center">Are you sure you want to reactivate this user?<h3>
+                <form method="post">
+                    <input type="submit" id="delbtn" style="background-color: green;" Value="reactivate" name="reactivate">
+                    <input type="button" id="backtoread" Value="Cancel" onclick="hideContainer()">';
+                }
+            
+            ?>
             </form>
 
         </div>
@@ -146,16 +164,19 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <div id="container">
         
         <table id="crudtable">
-            <caption>
-            <button id="modifyingbtn"><i class="fa fa-trash" style="color:white; font-size:20px;"></i></button>
-           <?php echo '<a href="Edit.php?id='.$row['adm_AdminId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
+            <caption><?php 
+            if($row['adm_status'] == "Active"){
+                echo '<button id="modifyingbtn" onclick="showContainer()"><i class="fa fa-trash" style="color:white; font-size:20px;"></i></button>';
+            }else  echo '<button id="modifyingbtn" onclick="showContainer()"><i class="fa fa-key" style="color:white; font-size:20px;"></i></button>';
+           
+           echo '<a href="Edit.php?id='.$row['adm_AdminId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
             <tr>
                 <th colspan = 3 id="detailst"><?php  
                     if($row['adm_status'] == "Active"){
                         echo '<span style="color:green;float:right; line-height: 10px;font-size:18px;"> &bull; active</span>';
                     }
                     else{
-                        echo '<span style="color:red; font-size:18px;""> &bull;</span>';  
+                        echo '<span style="color:red;float:right; line-height: 10px;font-size:18px;""> &bull; Inactive</span>';  
                     }; ?><br>
 
                     <h3> Details</h3></td>
@@ -201,8 +222,13 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
         function hideContainer(){
             
-            document.getElementsByclass("confirmation").style["display"] = "none";
-            document.getElementsById("delcontainer").style["display"] = "none";
+            document.getElementsByClassName("confirmation")[0].style["display"] = "none";
+            document.getElementById("delcontainer").style["display"] = "none";
+        }
+        function showContainer(){
+            
+            document.getElementsByClassName("confirmation")[0].style["display"] = "block";
+            document.getElementById("delcontainer").style["display"] = "block";
         }
 
     </script>

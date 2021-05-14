@@ -4,7 +4,7 @@
     #container{
         /* border: 1px solid black; */
         width: 600px;
-        height: 550px;
+        height: 600px;
         position: absolute;
         top: 45%;
         left: 50%;
@@ -29,7 +29,7 @@
     
     #crudtable{
             width: 500px;
-            height: 400px;
+            height: 450px;
             /* border: 1px solid black; */
             border-radius: 10px;
 
@@ -44,7 +44,7 @@
         }
    
     #emailText{
-        width:90%;
+        width:80%;
     }
     #mobileText{
         width:90%;
@@ -100,21 +100,19 @@
 
     #save{
 
-        width: 200px;
+        width: 80%;
         height:40px;
         box-shadow: black;
-        color: black;
-        background-color: transparent;
-        border: 2px solid #f56a6a;
-        border-radius: 5px;
+        color: white;
+        border: none;
+        background-color: #f56a6a;
+        border-radius: 15px;
+        outline: none;
         cursor: pointer;
-        margin-bottom: 10px;
         transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        position: relative;
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         box-shadow:0px 1px 5px 0px #e8e5e3;
+
+        font-weight: bolder !important;
     }
 
     .backread{
@@ -138,6 +136,15 @@
         font-weight: bolder !important;
         font-size:15px;
     }
+
+    input[type="date"]{
+        width: 80%;
+        border: 2px solid black;
+        font-family: "Open Sans", sans-serif;
+        text-decoration: none;
+        background-color: transparent;
+    }
+    
 }
 
 
@@ -205,7 +212,7 @@
         overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
     }
     #emailText{
-        width:90%;
+        width:80%;
     }
     #mobileText{
         width:90%;
@@ -248,21 +255,20 @@
 
     #save{
 
-        width: 200px;
+        width: 80%;
         height:40px;
         box-shadow: black;
-        color: black;
-        background-color: transparent;
-        border: 2px solid #f56a6a;
-        border-radius: 5px;
+        color: white;
+        border: none;
+        background-color: #f56a6a;
+        border-radius: 15px;
+        outline: none;
         cursor: pointer;
-        margin-bottom: 10px;
+        
         transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        position: relative;
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         box-shadow:0px 1px 5px 0px #e8e5e3;
+
+        font-weight: bolder !important;
     }
 
 
@@ -285,6 +291,14 @@
 
         transform: translate(-50%, -50%);
         box-shadow:0px 1px 5px 0px #e8e5e3;
+    }
+
+    input[type="date"]{
+        width: 90%;
+        border: 2px solid black;
+        font-family: "Open Sans", sans-serif;
+        text-decoration: none;
+        background-color: transparent;
     }
 }
 #back:hover, .backread:hover,#save:hover{
