@@ -27,11 +27,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `images` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY;
   `title` text NOT NULL,
   `description` text NOT NULL,
   `path` text NOT NULL,
   `uploaded_date` datetime NOT NULL DEFAULT current_timestamp()
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

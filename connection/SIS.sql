@@ -44,6 +44,27 @@ CREATE TABLE adm_listCourse(
 adm_lcID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 adm_lcNum VARCHAR(100) NOT NULL,
 adm_lcCourseT TEXT NOT NULL, 
-adm_lcCourseD TEXT NOT NULL
+adm_lcCourseD TEXT NOT NULL,
+`adm_CourseTD` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 
 );
+
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL PRIMARY KEY;
+  `title` text NOT NULL,
+  `description` text NOT NULL,
+  `path` text NOT NULL,
+  `uploaded_date` datetime NOT NULL DEFAULT current_timestamp()
+
+)
+
+INSERT INTO `images` (`id`, `title`, `description`, `path`, `uploaded_date`) VALUES
+(1, 'hotdog', 'hotdog', 'images/hotdog.jpg', '2021-05-13 01:18:18'),
+(12, 'bcp', 'bp', 'gallery/bcp7.jpg', '2021-05-13 19:59:57'),
+(13, 'bcp', 'bcp', 'gallery/bcp3.jpg', '2021-05-13 20:01:11'),
+(14, 'ga', 'fas', 'gallery/bcp2.jpg', '2021-05-13 20:01:28'),
+(15, 'clinic', 'clinic', 'gallery/clinic.jpg', '2021-05-13 20:02:18');
+
+ALTER TABLE `images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+

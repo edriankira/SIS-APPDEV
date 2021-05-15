@@ -227,7 +227,7 @@
 										<li><a href="generic.php">Event Notification</a></li>									
 										<li><a href="#">List of Courses</a></li>									
 										<li><a href="../Map/map.php">Campus Map</a></li>
-										<li><a href="#">Announcement</a></li>
+										<li><a href="../Announcement/announcement.php">Announcement</a></li>
 									</ul>
 								</nav>							
 						</div>

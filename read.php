@@ -81,7 +81,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             display: none;
         }
         #delcontainer{
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -101,8 +101,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             left: 30%;
             transform: translate(-50%, -50%);
             z-index:6;
-            width:100px;
-            height:30px;
+            width:40%;
+            height:20%;
             cursor: pointer;
             outline: none;
             background-color: red;
@@ -117,8 +117,8 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             left: 70%;
             transform: translate(-50%, -50%);
             z-index:6; 
-            width:100px;
-            height:30px;
+            width:40%;
+            height:20%;
             cursor: pointer;
             outline: none;
             background-color: white;
@@ -145,7 +145,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 echo'
                 <h3 align="center">Are you sure you want to deactivate this user?<h3>
                 <form method="post">
-                    <input type="submit" id="delbtn" Value="Delete" name="delete">
+                    <input type="submit" id="delbtn" Value="Delete" name="delete"> &nbsp; &nbsp; &nbsp; 
                     <input type="button" id="backtoread" Value="Cancel" onclick="hideContainer()">';
             }else{
                 echo'
