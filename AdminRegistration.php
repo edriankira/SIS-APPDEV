@@ -162,6 +162,7 @@ if(isset($_POST['goAdd'])){
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/mainAdmin.css" />
+		<link rel="stylesheet" href="assets/css/crud.css" />
 		
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -193,7 +194,7 @@ if(isset($_POST['goAdd'])){
 			outline: none;
 		}
 
-		
+
 
 		#viewUsers{
 		width: 100px;
@@ -402,7 +403,7 @@ if(isset($_POST['goAdd'])){
 										</li>
 										<li><a href="generic.php">Event Notification</a></li>									
 										<li><a href="Course/course_list.php">List of Courses</a></li>									
-										<li><a href="#">Campus Map</a></li>
+										<li><a href="Map/map.php">Campus Map</a></li>
 										<li><a href="#">Announcement</a></li>
 									</ul>
 								</nav>

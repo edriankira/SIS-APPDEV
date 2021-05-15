@@ -253,7 +253,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										</li>
 										<li><a href="generic.php">Event Notification</a></li>									
 										<li><a href="#">List of Courses</a></li>									
-										<li><a href="#">Campus Map</a></li>
+										<li><a href="../Map/map.php">Campus Map</a></li>
 										<li><a href="#">Announcement</a></li>
 									</ul>
 								</nav>
