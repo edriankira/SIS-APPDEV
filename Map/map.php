@@ -21,7 +21,7 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		<title>BCP Campus</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="main.css" />
+		<link rel="stylesheet" href="../assets/css/mainnancy.css" />
 	</head>
 	<body class="is-preload">
 
@@ -99,19 +99,19 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 									</header>
 										<article>
 										<div class="content home">
-											<ul class="actions">
-											<li><a href="upload.php" class="button big">Upload Image</a></li>
-										</ul>
-										<div class="images">
-										<?php foreach ($images as $image): ?>
-										<?php if (file_exists($image['path'])): ?>
-										<a href="#">
-											<img src="<?=$image['path']?>" alt="<?=$image['description']?>" data-id="<?=$image['id']?>" data-title="<?=$image['title']?>" width="300" height="200">
-											<span><?=$image['description']?></span>
-										</a>
-										<?php endif; ?>
-										<?php endforeach; ?>
-										</div>
+												<ul class="actions">
+												<li><a href="upload.php" class="button big">Upload Image</a></li>
+											</ul>
+											<div class="images">
+												<?php foreach ($images as $image): ?>
+												<?php if (file_exists($image['path'])): ?>
+												<a href="#">
+													<img src="<?=$image['path']?>" alt="<?=$image['description']?>" data-id="<?=$image['id']?>" data-title="<?=$image['title']?>" width="300" height="200">
+													<span><?=$image['description']?></span>
+												</a>
+												<?php endif; ?>
+												<?php endforeach; ?>
+											</div>
 										</div>
 										<div class="image-popup"></div>
 
@@ -153,23 +153,6 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 						</div>
 					</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 				<!-- Sidebar -->
 					<div id="sidebar">
