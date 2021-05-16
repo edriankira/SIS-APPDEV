@@ -1,5 +1,5 @@
-Create database SISAPPDEV;
-user SISAPPDEV;
+Create database sisappdev;
+user sisappdev;
 
 
 CREATE TABLE adm_adminUser(
@@ -56,14 +56,14 @@ CREATE TABLE `images` (
   `path` text NOT NULL,
   `uploaded_date` datetime NOT NULL DEFAULT current_timestamp()
 
-)
+);
 
 CREATE TABLE noun (
   `id` int(11) NOT NULL PRIMARY KEY;
-	`notice` text not null,
+  `notice` text not null,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 
-)
+);
 
 INSERT INTO `images` (`id`, `title`, `description`, `path`, `uploaded_date`) VALUES
 (1, 'hotdog', 'hotdog', 'images/hotdog.jpg', '2021-05-13 01:18:18'),
