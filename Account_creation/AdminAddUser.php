@@ -9,7 +9,7 @@ function alert($msg) {
 
 $ppassfinal="";
 if(isset($_POST['goAdd'])){
-	require_once "connection/config.php";
+	require_once "../connection/config.php";
 
 
 	$isExist = true;
