@@ -33,7 +33,7 @@
 								<section id="banner">
 									<div class="content">
 										
-                                    
+									<a href="add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New User</a>
                                     <?php
                                         // Include config file
                                         require_once "config.php";

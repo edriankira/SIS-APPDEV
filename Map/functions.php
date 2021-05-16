@@ -20,14 +20,14 @@ echo <<<EOT
     <head>
         <meta charset="utf-8">
         <title>$title</title>
-        <link href="main.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/mainnancy.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="fontawesome-all.min.css">
     </head>
     <body>
     <nav class="navtop">
         <div>
             <h1>Image settings</h1>
-            <a href="index.php"><i class="fas fa-image"></i>Go Back</a>
+            <a href="map.php"><i class="fas fa-image"></i>Go Back</a>
         </div>
     </nav>
 EOT;
