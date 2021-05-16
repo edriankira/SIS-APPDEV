@@ -96,8 +96,6 @@ $pfname_err = $pmname_err = $plname_err = $pusername =$pbday_err = $gender_err =
             $username_err = "Please enter a username."; 
             alert("Please enter a username.");
             $pusername = $input_username;
-        }else if($input_username == $row['adm_username']){
-            $pusername = $input_username;
         } else{
             $downsql = 'SELECT adm_username from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
             $downresult = mysqli_query($db, $downsql);

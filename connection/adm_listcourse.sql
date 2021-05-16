@@ -68,11 +68,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-
-
-
-
-<h2 class="pull-left">ATTENDANCE REPORT</h2>
-                        <a href="add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New User</a>
-                        
-						
