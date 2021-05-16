@@ -60,8 +60,8 @@ CREATE TABLE `images` (
 
 CREATE TABLE noun (
   `id` int(11) NOT NULL PRIMARY KEY;
-	
-  `uploaded_date` datetime NOT NULL DEFAULT current_timestamp()
+	`notice` text not null,
+  `date` datetime NOT NULL DEFAULT current_timestamp()
 
 )
 
