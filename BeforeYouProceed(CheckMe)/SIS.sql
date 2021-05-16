@@ -1,5 +1,5 @@
 Create database sisappdev;
-user sisappdev;
+use sisappdev;
 
 
 CREATE TABLE adm_adminUser(
