@@ -1,0 +1,308 @@
+/* for pc view */
+@media screen and (min-width: 601px){
+        
+    #container{
+        /* border: 1px solid black; */
+        width: 600px;
+        height: 600px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #modifyingbtn{
+        width: 55px;
+        height:35px;
+        border-radius: 30px;
+        background-color: #f56a6a;
+        border: 0;
+        box-shadow:1px 1px 4px 0px grey;  
+        float: right;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        outline: none;
+    }
+    
+    #crudtable{
+            width: 500px;
+            height: 450px;
+            /* border: 1px solid black; */
+            border-radius: 10px;
+
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: "Open Sans", sans-serif;
+            background-color:white;
+            table-layout: fixed;
+            box-shadow: 0px 8px 20px -0px #e8e5e3;  
+        }
+   
+    #emailText{
+        width:80%;
+    }
+    #mobileText{
+        width:90%;
+    }
+    #addressText{
+        width: 90%;
+    }
+    #detailst{
+        border-top: none;
+        border-bottom: 3px solid #f56a6a;
+        border-left: none;
+        border-right: none;
+        height: 30px;
+        line-height: 10px;
+    }
+    #nameY{
+        width:120px;
+    }
+    #usert{
+        height:10px;
+    }
+    table #emailt{
+        word-wrap: break-word;         /* All browsers since IE 5.5+ */
+        overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+    }
+    #firstline{
+        border-top: none;
+        border-bottom: 3px solid grey;
+        border-left: none;
+        border-right: none;
+        height:3px;
+        
+        margin:0;
+        opacity: 0.3;
+        
+    }
+
+    #back{
+
+        width: 200px;
+        height:40px;
+        box-shadow: black;
+        color: black;
+        background-color: transparent;
+        border: 2px solid #f56a6a;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        
+        box-shadow:0px 1px 5px 0px #e8e5e3;
+    }
+
+    #save{
+
+        width: 80%;
+        height:40px;
+        box-shadow: black;
+        color: white;
+        border: none;
+        background-color: #f56a6a;
+        border-radius: 15px;
+        outline: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        box-shadow:0px 1px 5px 0px #e8e5e3;
+
+        font-weight: bolder !important;
+    }
+
+    .backread{
+        
+        width: 200px;
+        height:40px;
+        box-shadow: black;
+        color: black;
+        background-color: transparent;
+        border: 2px solid #f56a6a;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        position: relative;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow:0px 1px 5px 0px #e8e5e3;
+
+        font-weight: bolder !important;
+        font-size:15px;
+    }
+
+    input[type="date"]{
+        width: 80%;
+        border: 2px solid black;
+        font-family: "Open Sans", sans-serif;
+        text-decoration: none;
+        background-color: transparent;
+    }
+    
+}
+
+
+@media screen and (max-width: 600px){
+    #container{
+        /* border: 1px solid black; */
+        width: 400px;
+        height: 500px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #crudtable{
+            width: 90%;
+            height: 400px;
+            /* border: 1px solid black; */
+            
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: "Open Sans", sans-serif;
+            background-color:white;
+            table-layout: fixed;
+            box-shadow: 0px 8px 20px 0px #e8e5e3;  
+        }
+
+    #modifyingbtn{
+        width: 70px;
+        height:35px;
+        border-radius: 30px;
+        background-color: #f56a6a;
+        border: 0;
+        box-shadow:1px 1px 4px 0px grey;  
+        float: right;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        outline: none;
+    }
+    td, th{ 
+        text-align: center;
+        line-height: 18px;
+        /* border: 1px solid black; */
+    }
+    #usert{
+        height:10px;
+    }
+    #detailst{
+        border-top: none;
+        border-bottom: 3px solid #f56a6a;
+        border-left: none;
+        border-right: none;
+        height: 30px;
+        line-height: 10px;
+    }
+    #nameY{
+        width:120px;
+    }
+    table #emailt{
+        word-wrap: break-word;         /* All browsers since IE 5.5+ */
+        overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+    }
+    #emailText{
+        width:80%;
+    }
+    #mobileText{
+        width:90%;
+    }
+    #addressText{
+        width: 90%;
+    }
+    #firstline{
+        border-top: none;
+        border-bottom: 3px solid grey;
+        border-left: none;
+        border-right: none;
+        height:3px;
+        
+        margin:0;
+        opacity: 0.3;
+        
+    }
+    #back{
+
+        width: 200px;
+        height:40px;
+        box-shadow: black;
+        color: black;
+        background-color: transparent;
+        border: 2px solid #f56a6a;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        margin-bottom: 20px;
+        position: relative;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow:0px 1px 5px 0px #e8e5e3;  
+        outline: none;
+        font-weight: bold;
+        
+    }
+
+    #save{
+
+        width: 80%;
+        height:40px;
+        box-shadow: black;
+        color: white;
+        border: none;
+        background-color: #f56a6a;
+        border-radius: 15px;
+        outline: none;
+        cursor: pointer;
+        
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        box-shadow:0px 1px 5px 0px #e8e5e3;
+
+        font-weight: bolder !important;
+    }
+
+
+    .backread{
+
+        width: 200px;
+        height:40px;
+        box-shadow: black;
+        color: black;
+        background-color: transparent;
+        border: 2px solid #f56a6a;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-weight: bold !important;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        position: relative;
+        top: 100%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+        box-shadow:0px 1px 5px 0px #e8e5e3;
+    }
+
+    input[type="date"]{
+        width: 90%;
+        border: 2px solid black;
+        font-family: "Open Sans", sans-serif;
+        text-decoration: none;
+        background-color: transparent;
+    }
+}
+#back:hover, .backread:hover,#save:hover{
+    outline:none;  
+    background-color: #f56a6a;
+    color: white;
+}
