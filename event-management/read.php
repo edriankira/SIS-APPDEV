@@ -4,7 +4,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     // Include config file
     require_once "config.php";
     // Prepare a select statement
-    $sql = "SELECT * FROM adm_announcement WHERE adm_anId = ?";
+    $sql = "SELECT * FROM adm_events WHERE adm_evtId = ?";
     
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters
@@ -66,29 +66,29 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                     <h1 class="mt-5 mb-3">View Record</h1>
                     <div class="form-group">
                         <label>Creator</label>
-                        <p><b><?php echo $row["adm_anCreator"]; ?></b></p>
+                        <p><b><?php echo $row["adm_evtCreator"]; ?></b></p>
                     </div>
 					<div class="form-group">
                     <label>Title</label>
-                        <p><b><?php echo $row["adm_title"]; ?></b></p>
+                        <p><b><?php echo $row["adm_evtTitle"]; ?></b></p>
                 
                     </div>
                     <div class="form-group">
                     <label>Description</label>
-                        <p><b><?php echo $row["adm_description"]; ?></b></p>
+                        <p><b><?php echo $row["adm_evtDescription"]; ?></b></p>
                 
                     </div>  
                     <div class="form-group">
                     <label>Date Created</label>
-                        <p><b><?php echo $row["adm_anTime_date"]; ?></b></p>
+                        <p><b><?php echo $row["adm_evtTime_date"]; ?></b></p>
                 
                     </div>
                     <div class="form-group">
                     <label>Role</label>
-                        <p><b><?php echo $row["adm_anRole"]; ?></b></p>
+                        <p><b><?php echo $row["adm_evtRole"]; ?></b></p>
                 
                     </div>          
-                    <p><a href="announcement.php" class="btn btn-primary">Back</a></p>
+                    <p><a href="event.php" class="btn btn-primary">Back</a></p>
                 </div>
             </div>        
         </div>

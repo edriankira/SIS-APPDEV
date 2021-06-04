@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         do{
             //generate 8 number value
             $AD_adminID = rand(10000000,99999999);
-            $sql1 = "SELECT adm_anNum from adm_announcement where adm_anNum = $AD_adminID";
+            $sql1 = "SELECT adm_evtNum from adm_events where adm_evtNum = $AD_adminID";
             if($result = mysqli_query($db, $sql1)){
                 if(mysqli_num_rows($result) > 0){
                     $isExist = true;
@@ -60,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($creator_err) && empty($title_err) && empty($desc_err)){
         // Prepare an insert statement
-         $sql = "INSERT INTO adm_announcement (adm_anNum, adm_anCreator, adm_title, adm_description,adm_anRole) 
+         $sql = "INSERT INTO adm_events (adm_evtNum, adm_evtCreator, adm_evtTitle, adm_evtDescription,adm_evtRole) 
          VALUES (?,?,?,?,?)";
          
         if($stmt = mysqli_prepare($db, $sql)){
@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statementpv
             if(mysqli_stmt_execute($stmt)){
                 // Records created successfully. Redirect to landing page
-                header("location: announcement.php");
+                header("location: Event.php");
                 exit();
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -117,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Create Record</h2>
-                    <p>Please fill this form and submit to add employee record to the database.</p>
+                    <p>Please fill this form and submit to add Event record to the database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label>Creator</label>
@@ -145,7 +145,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 						
 				
                         <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="announcement.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <a href="event.php" class="btn btn-secondary ml-2">Cancel</a>
                     </form>
                 </div>
             </div>        

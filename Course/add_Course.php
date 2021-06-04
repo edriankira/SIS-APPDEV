@@ -245,13 +245,22 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										<li>
 											<span class="opener">Account Creation</span>
 											<ul>
-												<li><a href="../Account_creation/AdminRegistration.php">Admin Registration</a></li>
-												<li><a href="#">Faculty Registration</a></li>
-												<li><a href="#">Parent Registration</a></li>
-												<li><a href="#">User Registration</a></li>
+												<li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
+												<li><a href="../Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
+												<li><a href="../Account_creation/ParentAddUser.php">Parent Registration</a></li>
+												<li><a href="../Account_creation/StudentAddUser.php">User Registration</a></li>
 											</ul>
 										</li>
-										<li><a href="../event-management/index.php">Event Notification</a></li>									
+										<li>
+										<span class="opener">Account Management</span>
+											<ul>
+												<li><a href="../Account_Management/AdminManagement.php">Admin Management</a></li>
+												<li><a href="../Account_Management/FacultyManagement.php">Faculty Management</a></li>
+												<li><a href="../Account_Management/ParentManagement.php">Parent Management</a></li>
+												<li><a href="../Account_Management/StudentManagement.php">Student Management</a></li>
+											</ul>
+										</li>
+										<li><a href="event-management/Event.php">Event Notification</a></li>									
 										<li><a href="#">List of Courses</a></li>									
 										<li><a href="../Map/map.php">Campus Map</a></li>
 										<li><a href="../Announcement/announcement.php">Announcement</a></li>

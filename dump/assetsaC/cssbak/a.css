@@ -107,6 +107,12 @@ body, input, select, textarea {
       font-size: 9pt; } }
 
 a {
+  -moz-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+  -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+  border-bottom: dotted 1px;
+  color: #f56a6a;
   text-decoration: none; }
   a:hover {
     border-bottom-color: #f56a6a;
@@ -1454,7 +1460,7 @@ table {
     padding: 0 0.75em 0.75em 0.75em;
     text-align: left; }
   table thead {
-    border-bottom:none }
+    border-bottom: solid 2px rgba(210, 215, 217, 0.75); }
   table tfoot {
     border-top: solid 2px rgba(210, 215, 217, 0.75); }
   table.alt {
@@ -1478,10 +1484,10 @@ input[type="reset"],
 input[type="button"],
 button,
 .button {
-  /* -moz-appearance: none;
+  -moz-appearance: none;
   -webkit-appearance: none;
   -ms-appearance: none;
-  appearance: none; */
+  appearance: none;
   -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
@@ -1498,8 +1504,8 @@ button,
   font-weight: 700;
   height: 3.5em;
   letter-spacing: 0.075em;
-  /* line-height: 3.5em; */
-  /* padding: 0 2.25em; */
+  line-height: 3.5em;
+  padding: 0 2.25em;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
@@ -1925,7 +1931,6 @@ button,
   background-color: #f5f6f7;
   font-size: 0.9em;
   position: relative;
-  
   width: 26em; }
   #sidebar h2 {
     font-size: 1.38889em; }
@@ -1967,7 +1972,6 @@ button,
     text-align: center;
     text-indent: -15em;
     white-space: nowrap;
-    color: #f56a6a; 
     top: 0;
     width: 6em;
     z-index: 10000; }
@@ -2267,3 +2271,4 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+

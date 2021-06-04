@@ -1,205 +1,206 @@
 <?php
-$pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress= $pid= $pusername = $puid = $ppass = $repassword= "";
-$pfname_err = $pmname_err = $plname_err = $pusername_err = 
-$ppass_err = $prepass =$pbday_err = $gender_err = $pemail_err= $pmobile_err=$repassword =$address_err= $pid_err = "";
-
-
-function alert($msg) {
-    echo "<script type='text/javascript'>alert('$msg');</script>";
-}
-
-
-$ppassfinal="";
-if(isset($_POST['goAdd'])){
 	require_once "../connection/config.php";
-
-
-	$isExist = true;
-        //checking if there's a duplicate number because we use random number for id numbers to prevent errors (NOTE PARTILLY TESTED)
-        do{
-            //generate 8 number value
-            $AD_adminID = rand(10000000,99999999);
-            $sql1 = "SELECT adm_adminUserNum from adm_adminUser where adm_adminUserNum = $AD_adminID";
-            if($result = mysqli_query($db, $sql1)){
-                if(mysqli_num_rows($result) > 0){
-                    $isExist = true;
-                }
-                else{
-                    $isExist = false;
-                }
-            } 
-        }while($isExist == true);
-
-
-
+	$pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress= $pid= $pusername = "";
+	$pfname_err = $pmname_err = $plname_err = $pusername =$pbday_err = $gender_err = $pemail_err= $pmobile_err= $address_err= $pid_err = "";
 	
-	//first name
-	$input_fname = trim($_POST["fname"]); 
-	if(empty($input_fname)){
-		$pfname_err = "Please enter a First Name."; 
-		$pfname = $input_fname;
-	} elseif(!filter_var($input_fname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-		$pfname_err = "Please enter a valid First Name."; 
-		$pfname = $input_fname;
-	} else{
-		$pfname = $input_fname;
-  
-	}
 	
-	//middle name
-	$input_mname = trim($_POST["mname"]);
-	if(empty($input_mname)){
-		$pmname = $input_mname;
-	}
-	else if(!filter_var($input_mname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-		$pmname_err = "Please enter a valid Middle Name.";
-		$pmname = $input_mname;
-	} else{
-		$pmname = $input_mname;
-	}
-
-	//last name
-	$input_lname = trim($_POST["lname"]);
-	if(empty($input_lname)){
-		$plname_err = "Please enter a Last Name."; 
-		$plname = $input_lname;
-	} elseif(!filter_var($input_lname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
-		$plname_err = "Please enter a valid Last Name.";
-		$plname = $input_lname;
-	} else{
-		$plname = $input_lname;
-	}
-
-	//gender
-	$input_gender= trim($_POST["gender"]);
-	$pgender = $input_gender;
+		function alert($msg) {
+			echo "<script type='text/javascript'>alert('$msg');</script>";
+		}
 	
-	//email
-	$input_email = trim($_POST["email"]);
-	if(empty($input_email)){
-		$email_err = "Please enter an Email";
-		$pemail = $input_email;
-	}
-	else if (filter_var($input_email, FILTER_VALIDATE_EMAIL)) {
-		$downsql1 = 'SELECT adm_email from adm_adminuser where adm_email = "'.trim($_POST["email"]).'" ';
-		$downresult1 = mysqli_query($db, $downsql1);
-		if(mysqli_num_rows($downresult1) == 0){
-			$pemail = $input_email;
-		}else{
-			$email_err = "Email Already Exist"; 
-			$pemail = $input_email;
-		}
-	} else {
-		$pemail_err = "please enter a valid email address";
-		$pemail = $input_email;
-	}
-	//bday
-	$input_bday = trim($_POST["bday"]);
-	if(empty($input_bday)){
-		$pbday_err = "Please enter a birthday."; 
-	}
-	else{
-		$pbday = date('Y-m-d', strtotime($_POST['bday']));
-	}
-	//mobile
-	$input_mobile = trim($_POST["mobile"]);
-	if(empty($input_mobile)){
-		$pmobile_err = "Please enter a mobile number.";
-		$pmobile = $input_mobile;
-	}else if(is_numeric($input_mobile)){
-		$downsql2 = 'SELECT adm_mobile from adm_adminuser where adm_mobile = "'.trim($_POST["mobile"]).'" ';
-		$downresult2 = mysqli_query($db, $downsql2);
-		if(mysqli_num_rows($downresult2) == 0){
-			$pmobile = $input_mobile;
-		}else{
-			$pmobile_err = "number Already Exist"; 
-			$pmobile = $input_mobile;
-		}
-	}
-	else{
-		$pmobile_err = "Please enter a valid number";
-		$pmobile = $input_mobile;
-	}
-	//address
-	$input_address = trim($_POST["address"]);
-	if(empty($input_address)){
-		$address_err = "Please enter an address."; 
-		$paddress = $input_address;
-	}else{
-		$paddress = $input_address;
-	}
+		if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
-	$input_username = trim($_POST["username"]);
-	if(empty($input_username)){
-		$username_err = "Please enter a username."; 
-		$pusername = $input_username;
-	}else{
-		$downsql = 'SELECT adm_username from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
-		$downresult = mysqli_query($db, $downsql);
-		if(mysqli_num_rows($downresult) == 0){
-			$pusername = $input_username;
-		}else{
-			$username_err = "Username Already Exist"; 
-			$pusername = $input_username;
-		}
+			$sql = "SELECT * FROM adm_adminuser WHERE adm_adminId = ?";
+			
+			if($stmt = mysqli_prepare($db, $sql)){
 		
-	}
-
-	$input_password = trim($_POST["password"]);
-	$input_repassword = trim($_POST["repassword"]);
-	if(empty($input_password) || empty($input_repassword)){
-		$ppass_err = "Please enter a password."; 
-	}
-	else if($input_password != $input_repassword){
-		$ppass_err = "The password didn't match."; 
-		$ppass = "";
-		$prepass = "";
-	}
-	else if($input_password == $input_repassword){
-        $ppass = $input_password;
-		$ppassfinal = password_hash($ppass, PASSWORD_DEFAULT);
-	}
+				mysqli_stmt_bind_param($stmt, "i", $param_id);
+				
+				$param_id = trim($_GET["id"]);
+				
+				if(mysqli_stmt_execute($stmt)){
+					$result = mysqli_stmt_get_result($stmt);
+			
+					if(mysqli_num_rows($result) == 1){
+						$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+						$pfname = $row['adm_fname'];
+						$pmname = $row['adm_mname'];
+						$plname = $row['adm_lname'];
+						$pbirthday = $row['adm_bday'];
+						$pgender = $row['adm_gender'];
+						$pmobile = $row['adm_mobile'];
+						$pemail = $row['adm_email'];
+						$paddress = $row['adm_address'];
+						$pusername = $row['adm_username'];
+						
+						$newdate = date('d-m-Y', strtotime($row['adm_bday']));
+						
+						
+					} else{
+						header("location: error.php");
+						exit();
+					}
+					
+				} else{
+					echo "Oops! Something went wrong. Please try again later.";
+				}
+			}
+		 
+			mysqli_stmt_close($stmt);        
+		}
+		if(isset($_POST['goEdit'])){
 	
-
-	if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
-	empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
-	empty($pusername_err) &&empty($pgender_err) && empty($ppass_err) &&!empty($input_password) && !empty($input_repassword)){
-
-
-		$sql = "INSERT INTO `adm_adminuser`(adm_adminUserNum, adm_fname, adm_lname, adm_mname, adm_bday, adm_gender, adm_email, adm_mobile, adm_address, adm_username, adm_password, adm_status)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Active');";
+			$id = $_POST["id"];
+			//first name
+			$input_fname = trim($_POST["fname"]); 
+			if(empty($input_fname)){
+				$pfname_err = "Please enter a first name."; 
+				alert("Please enter a first name.");
+				$pfname = $input_fname;
+			} elseif(!filter_var($input_fname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+				$pfname_err = "Please enter a valid first name."; 
+				alert("Please enter a valid first name.");
+				$pfname = $input_fname;
+			} else{
+				$pfname = $input_fname;
+			}
+			
+			//middle name
+			$input_mname = trim($_POST["mname"]);
+			if(empty($input_mname)){
+				$pmname = $input_mname;
+			}
+			else if(!filter_var($input_mname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+				$pmname_err = "Please enter a valid middle name.";
+				alert("Please enter a valid middle name.");
+				$pmname = $input_mname;
+			} else{
+				$pmname = $input_mname;
+			}
 		
-		if($stmt = mysqli_prepare($db, $sql)){
-			mysqli_stmt_bind_param($stmt, "sssssssssss", $param_id,
-			$param_fname, $param_lname, $param_mname,$param_bday,$param_gender, 
-			$param_email, $param_mobile, $param_address, $param_username, $param_pass);
+			//last name
+			$input_lname = trim($_POST["lname"]);
+			if(empty($input_lname)){
+				$plname_err = "Please enter a last name."; 
+				alert("Please enter a last name.");
+				$plname = $input_lname;
+			} elseif(!filter_var($input_lname, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))){
+				$plname_err = "Please enter a valid last name.";
+				alert("Please enter a valid last name.");
+				$plname = $input_lname;
+			} else{
+				$plname = $input_lname;
+			}
+	
+			$input_username = trim($_POST["username"]);
 			
-			$param_id = $AD_adminID;  
-			$param_username = $pusername;
-			$param_pass = $ppassfinal;
-			$param_bday = $pbday;
-			$param_fname = $pfname;
-			$param_mname = $pmname ;
-			$param_lname = $plname ;
-			$param_email = $pemail;
-			$param_mobile = $pmobile;
-			$param_address = $paddress;
-			$param_gender = $pgender;
+			$firstsql = 'SELECT adm_AdminId from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
+			$firstresult = mysqli_query($db, $firstsql);
+	
+			if(empty($input_username)){
+				$username_err = "Please enter a username."; 
+				alert("Please enter a username.");
+				$pusername = $input_username;
+			}else if(mysqli_num_rows($firstresult) == 1){
+				$pusername = $input_username;
+			} 
+			else{
+				$downsql = 'SELECT adm_username from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
+				$downresult = mysqli_query($db, $downsql);
+				if(mysqli_num_rows($downresult) == 0){
+					$pusername = $input_username;
+				}else{
+					$username_err = "Username Already Exist"; 
+					alert("Username Already Exist");
+					$pusername = $input_username;
+				}
+				
+			}
+	
+			//gender
+			$input_gender= trim($_POST["gender"]);
+			$pgender = $input_gender;
 			
-			
-			if(mysqli_stmt_execute($stmt)){
-                alert("Adding Done");
-				header("Refresh:0");
+			//email
+			$input_email = trim($_POST["email"]);
+			if (filter_var($input_email, FILTER_VALIDATE_EMAIL)) {
+				$pemail = $input_email;
+			} else {
+				$pemail_err = "please enter a valid email address";
+				alert("please enter a valid email address");
+				$pemail = $input_email;
+			}
+		
+			$input_bday = trim($_POST["bday"]);
+			if(empty($input_bday)){
+				$pbday_err = "Please enter a birthday."; 
+			}
+			else{
+				$pbday = date('Y-m-d', strtotime($_POST['bday']));
+			}
+		
+			$input_mobile = trim($_POST["mobile"]);
+			if(empty($input_mobile)){
+				$pmobile_err = "Please enter a mobile number.";
+				alert("Please enter a mobile number.");
+				$pmobile = $input_mobile;
+			}else if(is_numeric($input_mobile)){
+				$pmobile = $input_mobile;
+			}
+			else{
+				$pmobile_err = "Please enter a valid number";
+				alert("Please enter a valid number");
+				$pmobile = $input_mobile;
+			}
+		
+			$input_address = trim($_POST["address"]);
+			if(empty($input_address)){
+				$paddress_err = "Please enter an address."; 
+				alert("Please enter an address.");
+				$paddress = $input_address;
 			}else{
-                echo"error -1";
-            }
-			mysqli_stmt_close($stmt);
-		}else echo"error 0";
+				$paddress = $input_address;
+			}
 		
-	}else {
-        echo"error 1";
-    }
-}
+			
+		
+			if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
+			empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
+			empty($pusername_err) &&empty($pgender_err)){
+				$sql = "UPDATE adm_adminUser SET adm_username=?, adm_bday=?,  adm_fname = ?,adm_mname = ?, 
+				adm_lname = ?,adm_email = ?, adm_mobile = ?, adm_address = ?, adm_gender =?
+				 WHERE adm_adminId = ?";
+				
+				if($stmt = mysqli_prepare($db, $sql)){
+					mysqli_stmt_bind_param($stmt, "sssssssssi",
+					$param_username, $param_bday,$param_fname,$param_mname,$param_lname,
+					$param_email,$param_mobile,$param_address,$param_gender, $param_id);
+					
+					  
+					$param_username = $pusername;
+					$param_bday = $pbday;
+					$param_fname = $pfname;
+					$param_mname = $pmname ;
+					$param_lname = $plname ;
+					$param_email = $pemail;
+					$param_mobile = $pmobile;
+					$param_address = $paddress;
+					$param_gender = $pgender;
+					$param_id = $id;
+					
+					
+					if(mysqli_stmt_execute($stmt)){
+						header("location: AdminView.php?id=$id");
+						exit();
+					} else {
+						alert("Can't be done");
+					}
+				}
+				 
+				mysqli_stmt_close($stmt);
+				mysqli_close($db);
+			}
+		}
 ?>
 
 <!DOCTYPE HTML>
@@ -280,7 +281,7 @@ if(isset($_POST['goAdd'])){
 
 														<label>First Name <span class="text-danger"></span></label>
 
-														<input type="text" name="fname" id="username" class="form-control <?php echo (!empty($pfname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pfname; ?>" placeholder="Enter First name">
+														<input type="text" name="fname" id="username" class="form-control <?php echo (!empty($pfname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fname"];; ?>" placeholder="Enter First name">
 														<span class="invalid-feedback"><?php echo $pfname_err;?></span>
 													</div>
 
@@ -290,7 +291,7 @@ if(isset($_POST['goAdd'])){
 
 														<label>Middle Name <span class="text-danger"></span></label>
 
-														<input type="text" name="mname" id="useremail"  class="form-control <?php echo (!empty($pmname_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Middle Name"value="<?php echo $pmname; ?>">
+														<input type="text" name="mname" id="useremail"  class="form-control <?php echo (!empty($pmname_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Middle Name"value="<?php echo $row["adm_mname"]; ?>">
 														<span class="invalid-feedback"><?php echo $pmname_err;?></span>
 													</div><br>
 
@@ -301,7 +302,7 @@ if(isset($_POST['goAdd'])){
 
 														<label>Last Name <span class="text-danger"></span></label>
 
-														<input type="text" name="lname" id="useremail"class="form-control <?php echo (!empty($plname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $plname; ?>" placeholder="Enter Last Name">
+														<input type="text" name="lname" id="useremail"class="form-control <?php echo (!empty($plname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_lname"]; ?>" placeholder="Enter Last Name">
 														<span class="invalid-feedback"><?php echo $plname_err;?></span>
 													</div>
 												</td>
@@ -312,26 +313,34 @@ if(isset($_POST['goAdd'])){
 													<div class="form-group">		
 														<label>Birthday <span class="text-danger"></span></label>
 
-														<input type="date" name="bday" id="useremail" class="form-control  <?php echo (!empty($pbday_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pbday; ?>" >
+														<input type="date" name="bday" id="useremail" class="form-control  <?php echo (!empty($pbday_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_bday"]; ?>" >
 														<span class="invalid-feedback"><?php echo $pbday_err;?></span>
 													</div>
 												</td>
 												<td>
-												<div class="form-group">	
-														<label>Gender <span class="text-danger"></span></label>
-																			
-														<select name="gender" class="form-control <?php echo (!empty($pgender_err)) ? 'is-invalid': ''; ?>">
-															<option value="male">male</option>
-															<option value="female">female</option>
-														</select>
+													<div class="form-group">	
+															<label>Gender <span class="text-danger"></span></label>					
+															<?php
+																if($row['adm_gender'] == "male" || $row['adm_gender'] == "Male"){
+																	echo ' <select name="gender">
+																					<option selected value="Male">Male</option>
+																					<option value="Female">Female</option>
+																				</select>';
+																}else{
+																	echo '<select name="gender">
+																					<option  value="Male">Male</option>
+																					<option selected value="Female">Female</option>
+																				</select>';
+																}
+																?>
 														<span class="invalid-feedback"><?php echo $pgender_err;?></span>
-														
+															
 													</div>
 												</td>
 												<td>
 												<div class="form-group">		
 														<label>Mobile <span class="text-danger"></span></label>
-														<input type="text" name="mobile" id="useremail" class="form-control  <?php echo (!empty($pmobile_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Mobile" value="<?php echo $pmobile; ?>">									
+														<input type="text" name="mobile" id="useremail" class="form-control  <?php echo (!empty($pmobile_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Mobile" value="<?php echo $row["adm_mobile"];; ?>">									
 														<span class="invalid-feedback"><?php echo $pmobile_err;?></span>
 													</div>
 												</td>
@@ -342,7 +351,7 @@ if(isset($_POST['goAdd'])){
 													<div class="form-group">
 
 														<label>Email <span class="text-danger"></span></label>
-														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pemail; ?>" placeholder="Enter Email" >
+														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_email"]; ?>" placeholder="Enter Email" >
 														<span class="invalid-feedback"><?php echo $email_err;?></span>
 													</div>
 
@@ -350,7 +359,7 @@ if(isset($_POST['goAdd'])){
 
 														<label>Address <span class="text-danger"></span></label>
 
-														<input type="text" name="address" id="useremail" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid': ''; ?>" value="<?php echo $paddress; ?>"placeholder="Enter Address" >
+														<input type="text" name="address" id="useremail" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_address"]; ?>"placeholder="Enter Address" >
 														<span class="invalid-feedback"><?php echo $address_err;?></span>
 													</div>
 												</td>
@@ -362,28 +371,20 @@ if(isset($_POST['goAdd'])){
 
 														<label>Username <span class="text-danger"></span></label>
 
-														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
+														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_username"]; ?>" placeholder="Enter Username" >
 														<span class="invalid-feedback"><?php echo $username_err;?></span>
 													</div>
 
-													<div class="form-group">
+													<!-- <div class="form-group">
 
 														<label>Password <span class="text-danger"></span></label>
 
 														<input type="password" name="password" id="useremail" class="form-control" placeholder="Enter Password" ><br>
-													</div>
+													</div> -->
 
 													<div class="form-group">
-
-														<label>Re-type Password <span class="text-danger"></span></label>
-
-														<input type="password" name="repassword" id="useremail" class="form-control <?php echo (!empty($ppass_err)) ? 'is-invalid': ''; ?>" value="" placeholder="Re-type PAssword" >
-														<span class="invalid-feedback"><?php echo $ppass_err;?></span>
-													</div>
-
-													<div class="form-group">
-
-														<input type="submit" name="goAdd" value="Add Admin User" id="submit">
+														<input type="hidden" name="id" value="<?php echo $param_id; ?>"/>
+														<input type="submit" name="goEdit" value="Update Admin User" id="submit">
 													</div>
 
 												</td>

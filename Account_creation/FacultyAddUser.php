@@ -19,7 +19,7 @@ if(isset($_POST['goAdd'])){
         do{
             //generate 8 number value
             $AD_adminID = rand(10000000,99999999);
-            $sql1 = "SELECT adm_adminUserNum from adm_adminUser where adm_adminUserNum = $AD_adminID";
+            $sql1 = "SELECT adm_fctUserNum from adm_FacultyUser where adm_fctUserNum = $AD_adminID";
             if($result = mysqli_query($db, $sql1)){
                 if(mysqli_num_rows($result) > 0){
                     $isExist = true;
@@ -81,7 +81,7 @@ if(isset($_POST['goAdd'])){
 		$pemail = $input_email;
 	}
 	else if (filter_var($input_email, FILTER_VALIDATE_EMAIL)) {
-		$downsql1 = 'SELECT adm_email from adm_adminuser where adm_email = "'.trim($_POST["email"]).'" ';
+		$downsql1 = 'SELECT adm_fctemail from adm_FacultyUser where adm_fctemail = "'.trim($_POST["email"]).'" ';
 		$downresult1 = mysqli_query($db, $downsql1);
 		if(mysqli_num_rows($downresult1) == 0){
 			$pemail = $input_email;
@@ -107,7 +107,7 @@ if(isset($_POST['goAdd'])){
 		$pmobile_err = "Please enter a mobile number.";
 		$pmobile = $input_mobile;
 	}else if(is_numeric($input_mobile)){
-		$downsql2 = 'SELECT adm_mobile from adm_adminuser where adm_mobile = "'.trim($_POST["mobile"]).'" ';
+		$downsql2 = 'SELECT adm_fctmobile from adm_FacultyUser where adm_fctmobile = "'.trim($_POST["mobile"]).'" ';
 		$downresult2 = mysqli_query($db, $downsql2);
 		if(mysqli_num_rows($downresult2) == 0){
 			$pmobile = $input_mobile;
@@ -134,7 +134,7 @@ if(isset($_POST['goAdd'])){
 		$username_err = "Please enter a username."; 
 		$pusername = $input_username;
 	}else{
-		$downsql = 'SELECT adm_username from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
+		$downsql = 'SELECT adm_fctusername from adm_FacultyUser where adm_fctusername = "'.trim($_POST["username"]).'" ';
 		$downresult = mysqli_query($db, $downsql);
 		if(mysqli_num_rows($downresult) == 0){
 			$pusername = $input_username;
@@ -163,10 +163,10 @@ if(isset($_POST['goAdd'])){
 
 	if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
 	empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
-	empty($pusername_err) &&empty($pgender_err) && empty($ppass_err) &&!empty($input_password) && !empty($input_repassword)){
+	empty($pusername_err) && empty($ppass_err) &&empty($pgender_err) && !empty($input_password) && !empty($input_repassword)){
 
 
-		$sql = "INSERT INTO `adm_adminuser`(adm_adminUserNum, adm_fname, adm_lname, adm_mname, adm_bday, adm_gender, adm_email, adm_mobile, adm_address, adm_username, adm_password, adm_status)
+		$sql = "INSERT INTO `adm_FacultyUser`(adm_fctUserNum, adm_fctfname, adm_fctlname, adm_fctmname, adm_fctbday, adm_fctgender, adm_fctemail, adm_fctmobile, adm_fctaddress, adm_fctusername, adm_fctpassword, adm_fctstatus)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Active');";
 		
 		if($stmt = mysqli_prepare($db, $sql)){
@@ -206,9 +206,10 @@ if(isset($_POST['goAdd'])){
 
 <html>
 	<head>
-		<title>Admin Creation</title>
+		<title>Faculty Creation</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -260,7 +261,7 @@ if(isset($_POST['goAdd'])){
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Admin </strong>Registration</a>
+									<a href="" class="logo"><strong>Faculty </strong>Registration</a>
 								</header>
 
 							<!-- Banner -->
@@ -271,7 +272,7 @@ if(isset($_POST['goAdd'])){
 												<tr>
 											</table>
 										</div>
-										<h2 id="titleAdd">Admin Add User</h2>
+										<h2 id="titleAdd">Faculty Add User</h2>
 										<form method="post" id="adduserform" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
 										<table>
 											<tr id ="nodborder">
@@ -329,7 +330,7 @@ if(isset($_POST['goAdd'])){
 													</div>
 												</td>
 												<td>
-												<div class="form-group">		
+													<div class="form-group">		
 														<label>Mobile <span class="text-danger"></span></label>
 														<input type="text" name="mobile" id="useremail" class="form-control  <?php echo (!empty($pmobile_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Mobile" value="<?php echo $pmobile; ?>">									
 														<span class="invalid-feedback"><?php echo $pmobile_err;?></span>
@@ -383,7 +384,7 @@ if(isset($_POST['goAdd'])){
 
 													<div class="form-group">
 
-														<input type="submit" name="goAdd" value="Add Admin User" id="submit">
+														<input type="submit" name="goAdd" value="Add Faculty User" id="submit">
 													</div>
 
 												</td>
@@ -418,15 +419,15 @@ if(isset($_POST['goAdd'])){
 										<li>
 											<span class="opener">Registration</span>
 											<ul>
-												<li><a href="#">Admin Registration</a></li>
-												<li><a href="FacultyAddUser.php">Faculty Registration</a></li>
+												<li><a href="AdminAddUser.php">Admin Registration</a></li>
+												<li><a href="#">Faculty Registration</a></li>
 												<li><a href="ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="StudentAddUser.php">User Registration</a></li>
+												<li><a href="StudentAddUser.php">Student Registration</a></li>
 											</ul>
 										</li>
 										<li>
 										<span class="opener">Account Management</span>
-											<ul>
+										<ul>
 												<li><a href="../Account_Management/AdminManagement.php">Admin Management</a></li>
 												<li><a href="../Account_Management/FacultyManagement.php">Faculty Management</a></li>
 												<li><a href="../Account_Management/ParentManagement.php">Parent Management</a></li>
@@ -451,12 +452,11 @@ if(isset($_POST['goAdd'])){
 			
 
 		<!-- Scripts -->
-			<script src="../assets/js/jquery.min.js"></script>
-			<script src="../assets/js/browser.min.js"></script>
-			<script src="../assets/js/breakpoints.min.js"></script>
-			<script src="../assets/js/util.js"></script>
-			<script src="../assets/js/main.js"></script>
-
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/browser.min.js"></script>
+		<script src="../assets/js/breakpoints.min.js"></script>
+		<script src="../assets/js/util.js"></script>
+		<script src="../assets/js/main.js"></script>
 
 	</body>
 </html>

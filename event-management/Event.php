@@ -2,10 +2,10 @@
 
 <html>
 	<head>
-		<title>Announcement</title>
+		<title>Event</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
 	
 	<style>
@@ -26,7 +26,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index.html" class="logo"><strong>Announcement</strong> Ma</a>
+									<a href="index.html" class="logo"><strong>Event</strong> </a>
 									<ul class="icons">
 										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -47,7 +47,7 @@
                                         require_once "config.php";
                                         
                                     
-                                        $sql = "SELECT * FROM adm_announcement";
+                                        $sql = "SELECT * FROM adm_events";
                                         if($result = mysqli_query($link, $sql)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo '<table class="table table-bordered table-striped">';
@@ -64,13 +64,13 @@
                                                     echo "<tbody>";
                                                     while($row = mysqli_fetch_array($result)){
                                                         echo "<tr>";
-                                                        echo "<td>" . $row['adm_anCreator'] . "</td>";
-                                                        echo "<td>" . $row['adm_title'] . "</td>";
-                                                        echo "<td>" . $row['adm_description'] . "</td>";
-														echo "<td>" . $row['adm_anRole'] . "</td>";
+                                                        echo "<td>" . $row['adm_evtCreator'] . "</td>";
+                                                        echo "<td>" . $row['adm_evtTitle'] . "</td>";
+                                                        echo "<td>" . $row['adm_evtDescription'] . "</td>";
+														echo "<td>" . $row['adm_evtRole'] . "</td>";
                                                         echo "<td>";
-                                                                echo '<a href="read.php?id='. $row['adm_anID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>&nbsp;  '; 
-                                                                echo '<a href="delete.php?id='. $row['adm_anID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                                                echo '<a href="read.php?id='. $row['adm_evtID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>&nbsp;  '; 
+                                                                echo '<a href="delete.php?id='. $row['adm_evtID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                                             echo "</td>";
                                                         echo "</tr>";
                                                     }
@@ -129,7 +129,7 @@
 												<li><a href="../Account_Management/StudentManagement.php">Student Management</a></li>
 											</ul>
 										</li>
-										<li><a href="../event-management/Event.php">Event Notification</a></li>								
+										<li><a href="../event-management/Event.php">Event Notification</a></li>									
 										<li><a href="../Course/course_list.php">List of Courses</a></li>									
 										<li><a href="../Map/map.php">Campus Map</a></li>
 										<li><a href="announcement.php">Announcement</a></li>
@@ -145,11 +145,11 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
 
 	</body>
 </html>
