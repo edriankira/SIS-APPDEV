@@ -1,63 +1,65 @@
-<?php
-
-require_once "connection/config.php";
-
-$error ="";
-
-if(isset($_POST["login"])){
-    $loginuser = mysqli_real_escape_string($db,$_POST['log_username']);
-    $loginpass = mysqli_real_escape_string($db,$_POST['log_password']);
-
-    $sql = "SELECT * FROM adm_AdminUser WHERE adm_username = '$loginuser'";
-    $result = mysqli_query($db,$sql);
-    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-    $count = mysqli_num_rows($result);
-      
-    if($count == 1) {
-         //session_register("myusername"); depricated/removed from passed ver
-
-         $dbusername = $row['adm_username'];
-         $dbpassword = $row['adm_password'];
-
-         //
-         if ($dbusername == $loginuser && $loginpass == password_verify($loginpass, $dbpassword)) {
-         $_SESSION['login_user'] = $myusername;
-        
-         header("location: homepage.php");
-        
-      }
-      else{
-          $error = "Your Login Name or Password is invalid";
-      }
-   }
-   mysqli_close($db);
-}
-
-?>
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Login - Student Information Admins</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="CSS/GeneralCSS.css" />
-        <link rel="stylesheet" href="CSS/login.css" />
-	</head>
-	<body>
-        <form method="post">    
-            <div class="loginDiv">
-                <h2>Admin Login</h2>
-                <p>Username<br>
-                    <input type="text" name="log_username" placeholder="Enter Username" />
-                </p>
-                <p>Password<br>
-                    <input type="password" name="log_password" placeholder="Enter Password" /> <br>
-                </p>
-                <input id="loginbtn" name="login" type="submit" value="Login"/>
-                <p><?php echo "$error"?></p>
-            </div>
-        </form>
-	</body>
-</html>
+<head>
+	<title>Login Form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <?php include 'Login/include/Headerfiles/HEADER1.php';?>
 
+       <?php include "Login/include/LOGINprocess/STUDENTaccount.php"; ?>
+       <?php include "Login/include/LOGINprocess/ADMINaccount.php"; ?>
+       <?php include "Login/include/LOGINprocess/FACULTYaccount.php"; ?>
+       <?php include "Login/include/LOGINprocess/PARENTaccount.php"; ?>
+
+      
+	<style type="text/css">
+             #sacc
+               {
+                   width: 300px;
+                   border: none;
+                   border-bottom: 2px solid black;
+                   border-radius: 50px 50px 50px 50px;
+                   height: 40px;
+                   text-align-last:center; 
+               }
+               i.img-logo img
+               {
+                   border: none;
+                   border-radius: 0px;
+               }
+
+	</style>
+</head>
+<body>
+    <div class="container">
+        
+             <form action="" method="POST">
+               <i class="img-logo"> <img src="Login/Image/logo.png"></i>
+               <br><h4 class="label"><b>Enter your Account</b></h4>
+               
+               <div class="form-group">
+                   <select id="sacc" name="roles" class="form-select form-select-sm" aria-label=".form-select-sm example" name="account">
+                    <option value="Admin_account">Admin account</option>
+                    <option value="Faculty_account">Faculty account</option>
+                    <option value="Parent_account">Parent account</option>
+                    <option selected value="Student_account">Student account</option>
+                </select>
+                </div>
+        <br>   
+	 	<div class="form-group">
+                    <input required type="text" name="User" placeholder="Username">
+	 	</div>
+         <br>     
+	 	<div class="form-group">
+	 		<input required type="Password" name="Pass" placeholder="Password">
+	 	</div>
+               
+         <br> 
+	 	<div class="form-group">
+                    <button type="submit" name="LOGIN" id="sub"> <i class="img-login"></i> Login</button>
+	 	</div>
+               
+               
+                </form>           
+    </div>
+</body>
+</html>
