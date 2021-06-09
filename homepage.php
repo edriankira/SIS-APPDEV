@@ -1,3 +1,12 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: login.php");
+		exit();
+	}
+?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -6,6 +15,15 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+
+	<style>
+		li a{
+			color: #000080;
+			text-decoration: none;
+			border-bottom: none;
+		}
+	</style>
 	</head>
 	<body class="is-preload">
 
@@ -19,12 +37,10 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="index.html" class="logo"><strong>Admin</strong> Module</a>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="logout.php">Sign Out</a></li>
 									</ul>
 								</header>
 
@@ -71,7 +87,7 @@
 												<li><a href="Account_creation/AdminAddUser.php">Admin Registration</a></li>
 												<li><a href="Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
 												<li><a href="Account_creation/ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="Account_creation/StudentAddUser.php">User Registration</a></li>
+												<li><a href="Account_creation/StudentAddUser.php">Student Registration</a></li>
 											</ul>
 										</li>
 										<li>

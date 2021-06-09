@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <?php include_once('include/config.php');
 if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 	extract($_REQUEST);
@@ -44,11 +52,11 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 		<link rel="stylesheet" href="assets/css/mainAdmin.css" />
 		
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    	
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../assets/css/mainAdmin.css" />
 
 	<style>
 		#addbtn{
@@ -85,6 +93,10 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 							<!-- Header -->
 								<header id="header">
 									<a href="" class="logo"><strong>Admin </strong>Course List</a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->
@@ -94,7 +106,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 
    	<div class="container">
 
-		<center><h1>Student Information Add Course Admin</h1></center>
+		<center><h2>Student Information Add Course Admin</h2></center>
 
 		<?php
 

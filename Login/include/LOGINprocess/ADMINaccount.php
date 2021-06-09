@@ -1,5 +1,7 @@
 <?php
 require_once 'Login/include/Connection/DBconnect.php';
+session_start();
+
 if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Admin_account")
 {
     $loginuser = mysqli_real_escape_string($connect, $_POST['User']);
@@ -12,7 +14,9 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Admin_account")
 
     if ($count == 1)
     {
-
+        $_SESSION['AdminID'] = $row['adm_adminUserNum'];
+        $_SESSION['AdminName'] = $row['adm_fname'] ." " . $row['adm_lname'];
+        
         $dbusername = $row['adm_username'];
         $dbpassword = $row['adm_password'];
 

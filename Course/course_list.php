@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <?php include_once('include/config.php');?>
 <!DOCTYPE HTML>
 
@@ -50,6 +58,10 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="" class="logo"><strong>Admin </strong>Course List</a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->
@@ -226,7 +238,7 @@
 												<li><a href="../Account_Management/StudentManagement.php">Student Management</a></li>
 											</ul>
 										</li>
-										<li><a href="event-management/Event.php">Event Notification</a></li>									
+										<li><a href="../event-management/Event.php">Event Notification</a></li>									
 										<li><a href="#">List of Courses</a></li>									
 										<li><a href="../Map/map.php">Campus Map</a></li>
 										<li><a href="../Announcement/announcement.php">Announcement</a></li>

@@ -6,9 +6,10 @@ session_start();
 $_SESSION = array();
  
 // Destroy the session.
+unset($_SESSION['AdminName']);  
 session_destroy();
  
 // Redirect to login page
-header("location: login.php");
-exit;
+header("location: /SIS-APPDEV(Development)/login.php");
+exit();
 ?>

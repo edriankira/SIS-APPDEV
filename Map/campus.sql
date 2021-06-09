@@ -25,9 +25,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `images`
 --
-
 CREATE TABLE `images` (
-  `id` int(11) NOT NULL PRIMARY KEY;
+  `id` int(11) NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL,
   `path` text NOT NULL,

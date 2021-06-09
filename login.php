@@ -14,18 +14,20 @@
 	<style type="text/css">
              #sacc
                {
-                   width: 300px;
-                   border: none;
-                   border-bottom: 2px solid black;
-                   border-radius: 50px 50px 50px 50px;
-                   height: 40px;
-                   text-align-last:center; 
+                width: 300px;
+                border: none;
+                border-bottom: 2px solid black;
+                border-radius: 50px 50px 50px 50px;
+                height: 40px;
+                text-align-last:center; 
+                outline: none;
                }
                i.img-logo img
                {
                    border: none;
                    border-radius: 0px;
                }
+
 
 	</style>
 </head>
@@ -38,10 +40,10 @@
                
                <div class="form-group">
                    <select id="sacc" name="roles" class="form-select form-select-sm" aria-label=".form-select-sm example" name="account">
-                    <option value="Admin_account">Admin account</option>
+                    <option selected value="Admin_account">Admin account</option>
                     <option value="Faculty_account">Faculty account</option>
                     <option value="Parent_account">Parent account</option>
-                    <option selected value="Student_account">Student account</option>
+                    <option  value="Student_account">Student account</option>
                 </select>
                 </div>
         <br>   

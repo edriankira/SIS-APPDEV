@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <?php
 include 'functions.php';
 // Connect to MySQL
@@ -22,6 +30,13 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="../assets/css/mainnancy.css" />
+	<style>
+		li a{
+			color: #000080;
+			text-decoration: none;
+			border-bottom: none;
+		}
+	</style>
 	</head>
 	<body class="is-preload">
 
@@ -34,13 +49,11 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index.php" class="logo"><strong>Campus Map</strong> Admin Account</a>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									<a href="index.php" class="logo"><strong>Campus Map</strong></a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 									</ul>
 								</header>
 

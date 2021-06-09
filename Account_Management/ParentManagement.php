@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <!DOCTYPE HTML>
 
 <html>
@@ -73,6 +81,10 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="" class="logo"><strong>Parent </strong>Management</a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->

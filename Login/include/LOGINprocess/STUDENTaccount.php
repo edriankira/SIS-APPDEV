@@ -38,7 +38,7 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Student_account")
     {
         //for bad query
         echo '<script type="text/javascript">
-        swal("OOPS!", "Something went wrong. Please try again later", "error");
+        swal("INVALID!", "Username or Password is incorrect!", "error");
         </script>';
     }
    

@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <!DOCTYPE HTML>
 
 <html>
@@ -11,6 +19,11 @@
 	<style>
 		button, a{
 			text-decoration: none;
+		}
+		li a{
+			color: #000080;
+			text-decoration: none;
+			border-bottom: none;
 		}
 
 	</style>
@@ -26,13 +39,11 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index.html" class="logo"><strong>Announcement</strong> Ma</a>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									<a href="index.html" class="logo"><strong>Announcement</strong></a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 									</ul>
 								</header>
 

@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <?php
 	require_once "../connection/config.php";
 	$pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress= $pid= $pusername = "";
@@ -261,7 +269,11 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Admin </strong>Registration</a>
+									<a href="" class="logo"><strong>Admin </strong>Update User</a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->
@@ -272,7 +284,7 @@
 												<tr>
 											</table>
 										</div>
-										<h2 id="titleAdd">Admin Add User</h2>
+										<h2 id="titleAdd">Update User</h2>
 										<form method="post" id="adduserform" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
 										<table>
 											<tr id ="nodborder">

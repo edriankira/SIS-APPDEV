@@ -1,3 +1,11 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <?php
 $pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress= $pid= $pusername = $puid = $ppass = $repassword= "";
 $pfname_err = $pmname_err = $plname_err = $pusername_err = 
@@ -262,6 +270,10 @@ if(isset($_POST['goAdd'])){
 							<!-- Header -->
 								<header id="header">
 									<a href="" class="logo"><strong>Student </strong>Registration</a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->

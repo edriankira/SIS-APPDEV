@@ -1,4 +1,13 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['AdminName'])){
+		session_destroy();
+		header("location: ../login.php");
+		exit();
+	}
+?>
 <?php
+
 $pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress= $pid= $pusername = $puid = $ppass = $repassword= "";
 $pfname_err = $pmname_err = $plname_err = $pusername_err = 
 $ppass_err = $prepass =$pbday_err = $gender_err = $pemail_err= $pmobile_err=$repassword =$address_err= $pid_err = "";
@@ -212,8 +221,8 @@ if(isset($_POST['goAdd'])){
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="../assets/css/mainAdmin.css" />
 
 	<style>
@@ -261,6 +270,10 @@ if(isset($_POST['goAdd'])){
 							<!-- Header -->
 								<header id="header">
 									<a href="" class="logo"><strong>Admin </strong>Registration</a>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['AdminName']."</li>"
+									?>
+										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->
