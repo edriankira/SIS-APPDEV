@@ -18,7 +18,7 @@
 	
 		if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
 
-			$sql = "SELECT * FROM adm_adminuser WHERE adm_adminId = ?";
+			$sql = "SELECT * FROM adm_FacultyUser WHERE adm_fctId = ?";
 			
 			if($stmt = mysqli_prepare($db, $sql)){
 		
@@ -31,17 +31,17 @@
 			
 					if(mysqli_num_rows($result) == 1){
 						$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-						$pfname = $row['adm_fname'];
-						$pmname = $row['adm_mname'];
-						$plname = $row['adm_lname'];
-						$pbirthday = $row['adm_bday'];
-						$pgender = $row['adm_gender'];
-						$pmobile = $row['adm_mobile'];
-						$pemail = $row['adm_email'];
-						$paddress = $row['adm_address'];
-						$pusername = $row['adm_username'];
+						$pfname = $row['adm_fctfname'];
+						$pmname = $row['adm_fctmname'];
+						$plname = $row['adm_fctlname'];
+						$pbirthday = $row['adm_fctbday'];
+						$pgender = $row['adm_fctgender'];
+						$pmobile = $row['adm_fctmobile'];
+						$pemail = $row['adm_fctemail'];
+						$paddress = $row['adm_fctaddress'];
+						$pusername = $row['adm_fctusername'];
 						
-						$newdate = date('d-m-Y', strtotime($row['adm_bday']));
+						$newdate = date('d-m-Y', strtotime($row['adm_fctbday']));
 						
 						
 					} else{
@@ -102,7 +102,7 @@
 	
 			$input_username = trim($_POST["username"]);
 			
-			$firstsql = 'SELECT adm_AdminId from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
+			$firstsql = 'SELECT adm_fctId from adm_FacultyUser where adm_fctusername = "'.trim($_POST["username"]).'" ';
 			$firstresult = mysqli_query($db, $firstsql);
 	
 			if(empty($input_username)){
@@ -113,7 +113,7 @@
 				$pusername = $input_username;
 			} 
 			else{
-				$downsql = 'SELECT adm_username from adm_adminuser where adm_username = "'.trim($_POST["username"]).'" ';
+				$downsql = 'SELECT adm_fctusername from adm_FacultyUser where adm_fctusername = "'.trim($_POST["username"]).'" ';
 				$downresult = mysqli_query($db, $downsql);
 				if(mysqli_num_rows($downresult) == 0){
 					$pusername = $input_username;
@@ -175,9 +175,9 @@
 			if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
 			empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
 			empty($pusername_err) &&empty($pgender_err)){
-				$sql = "UPDATE adm_adminUser SET adm_username=?, adm_bday=?,  adm_fname = ?,adm_mname = ?, 
-				adm_lname = ?,adm_email = ?, adm_mobile = ?, adm_address = ?, adm_gender =?
-				 WHERE adm_adminId = ?";
+				$sql = "UPDATE adm_FacultyUser SET adm_fctusername=?, adm_fctbday=?,  adm_fctfname = ?,adm_fctmname = ?, 
+				adm_fctlname = ?,adm_fctemail = ?, adm_fctmobile = ?, adm_fctaddress = ?, adm_fctgender =?
+				 WHERE adm_fctId = ?";
 				
 				if($stmt = mysqli_prepare($db, $sql)){
 					mysqli_stmt_bind_param($stmt, "sssssssssi",
@@ -198,7 +198,7 @@
 					
 					
 					if(mysqli_stmt_execute($stmt)){
-						header("location: AdminView.php?id=$id");
+						header("location: FacultyView.php?id=$id");
 						exit();
 					} else {
 						alert("Can't be done");
@@ -215,7 +215,7 @@
 
 <html>
 	<head>
-		<title>Admin Update</title>
+		<title>Admin Creation</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -269,7 +269,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Admin </strong>Update User</a>
+									<a href="" class="logo"><strong>Faculty </strong>Update User</a>
 									<ul class="icons"><?php
 									echo "<li>".$_SESSION['AdminName']."</li>"
 									?>
@@ -293,7 +293,7 @@
 
 														<label>First Name <span class="text-danger"></span></label>
 
-														<input type="text" name="fname" id="username" class="form-control <?php echo (!empty($pfname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fname"];; ?>" placeholder="Enter First name">
+														<input type="text" name="fname" id="username" class="form-control <?php echo (!empty($pfname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctfname"]; ?>" placeholder="Enter First name">
 														<span class="invalid-feedback"><?php echo $pfname_err;?></span>
 													</div>
 
@@ -303,7 +303,7 @@
 
 														<label>Middle Name <span class="text-danger"></span></label>
 
-														<input type="text" name="mname" id="useremail"  class="form-control <?php echo (!empty($pmname_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Middle Name"value="<?php echo $row["adm_mname"]; ?>">
+														<input type="text" name="mname" id="useremail"  class="form-control <?php echo (!empty($pmname_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Middle Name"value="<?php echo $row["adm_fctmname"]; ?>">
 														<span class="invalid-feedback"><?php echo $pmname_err;?></span>
 													</div><br>
 
@@ -314,7 +314,7 @@
 
 														<label>Last Name <span class="text-danger"></span></label>
 
-														<input type="text" name="lname" id="useremail"class="form-control <?php echo (!empty($plname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_lname"]; ?>" placeholder="Enter Last Name">
+														<input type="text" name="lname" id="useremail"class="form-control <?php echo (!empty($plname_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctlname"]; ?>" placeholder="Enter Last Name">
 														<span class="invalid-feedback"><?php echo $plname_err;?></span>
 													</div>
 												</td>
@@ -325,7 +325,7 @@
 													<div class="form-group">		
 														<label>Birthday <span class="text-danger"></span></label>
 
-														<input type="date" name="bday" id="useremail" class="form-control  <?php echo (!empty($pbday_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_bday"]; ?>" >
+														<input type="date" name="bday" id="useremail" class="form-control  <?php echo (!empty($pbday_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctbday"]; ?>" >
 														<span class="invalid-feedback"><?php echo $pbday_err;?></span>
 													</div>
 												</td>
@@ -333,7 +333,7 @@
 													<div class="form-group">	
 															<label>Gender <span class="text-danger"></span></label>					
 															<?php
-																if($row['adm_gender'] == "male" || $row['adm_gender'] == "Male"){
+																if($row['adm_fctgender'] == "male" || $row['adm_fctgender'] == "Male"){
 																	echo ' <select name="gender">
 																					<option selected value="Male">Male</option>
 																					<option value="Female">Female</option>
@@ -352,7 +352,7 @@
 												<td>
 												<div class="form-group">		
 														<label>Mobile <span class="text-danger"></span></label>
-														<input type="text" name="mobile" id="useremail" class="form-control  <?php echo (!empty($pmobile_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Mobile" value="<?php echo $row["adm_mobile"];; ?>">									
+														<input type="text" name="mobile" id="useremail" class="form-control  <?php echo (!empty($pmobile_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Mobile" value="<?php echo $row["adm_fctmobile"];; ?>">									
 														<span class="invalid-feedback"><?php echo $pmobile_err;?></span>
 													</div>
 												</td>
@@ -363,7 +363,7 @@
 													<div class="form-group">
 
 														<label>Email <span class="text-danger"></span></label>
-														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_email"]; ?>" placeholder="Enter Email" >
+														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctemail"]; ?>" placeholder="Enter Email" >
 														<span class="invalid-feedback"><?php echo $email_err;?></span>
 													</div>
 
@@ -371,7 +371,7 @@
 
 														<label>Address <span class="text-danger"></span></label>
 
-														<input type="text" name="address" id="useremail" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_address"]; ?>"placeholder="Enter Address" >
+														<input type="text" name="address" id="useremail" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctaddress"]; ?>"placeholder="Enter Address" >
 														<span class="invalid-feedback"><?php echo $address_err;?></span>
 													</div>
 												</td>
@@ -383,7 +383,7 @@
 
 														<label>Username <span class="text-danger"></span></label>
 
-														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_username"]; ?>" placeholder="Enter Username" >
+														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctusername"]; ?>" placeholder="Enter Username" >
 														<span class="invalid-feedback"><?php echo $username_err;?></span>
 													</div>
 
@@ -396,7 +396,7 @@
 
 													<div class="form-group">
 														<input type="hidden" name="id" value="<?php echo $param_id; ?>"/>
-														<input type="submit" name="goEdit" value="Update Admin User" id="submit">
+														<input type="submit" name="goEdit" value="Update Faculty User" id="submit">
 													</div>
 
 												</td>
@@ -434,7 +434,7 @@
 												<li><a href="#">Admin Registration</a></li>
 												<li><a href="FacultyAddUser.php">Faculty Registration</a></li>
 												<li><a href="ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="StudentAddUser.php">Student Registration</a></li>
+												<li><a href="StudentAddUser.php">User Registration</a></li>
 											</ul>
 										</li>
 										<li>
@@ -474,52 +474,3 @@
 	</body>
 </html>
 
-
-<?php  
-
-function Display(){
-    require_once "connection/config.php";
-
-    $sql = "select * from adm_AdminUser";
-
-    if($result = mysqli_query($db, $sql)){
-        if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_array($result)){
-                if($row['adm_mname'] == ""){
-                    $mnameholder = "";
-                }
-                else $mnameholder = ", ";
-				
-				if(isMobileDevice()){
-					echo "<tr>";
-						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
-						echo "<td>" . $row['adm_status'] . "</td>";
-						echo "<td>";
-						echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
-							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-						echo "</td>";
-					echo "</tr>";
-				}
-				else{
-					echo "<td>" . $row['adm_adminUserNum'] . "</td>";
-						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
-						echo "<td>" . $row['adm_username'] . "</td>";
-						echo "<td>" . $row['adm_status'] . "</td>";
-						echo "<td>";
-							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
-							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-						echo "</td>";
-					echo "</tr>";
-				}
-					
-            }
-        }
-    }
-    mysqli_close($db);
-}	
-
-echo "<tr>";
-
-?>

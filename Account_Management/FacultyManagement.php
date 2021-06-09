@@ -147,7 +147,7 @@
 												<li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
 												<li><a href="../Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
 												<li><a href="../Account_creation/ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="../Account_creation/StudentAddUser.php">User Registration</a></li>
+												<li><a href="../Account_creation/StudentAddUser.php">Student Registration</a></li>
 											</ul>
 										</li>
 										<li>

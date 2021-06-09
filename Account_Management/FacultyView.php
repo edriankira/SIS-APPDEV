@@ -51,7 +51,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <link rel="stylesheet" href="../CSS/GeneralCSS.css" />
     <link rel="stylesheet" href="../CSS/crud.css" />
 
-    <title>Document</title>
+    <title>Details</title>
     <style>
         *{
             font-family: "Open Sans", sans-serif;
@@ -169,7 +169,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 echo '<button id="modifyingbtn" onclick="showContainer()"><i class="fa fa-trash" style="color:white; font-size:20px;"></i></button>';
             }else  echo '<button id="modifyingbtn" onclick="showContainer()"><i class="fa fa-key" style="color:white; font-size:20px;"></i></button>';
            
-           echo '<a href="Edit.php?id='.$row['adm_fctId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
+           echo '<a href="FacultyUpdate.php?id='.$row['adm_fctId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
             <tr>
                 <th colspan = 3 id="detailst"><?php  
                     if($row['adm_fctstatus'] == "Active"){

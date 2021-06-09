@@ -21,11 +21,21 @@
                 height: 40px;
                 text-align-last:center; 
                 outline: none;
+                font-size: 16px;
+                font-weight: bold;
+                color: darkblue;
                }
                i.img-logo img
                {
                    border: none;
                    border-radius: 0px;
+               }
+               #bol{
+                   color: #2e31f0;
+               }
+
+               input[type="text"] input[type="password"]{
+                   color: darkblue;
                }
 
 
@@ -36,7 +46,7 @@
         
              <form action="" method="POST">
                <i class="img-logo"> <img src="Login/Image/logo.png"></i>
-               <br><h4 class="label"><b>Enter your Account</b></h4>
+               <br><h3 class="label"><b id="bol">Student Information System</b></h3>
                
                <div class="form-group">
                    <select id="sacc" name="roles" class="form-select form-select-sm" aria-label=".form-select-sm example" name="account">
@@ -55,7 +65,7 @@
 	 		<input required type="Password" name="Pass" placeholder="Password">
 	 	</div>
                
-         <br> 
+         <br> <br>
 	 	<div class="form-group">
                     <button type="submit" name="LOGIN" id="sub"> <i class="img-login"></i> Login</button>
 	 	</div>

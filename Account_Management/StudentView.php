@@ -169,7 +169,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 echo '<button id="modifyingbtn" onclick="showContainer()"><i class="fa fa-trash" style="color:white; font-size:20px;"></i></button>';
             }else  echo '<button id="modifyingbtn" onclick="showContainer()"><i class="fa fa-key" style="color:white; font-size:20px;"></i></button>';
            
-           echo '<a href="Edit.php?id='.$row['adm_stdId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
+           echo '<a href="StudentUpdate.php?id='.$row['adm_stdId'].'"><button id="modifyingbtn"><i class="fa fa-pencil" style="color:white; font-size:20px;"></i></button></caption></a>' ?>
             <tr>
                 <th colspan = 3 id="detailst"><?php  
                     if($row['adm_stdstatus'] == "Active"){
