@@ -171,7 +171,7 @@ if(isset($_POST['goAdd'])){
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Admin </strong>Registration</a>
+									<a href="" class="logo"><strong>Subject </strong>Saving</a>
 									<ul class="icons"><?php
 									echo "<li>".$_SESSION['AdminName']."</li>"
 									?>
