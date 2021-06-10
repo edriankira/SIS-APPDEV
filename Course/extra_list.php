@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION['AdminName'])){
 		session_destroy();
-		header("location: login.php");
+		header("location: ../login.php");
 		exit();
 	}
 ?>
@@ -10,10 +10,10 @@
 
 <html>
 	<head>
-		<title>Event</title>
+		<title>Activity Management</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="../assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/main.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
 	
 	<style>
@@ -39,7 +39,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="#" class="logo"><strong>Event</strong> </a>
+									<a href="index.html" class="logo"><strong>Co/Extracurricular Management List</strong></a>
 									<ul class="icons"><?php
 									echo "<li>".$_SESSION['AdminName']."</li>"
 									?>
@@ -50,38 +50,34 @@
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
-										
-									<button style="float:right;"><a href="add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New User</button></a>
-                                    <br><br>
+									<button style="float:right;"><a href="add_extra.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Create New Activity</button></a>
+                                    <br><br><br>
 									<?php
                                         // Include config file
-                                        require_once "config.php";
+                                        require_once "include/configuration.php";
                                         
                                     
-                                        $sql = "SELECT * FROM adm_events";
+                                        $sql = "SELECT * FROM extracur";
                                         if($result = mysqli_query($link, $sql)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo '<table class="table table-bordered table-striped">';
                                                     echo "<thead>";
                                                         echo "<tr>";
-                                                        
-                                                        echo "<th>Creator</th>";
-                                                            echo "<th>Title</th>";
-                                                            echo "<th>Description</th>";
-															echo "<th>Role</th>";
+                                                        	echo "<th>Activity Code</th>";
+                                                        	echo "<th>Activity Name</th>";
+                                                            echo "<th>Grade Activity</th>";
                                                             echo "<th>Action</th>";
                                                         echo "</tr>";
                                                     echo "</thead>";
                                                     echo "<tbody>";
                                                     while($row = mysqli_fetch_array($result)){
                                                         echo "<tr>";
-                                                        echo "<td>" . $row['adm_evtCreator'] . "</td>";
-                                                        echo "<td>" . $row['adm_evtTitle'] . "</td>";
-                                                        echo "<td>" . $row['adm_evtDescription'] . "</td>";
-														echo "<td>" . $row['adm_evtRole'] . "</td>";
+                                                        echo "<td>" . $row['extra_code'] . "</td>";
+                                                        echo "<td>" . $row['extra_name'] . "</td>";                                            
+                                                        echo "<td>" . $row['extra_grade'] . "</td>";
                                                         echo "<td>";
-                                                                echo '<a href="read.php?id='. $row['adm_evtID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>&nbsp;  '; 
-                                                                echo '<a href="delete.php?id='. $row['adm_evtID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                                                echo '<a href="extra_read.php?id='. $row['extra_ID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span> View </a>&nbsp;  '; 
+                                                                echo '<a href="extra_delete.php?id='. $row['extra_ID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span> Delete</a>';
                                                             echo "</td>";
                                                         echo "</tr>";
                                                     }
@@ -144,7 +140,7 @@
                                         <li>
                                         <span class="opener">Course Management</span>
                                             <ul>
-                                               <li><a href="../Course/course_list.php">List of Courses</a></li>
+                                                <li><a href="../Course/course_list.php">List of Courses</a></li>
                                                 <li><a href="../Course/section_list.php">List of Section</a></li>
                                                 <li><a href="../Course/subject_list.php">List of Subject</a></li>
                                                 <li><a href="../Course/extra_list.php">List of Co/Extracurricular</a></li>
@@ -156,7 +152,7 @@
                                 </nav>
 							<!-- Footer -->
 								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+									<p class="copyright">&copy; All rights reserved. <a href="https://bcp.edu.ph/home">Bestlink College of The Philippines</a></p>
 							    </footer>
 						</div>
 					</div>
@@ -164,11 +160,11 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="../assets/js/jquery.min.js"></script>
-			<script src="../assets/js/browser.min.js"></script>
-			<script src="../assets/js/breakpoints.min.js"></script>
-			<script src="../assets/js/util.js"></script>
-			<script src="../assets/js/main.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

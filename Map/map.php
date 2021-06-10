@@ -204,7 +204,15 @@ $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
 											</ul>
 										</li>
 										<li><a href="../event-management/Event.php">Event Notification</a></li>									
-										<li><a href="../Course/course_list.php">List of Courses</a></li>									
+											<li>
+										<span class="opener">Course Management</span>
+											<ul>
+												<li><a href="../Course/course_list.php">List of Courses</a></li>
+                                                <li><a href="../Course/section_list.php">List of Section</a></li>
+                                                <li><a href="../Course/subject_list.php">List of Subject</a></li>
+                                                <li><a href="../Course/extra_list.php">List of Co/Extracurricular</a></li>
+											</ul>
+										</li>														
 										<li><a href="#">Campus Map</a></li>
 										<li><a href="../Announcement/announcement.php">Announcement</a></li>
 									</ul>

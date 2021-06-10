@@ -174,10 +174,13 @@ if(isset($_POST['goAdd'])){
 												</td>
 												<td><br><br>
 													<div class="form-group">
-
 														<label>Year Level<span class="text-danger"></span></label>
-
-														<input type="text" name="syear" id="useremail"class="form-control <?php echo (!empty($Syear_err)) ? 'is-invalid': ''; ?>" value="<?php echo $Syear; ?>" placeholder="Enter Year Level">
+ 														<select name ="syear">
+                                                            <option selected>1st Year</option>
+                                                            <option>2nd Year</option>
+                                                            <option>3rd Year</option>
+                                                            <option>4th Year</option>
+                                                        </select>
 														<span class="invalid-feedback"><?php echo $Syear_err;?></span>
 													</div><br>
 

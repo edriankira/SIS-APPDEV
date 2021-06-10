@@ -2,10 +2,10 @@
 // Process delete operation after confirmation
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Include config file
-    require_once "config.php";
+    require_once "include/configuration.php";
     
     // Prepare a delete statement
-    $sql = "DELETE FROM adm_announcement WHERE adm_anid = ?";
+    $sql = "DELETE FROM subjects WHERE Sub_ID = ?";
     
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters
@@ -17,7 +17,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
             // Records deleted successfully. Redirect to landing page
-            header("location: announcement.php");
+            header("location: subject_list.php");
             exit();
         } else{
             echo "Oops! Something went wrong. Please try again later.";
@@ -71,7 +71,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                             <p>Are you sure you want to delete this employee record?</p>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
-                                <a href="Event.php" class="btn btn-secondary">No</a>
+                                <a href="subject_list.php" class="btn btn-secondary">No</a>
                             </p>
                         </div>
                     </form>

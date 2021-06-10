@@ -106,7 +106,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 
    	<div class="container">
 
-		<center><h2>Student Information Add Course Admin</h2></center>
+		<center><h2>Course Creation</h2></center>
 
 		<?php
 
@@ -144,7 +144,6 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 
 			<div class="card-body">
 
-				
 
 				<div class="col-sm-6">
 
@@ -277,7 +276,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										<span class="opener">Course Management</span>
 											<ul>
 												<li><a href="../Course/course_list.php">List of Courses</a></li>
-												<li><a href="../Course/course_list.php">List of Section</a></li>
+												<li><a href="../Course/section_list.php">List of Section</a></li>
 												<li><a href="../Course/course_list.php">List of Subject</a></li>
 												<li><a href="../Course/course_list.php">List of Co/Extracurricular</a></li>
 											</ul>
