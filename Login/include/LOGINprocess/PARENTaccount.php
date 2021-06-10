@@ -19,10 +19,13 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Parent_account")
         //
         if (($dbusername == $loginuser) && ($loginpass == password_verify($loginpass, $dbpassword)))
         {
+            $_SESSION['ParentID'] = $row['adm_prtUserNum'];
+            $_SESSION['ParentName'] = $row['adm_prtfname'] ." " . $row['adm_prtlname'];
+
             //for correct credential of a users
             echo '<script type="text/javascript">
             swal("' . $row['adm_prtfname'] . '' . " " . '' . $row['adm_prtlname'] . '!", "Welcome back Parent", "success").then(function() {
-            window.location = "homepage.php";});
+            window.location = "parent_mod/index.php";});
             </script>';
             exit();
         }

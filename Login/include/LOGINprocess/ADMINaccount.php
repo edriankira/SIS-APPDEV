@@ -14,8 +14,7 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Admin_account")
 
     if ($count == 1)
     {
-        $_SESSION['AdminID'] = $row['adm_adminUserNum'];
-        $_SESSION['AdminName'] = $row['adm_fname'] ." " . $row['adm_lname'];
+        
         
         $dbusername = $row['adm_username'];
         $dbpassword = $row['adm_password'];
@@ -23,6 +22,9 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Admin_account")
         //
         if (($dbusername == $loginuser) && ($loginpass == password_verify($loginpass, $dbpassword)))
         {
+            $_SESSION['AdminID'] = $row['adm_adminUserNum'];
+            $_SESSION['AdminName'] = $row['adm_fname'] ." " . $row['adm_lname'];
+            
             //for correct credential of a users
             echo '<script type="text/javascript">
             swal("' . $row['adm_fname'] . '' . " " . '' . $row['adm_lname'] . '!", "Welcome back Admin", "success").then(function() {

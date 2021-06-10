@@ -1,5 +1,57 @@
-<?php 
-	session_start();
+<?php
+session_start();
+
+function Admin(){
+    require_once "connection/config.php";
+//    $search = $_POST['query'];
+    $sql = "select * from adm_AdminUser";
+
+    if($result = mysqli_query($db, $sql)){
+        if(mysqli_num_rows($result) > 0){
+            $_SESSION['totalquery'] =  $_SESSION['totalquery'] + mysqli_num_rows($result);
+            echo $_SESSION['totalquery'];
+            echo "<table>
+            <tr>";
+ 
+                echo "<th>Admin ID</th>";
+                echo "<th>Admin Name</th>";
+                echo "<th>Admin Username</th>";
+                echo "<th>Admin Status</th>";
+                echo "<th>Action</th>";
+                
+            echo "</tr>";
+
+            while($row = mysqli_fetch_array($result)){
+                if($row['adm_mname'] == ""){
+                    $lnameholder = "";
+                }
+                else $lnameholder = ", ";
+				
+
+					echo "<td>" . $row['adm_adminUserNum'] . "</td>";
+						echo "<td>" . $row['adm_lname'] ."$lnameholder " .$row['adm_fname'] . $row['adm_mname']. "</td>";
+						echo "<td>" . $row['adm_username'] . "</td>";
+						echo "<td>" . $row['adm_status'] . "</td>";
+						echo "<td>";
+							echo '<a href="AdminView.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
+							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+						echo "</td>";
+					echo "</tr>";
+				
+					
+            }
+            echo "</table>";
+        }
+    }else echo "eroor";
+    mysqli_close($db);
+    
+}	
+
+echo "<tr>";
+?>
+
+<?php
 	if(!isset($_SESSION['AdminName'])){
 		session_destroy();
 		header("location: login.php");
@@ -51,14 +103,9 @@
 											<h2>Students Information System</h2>
 											<p>Bestlink College of the Philippines</p>
 										</header>
-										<p>At Bestlink College of the Philippines, We provide and promote quality education with modern and unique techniques to able to enhance the skill and the knowledge of our dear students to make them globally competitive and productive citizens.</p>
-										<ul class="actions">
-											<li><a href="https://bcp.edu.ph/home" class="button big">Learn More</a></li>
-										</ul>
+										<?php admin(); ?>
+                                       
 									</div>
-									<span class="image object">
-										<img src="images/Backgroud.jpg" alt="" />
-									</span>
 								</section>
 						</div>
 					</div>

@@ -28,9 +28,9 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Student_account")
             //for correct credential of a users
             session_start();
             $_SESSION["Fname"] = $std_FNAME;
-                            $_SESSION["Lname"] = $row["adm_stdlname"];
-                            $_SESSION["stnID"] = $row["adm_stdUserNum"];
-                            $_SESSION["stdCourse"] = $row["adm_stdCourse"];
+            $_SESSION["Lname"] = $row["adm_stdlname"];
+            $_SESSION["stnID"] = $row["adm_stdUserNum"];
+            $_SESSION["stdCourse"] = $row["adm_stdCourse"];
 
             //for correct credential of a users
             echo '<script type="text/javascript">
