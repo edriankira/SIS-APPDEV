@@ -115,37 +115,45 @@
 									</form>
 								</section>
 
-							<!-- Menu -->
-								<nav id="menu">
-									<header class="major">
-										<h2>Menu</h2>
-									</header>
-									<ul>
-										<li><a href="../homepage.php">Homepage</a></li>
-										<li>
-											<span class="opener">Account Creation</span>
-											<ul>
-												<li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
+							 <!-- Menu -->
+                                <nav id="menu">
+                                    <header class="major">
+                                        <h2>Menu</h2>
+                                    </header>
+                                    <ul>
+                                        <li><a href="../homepage.php">Homepage</a></li>
+                                        <li>
+                                            <span class="opener">Registration</span>
+                                            <ul>
+                                               <li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
 												<li><a href="../Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
 												<li><a href="../Account_creation/ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="../Account_creation/StudentAddUser.php">User Registration</a></li>
-											</ul>
-										</li>
-										<li>
-										<span class="opener">Account Management</span>
-											<ul>
-												<li><a href="../Account_Management/AdminManagement.php">Admin Management</a></li>
-												<li><a href="../Account_Management/FacultyManagement.php">Faculty Management</a></li>
-												<li><a href="../Account_Management/ParentManagement.php">Parent Management</a></li>
-												<li><a href="../Account_Management/StudentManagement.php">Student Management</a></li>
-											</ul>
-										</li>
-										<li><a href="../event-management/Event.php">Event Notification</a></li>								
-										<li><a href="../Course/course_list.php">List of Courses</a></li>									
-										<li><a href="../Map/map.php">Campus Map</a></li>
-										<li><a href="announcement.php">Announcement</a></li>
-									</ul>
-								</nav>
+												<li><a href="../Account_creation/StudentAddUser.php">Student Registration</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                        <span class="opener">Account Management</span>
+                                            <ul>
+                                                <li><a href="../Account_Management/AdminManagement.php">Admin Management</a></li>
+                                                <li><a href="../Account_Management/FacultyManagement.php">Faculty Management</a></li>
+                                                <li><a href="../Account_Management/ParentManagement.php">Parent Management</a></li>
+                                                <li><a href="../Account_Management/StudentManagement.php">Student Management</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="../event-management/Event.php">Event Notification</a></li> 
+                                        <li>
+                                        <span class="opener">Course Management</span>
+                                            <ul>
+                                                <li><a href="../Course/course_list.php">List of Courses</a></li>
+                                                <li><a href="../Course/section_list.php">List of Section</a></li>
+                                                <li><a href="../Course/subject_list.php">List of Subject</a></li>
+                                                <li><a href="../Course/extra_list.php">List of Co/Extracurricular</a></li>
+                                            </ul>
+                                        </li>                           
+                                        <li><a href="../Map/map.php">Campus Map</a></li>
+                                        <li><a href="../Announcement/announcement.php">Announcement</a></li>
+                                    </ul>
+                                </nav>
 							<!-- Footer -->
 								<footer id="footer">
 									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>

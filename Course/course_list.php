@@ -181,7 +181,8 @@
 						<td><?php echo $val['adm_lcNum'];?></td>
 						<td align="center">
 							<!-- <a href="edit-users.php?editId=<?php echo $val['adm_lcID'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Edit</a> |  -->
-							<a href="delete.php?delId=<?php echo $val['adm_lcID'];?>" class="text-danger" onClick="return confirm('Are you sure to delete this user?');"><i class="fa fa-fw fa-trash"></i> Delete</a>
+
+						<a href="course_delete.php?id='. $row['adm_lcID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span> Delete</a>
 						</td>
 
 					</tr>
@@ -223,10 +224,10 @@
 										<li>
 											<span class="opener">Registration</span>
 											<ul>
-												<li><a href="#">Admin Registration</a></li>
-												<li><a href="FacultyAddUser.php">Faculty Registration</a></li>
-												<li><a href="ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="StudentAddUser.php">User Registration</a></li>
+												<li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
+												<li><a href="../Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
+												<li><a href="../Account_creation/ParentAddUser.php">Parent Registration</a></li>
+												<li><a href="../Account_creation/StudentAddUser.php">Student Registration</a></li>
 											</ul>
 										</li>
 										<li>
@@ -243,9 +244,9 @@
 										<span class="opener">Course Management</span>
 											<ul>
 												<li><a href="../Course/course_list.php">List of Courses</a></li>
-												<li><a href="../Course/course_list.php">List of Section</a></li>
-												<li><a href="../Course/course_list.php">List of Subject</a></li>
-												<li><a href="../Course/course_list.php">List of Co/Extracurricular</a></li>
+                        <li><a href="../Course/section_list.php">List of Section</a></li>
+                        <li><a href="../Course/subject_list.php">List of Subject</a></li>
+                        <li><a href="../Course/extra_list.php">List of Co/Extracurricular</a></li>
 											</ul>
 										</li>							
 										<li><a href="../Map/map.php">Campus Map</a></li>

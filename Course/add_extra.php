@@ -112,8 +112,8 @@ if(isset($_POST['goAdd'])){
 
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../assets/css/mainAdmin.css" />
 
 	<style>
@@ -255,10 +255,10 @@ if(isset($_POST['goAdd'])){
 										<li>
 											<span class="opener">Registration</span>
 											<ul>
-												<li><a href="#">Admin Registration</a></li>
-												<li><a href="FacultyAddUser.php">Faculty Registration</a></li>
-												<li><a href="ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="StudentAddUser.php">User Registration</a></li>
+												<li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
+												<li><a href="../Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
+												<li><a href="../Account_creation/ParentAddUser.php">Parent Registration</a></li>
+												<li><a href="../Account_creation/StudentAddUser.php">Student Registration</a></li>
 											</ul>
 										</li>
 										<li>

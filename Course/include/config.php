@@ -1,5 +1,5 @@
 <?php
-include_once('include/Database.php');
+include_once('Database.php');
 define('SS_DB_NAME', 'sisappdev');
 define('SS_DB_USER', 'root');
 define('SS_DB_PASSWORD', '');
