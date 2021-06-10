@@ -19,6 +19,18 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Student_account")
         //
         if (($dbusername == $loginuser) && ($loginpass == password_verify($loginpass, $dbpassword)))
         {
+
+            $std_ID = $row["adm_stdId"];
+            $std_FNAME = $row["adm_stdfname"];
+            $std_USER = $row["adm_stdusername"];
+            $std_PASS = $row["adm_stdpassword"];
+            
+            //for correct credential of a users
+            session_start();
+            $_SESSION["Fname"] = $std_FNAME;
+            $_SESSION["Lname"] = $row["adm_stdlname"];
+            $_SESSION["stnID"] = $std_ID;
+            
             //for correct credential of a users
             echo '<script type="text/javascript">
             swal("' . $row['adm_stdfname'] . '' . " " . '' . $row['adm_stdlname'] . '!", "Welcome back Student", "success").then(function() {
