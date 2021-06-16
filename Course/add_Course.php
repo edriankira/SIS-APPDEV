@@ -180,7 +180,7 @@ $isExist = true;
 												<tr>
 											</table>
 										</div>
-										<h2 id="titleAdd">Add Course Activity</h2>
+										<h2 id="titleAdd">Add Course</h2>
 										<form method="post" id="adduserform" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
 										<table>
 											<tr id ="nodborder">
