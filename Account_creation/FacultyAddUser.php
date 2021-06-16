@@ -169,6 +169,7 @@ if(isset($_POST['goAdd'])){
         $ppass = $input_password;
 		$ppassfinal = password_hash($ppass, PASSWORD_DEFAULT);
 	}
+
 	
 
 	if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 

@@ -13,6 +13,7 @@ $pfname_err = $pmname_err = $plname_err = $pusername_err =
 $ppass_err = $prepass =$pbday_err = $gender_err = $pemail_err= $pmobile_err=$repassword =$address_err= $pid_err = "";
 
 
+
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }
