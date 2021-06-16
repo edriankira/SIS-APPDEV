@@ -6,76 +6,150 @@
 		exit();
 	}
 ?>
-<?php include_once('include/config.php');
-if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
-	extract($_REQUEST);
-	if($username==""){
-		header('location:'.$_SERVER['PHP_SELF'].'?msg=un');
-		exit;
-	}elseif($useremail==""){
-		header('location:'.$_SERVER['PHP_SELF'].'?msg=ue');
-		exit;
-	}elseif($userphone==""){
-		header('location:'.$_SERVER['PHP_SELF'].'?msg=up');
-		exit;
+<?php
+
+$Ecode = $Ename = $Edesc=  "";
+$Ecode_err = $Ename_err = $Edesc_err =  "";
+
+
+function alert($msg) {
+    echo "<script type='text/javascript'>alert('$msg');</script>";
+}
+
+if(isset($_POST['goAdd'])){
+	require_once "../connection/config.php";
+//course ID
+$isExist = true;
+        //checking if there's a duplicate number because we use random number for id numbers to prevent errors (NOTE PARTILLY TESTED)
+        do{
+            //generate 8 number value
+            $AD_courseID = rand(10000000,99999999);
+            $sql1 = "SELECT adm_lcNum  from adm_listcourse where adm_lcNum  = $AD_courseID";
+            if($result = mysqli_query($db, $sql1)){
+                if(mysqli_num_rows($result) > 0){
+                    $isExist = true;
+                }
+                else{
+                    $isExist = false;
+                }
+            } 
+        }while($isExist == true);
+
+//course code
+	$input_Ecode = trim($_POST["ecode"]);
+	if(empty($input_Ecode)){
+		$Ecode_err = "Please enter course code."; 
+		$Ecode = $input_Ecode;
 	}else{
-		
-		$userCount	=	$db->getQueryCount('adm_listcourse','adm_lcID');
-		if($userCount[0]['total']<20){
-			$data	=	array(
-							'adm_lcCourseT'=>$username,
-							'adm_lcCourseD'=>$useremail,
-							'adm_lcNum'=>$userphone,
-						);
-			$insert	=	$db->insert('adm_listcourse',$data);
-			if($insert){
-				header('location:course_List.php?msg=ras');
-				exit;
-			}else{
-				header('location:course_List.php?msg=rna');
-				exit;
-			}
+		$downsql = 'SELECT 	extra_code  from extracur where extra_code  = "'.trim($_POST["ecode"]).'" ';
+		$downresult = mysqli_query($db, $downsql);
+		if(mysqli_num_rows($downresult) == 0){
+			$Ecode = $input_Ecode;
 		}else{
-			header('location:'.$_SERVER['PHP_SELF'].'?msg=dsd');
-			exit;
+			$Ecode_err = "Code Already Exist"; 
+			$Ecode = $input_Ecode;
 		}
+		
 	}
+
+	//course name
+	$input_Ename = trim($_POST["ename"]);
+	if(empty($input_Ename)){
+		$Ename_err = "Please enter course title."; 
+		$Ename = $input_Ename;
+	}else{
+		$downsql = 'SELECT extra_name from extracur where extra_name = "'.trim($_POST["ename"]).'" ';
+		$downresult = mysqli_query($db, $downsql);
+		if(mysqli_num_rows($downresult) == 0){
+			$Ename = $input_Ename;
+		}else{
+			$Ename_err = "Title Already Exist"; 
+			$Ename = $input_Ename;
+		}
+		
+	}
+	
+	//courser desc
+	$input_Edesc = trim($_POST["edesc"]);
+	if(empty($input_Edesc)){
+		$Edesc_err = "Please enter a Desctiption."; 
+		$Edesc = $input_Edesc;
+	} else{
+		$Edesc = $input_Edesc;
+	}
+	
+
+	if(empty($Ecode_err) && empty($Ename_err) &&empty($Edesc_err)){
+
+		$sql = "INSERT INTO `adm_listcourse`(adm_lcNum , adm_lcCourseT, adm_lcCourseN, adm_lcCourseD)
+		VALUES (?, ?, ?, ?);";
+		
+		if($stmt = mysqli_prepare($db, $sql)){
+			mysqli_stmt_bind_param($stmt, "ssss", $param_id, $param_code,
+			$param_name, $param_desc);
+
+			$param_code = $Ecode;  
+			$param_name = $Ename;  
+			$param_desc = $Edesc;
+			$param_id = $AD_courseID;
+					
+			if(mysqli_stmt_execute($stmt)){
+                alert("Adding Done");
+				header("Refresh:0");
+			}else{
+                echo"error -1";
+            }
+			mysqli_stmt_close($stmt);
+		}else echo"error 0";
+		
+	}else {
+        echo"error 1";
+    }
 }
 ?>
+
 <!DOCTYPE HTML>
 
 <html>
 	<head>
-		<title>Admin Creation</title>
+		<title>Course Saving</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/mainAdmin.css" />
-		
 
-       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../assets/css/mainAdmin.css" />
 
 	<style>
-		#addbtn{
-			text-align: center;
-			width: 60px;
-			height: 35px;
-			font-size: 12px;
-			float: right;
-			margin: 0;
-			text-decoration: none;
-		}
 		a{
 			text-decoration: none;	
+        }
+
+		input[type="date"]{
+			width: 100%;
+			height: 2.75em;
+			border-radius: 0.375em;
+			border: solid 1px rgba(210, 215, 217, 0.75);
+			box-shadow: none;
+			display: block;
+			outline: 0;
+			padding: 0 1em;
+			background: #ffffff;
 		}
-		#modify{
-			width:65px;
-			height: 30px;
-			outline: none;
+		input[type="date"]:focus{
+			border-color: #f56a6a;
+			box-shadow: 0 0 0 1px #f56a6a;
 		}
+		table tbody tr {
+		border: none
+		}
+
+		table{
+			border: solid 1px rgba(210, 215, 217, 0.75);;
+		}
+
 	</style>
 
 	</head>
@@ -92,143 +166,65 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Admin </strong>Course List</a>
+									<a href="" class="logo"><strong>Course </strong>Saving</a>
 									<ul class="icons"><?php
 									echo "<li>".$_SESSION['AdminName']."</li>"
 									?>
 										<li><a href="../logout.php">Sign Out</a></li>
 								</header>
-
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
-<!-- Start of segment -->	
+										<div id ="viewAdmin">
+											<table>
+												<tr>
+											</table>
+										</div>
+										<h2 id="titleAdd">Add Course</h2>
+										<form method="post" id="adduserform" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
+										<table>
+											<tr id ="nodborder">
+												<td>Activity Information<br><br>
+													<div class="form-group">
 
-   	<div class="container">
+														<label>Course Code <span class="text-danger"></span></label>
 
-		<center><h2>Course Creation</h2></center>
+														<input type="text" name="ecode" id="username" class="form-control <?php echo (!empty($Ecode_err)) ? 'is-invalid': ''; ?>" value="<?php echo $Ecode; ?>" placeholder="Enter Code">
+														<span class="invalid-feedback"><?php echo $Ecode_err;?></span>
+													</div>
 
-		<?php
+												</td>
+												<td><br><br>
+													<div class="form-group">
 
-		if(isset($_REQUEST['msg']) and $_REQUEST['msg']=="un"){
+														<label>Course Name<span class="text-danger"></span></label>
 
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> User name is mandatory field!</div>';
+														<input type="text" name="ename" id="useremail"class="form-control <?php echo (!empty($Ename_err)) ? 'is-invalid': ''; ?>" value="<?php echo $Ename; ?>" placeholder="Enter Name">
+														<span class="invalid-feedback"><?php echo $Ename_err;?></span>
+													</div><br>
 
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ue"){
+												</td>
 
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> User email is mandatory field!</div>';
+											</tr>
+												<td colspan = 3>
+													<div class="form-group">
 
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="up"){
+														<label>Description<span class="text-danger"></span></label>
+														<input type="text" name="edesc" id="useremail" class="form-control <?php echo (!empty($Edesc_err)) ? 'is-invalid': ''; ?>" value="<?php echo $Edesc; ?>" placeholder="Enter Description" >
+														<span class="invalid-feedback"><?php echo $Edesc_err;?></span>
+													</div>
+												</td>									
+											<tr>
+												<td colspan = 3>												
+													<div class="form-group">
+														<input type="submit" name="goAdd" value="Save Course" id="submit">
+													</div>
 
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> User phone is mandatory field!</div>';
-
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ras"){
-
-			echo	'<div class="alert alert-success"><i class="fa fa-thumbs-up"></i> Record added successfully!</div>';
-
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="rna"){
-
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Record not added <strong>Please try again!</strong></div>';
-
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="dsd"){
-
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Please delete a user and then try again <strong>We set limit for security reasons!</strong></div>';
-
-		}
-
-		?>
-
-		<div class="card">
-
-			<div class="card-header"><i class="fa fa-fw fa-plus-circle"></i> <strong>Add New Course</strong> <a href="course_List.php" class="float-right btn btn-dark btn-sm"><i class="fa fa-fw fa-globe"></i>Course List</a></div>
-
-			<div class="card-body">
-
-
-				<div class="col-sm-6">
-
-					<h5 class="card-title">Fields with <span class="text-danger"> * </span> are mandatory!</h5>
-
-					<form method="post">
-
-						<div class="form-group">
-
-							<label>Course Name <span class="text-danger">*</span></label>
-
-							<input type="text" name="username" id="username" class="form-control" placeholder="Enter user name" required>
-
-						</div>
-
-						<div class="form-group">
-
-							<label>Description <span class="text-danger">*</span></label>
-
-							<input type="text" name="useremail" id="useremail" class="form-control" placeholder="Enter user email" required>
-
-						</div>
-
-						<div class="form-group">
-
-							<label>Course Number <span class="text-danger">*</span></label>
-
-							<input type="Number" pattern=".{14,14}" title="Accept US Number format (888) 888-8888" class="form-control" name="userphone" id="userphone" x-autocompletetype="tel" placeholder="Enter user phone" required>
-
-						</div>
-
-						<div class="form-group">
-
-							<button type="submit" name="submit" value="submit" id="submit" ><i class="fa fa-fw fa-plus-circle"></i> Add Course</button>
-
-						</div>
-
-					</form>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-    
-
-	<div class="container my-4">
-
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-		<!-- demo left sidebar -->
-
-		<ins class="adsbygoogle"
-
-			 style="display:block"
-
-			 data-ad-client="ca-pub-6724419004010752"
-
-			 data-ad-slot="7706376079"
-
-			 data-ad-format="auto"
-
-			 data-full-width-responsive="true"></ins>
-
-		<script>
-
-		(adsbygoogle = window.adsbygoogle || []).push({});
-
-		</script>
-
-	</div>
-
-	
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.caret/0.1/jquery.caret.js"></script>
-	<script src="https://www.solodev.com/_/assets/phone/jquery.mobilePhoneNumber.js"></script>   
-<!-- end of segment -->
+												</td>
+											</tr>
+											
+										</form>
+										</table>	
 									</div>
 									
 								</section>
@@ -246,7 +242,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 									</form>
 								</section>
 
-					<!-- Menu -->
+						<!-- Menu -->
 								<nav id="menu">
 									<header class="major">
 										<h2>Menu</h2>
@@ -256,10 +252,10 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										<li>
 											<span class="opener">Registration</span>
 											<ul>
-												<li><a href="#">Admin Registration</a></li>
-												<li><a href="FacultyAddUser.php">Faculty Registration</a></li>
-												<li><a href="ParentAddUser.php">Parent Registration</a></li>
-												<li><a href="StudentAddUser.php">User Registration</a></li>
+												<li><a href="../Account_creation/AdminAddUser.php">Admin Registration</a></li>
+												<li><a href="../Account_creation/FacultyAddUser.php">Faculty Registration</a></li>
+												<li><a href="../Account_creation/ParentAddUser.php">Parent Registration</a></li>
+												<li><a href="../Account_creation/StudentAddUser.php">Student Registration</a></li>
 											</ul>
 										</li>
 										<li>
@@ -276,7 +272,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										<span class="opener">Course Management</span>
 											<ul>
 												<li><a href="../Course/course_list.php">List of Courses</a></li>
-												<li><a href="../Course/section_list.php">List of Section</a></li>
+												<li><a href="../Course/course_list.php">List of Section</a></li>
 												<li><a href="../Course/course_list.php">List of Subject</a></li>
 												<li><a href="../Course/course_list.php">List of Co/Extracurricular</a></li>
 											</ul>
@@ -285,6 +281,10 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 										<li><a href="../Announcement/announcement.php">Announcement</a></li>
 									</ul>
 								</nav>
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+							    </footer>
 						</div>
 					</div>
 
@@ -293,57 +293,62 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!=""){
 			
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/jquery.caret/0.1/jquery.caret.js"></script>
-	<script src="https://www.solodev.com/_/assets/phone/jquery.mobilePhoneNumber.js"></script>
-	<script
-  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
-  crossorigin="anonymous"></script>
-    <script>
-		$(document).ready(function() {			 
-			 //From, To date range start
-			var dateFormat	=	"yy-mm-dd";
-			fromDate	=	$(".fromDate").datepicker({
-				changeMonth: true,
-				dateFormat:'yy-mm-dd',
-				numberOfMonths:2
-			})
-			.on("change", function(){
-				toDate.datepicker("option", "minDate", getDate(this));
-			}),
-			toDate	=	$(".toDate").datepicker({
-				changeMonth: true,
-				dateFormat:'yy-mm-dd',
-				numberOfMonths:2
-			})
-			.on("change", function() {
-				fromDate.datepicker("option", "maxDate", getDate(this));
-			});
-			
-			
-			function getDate(element){
-				var date;
-				try{
-					date = $.datepicker.parseDate(dateFormat,element.value);
-				}catch(error){
-					date = null;
-				}
-				return date;
-			}
-			//From, To date range End here	
-			
-		});
-	</script>
 
 	</body>
-</html>	
+</html>
+
+
+<?php  
+
+function Display(){
+    require_once "connection/config.php";
+
+    $sql = "select * from adm_AdminUser";
+
+    if($result = mysqli_query($db, $sql)){
+        if(mysqli_num_rows($result) > 0){
+            while($row = mysqli_fetch_array($result)){
+                if($row['adm_mname'] == ""){
+                    $mnameholder = "";
+                }
+                else $mnameholder = ", ";
+				
+				if(isMobileDevice()){
+					echo "<tr>";
+						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
+						echo "<td>" . $row['adm_status'] . "</td>";
+						echo "<td>";
+						echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
+							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+						echo "</td>";
+					echo "</tr>";
+				}
+				else{
+					echo "<td>" . $row['adm_adminUserNum'] . "</td>";
+						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
+						echo "<td>" . $row['adm_username'] . "</td>";
+						echo "<td>" . $row['adm_status'] . "</td>";
+						echo "<td>";
+							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
+							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+						echo "</td>";
+					echo "</tr>";
+				}
+					
+            }
+        }
+    }
+    mysqli_close($db);
+}	
+
+echo "<tr>";
+
+?>
