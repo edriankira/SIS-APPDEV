@@ -12,6 +12,7 @@ $pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress=
 $pfname_err = $pmname_err = $plname_err = $pusername_err = 
 $ppass_err = $prepass =$pbday_err = $gender_err = $pemail_err= $pmobile_err=$repassword =$address_err= $pid_err = "";
 
+$studentname = $studentname_err =  "";
 
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
@@ -140,7 +141,7 @@ if(isset($_POST['goAdd'])){
 
 	$input_username = trim($_POST["username"]);
 	if(empty($input_username)){
-		$username_err = "Please enter a username."; 
+		$pusername_err = "Please enter a username."; 
 		$pusername = $input_username;
 	}else{
 		$downsql = 'SELECT adm_prtusername from adm_ParentUser where adm_prtusername = "'.trim($_POST["username"]).'" ';
@@ -148,7 +149,7 @@ if(isset($_POST['goAdd'])){
 		if(mysqli_num_rows($downresult) == 0){
 			$pusername = $input_username;
 		}else{
-			$username_err = "Username Already Exist"; 
+			$pusername_err = "Username Already Exist"; 
 			$pusername = $input_username;
 		}
 		
@@ -168,20 +169,31 @@ if(isset($_POST['goAdd'])){
         $ppass = $input_password;
 		$ppassfinal = password_hash($ppass, PASSWORD_DEFAULT);
 	}
+
+	$input_student = trim($_POST['studnumber']);
+	var_dump($input_student); 
+	$namehold = $_POST['nameholderH'];
+	if(empty($input_student)  || $namehold == "Child ID already taken" || $namehold == "No records found"){
+	$studentname_err = $namehold;
+	}
+	else{
+		$studentname = $input_student;
+	}
+	
 	
 
 	if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
 	empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
-	empty($pusername_err) &&empty($pgender_err) && empty($ppass_err) && !empty($input_password) && !empty($input_repassword)){
+	empty($pusername_err) &&empty($pgender_err)&& empty($studentname_err) && empty($ppass_err) && !empty($input_password) && !empty($input_repassword)){
 
 
-		$sql = "INSERT INTO `adm_ParentUser`(adm_prtUserNum, adm_prtfname, adm_prtlname, adm_prtmname, adm_prtbday, adm_prtgender, adm_prtemail, adm_prtmobile, adm_prtaddress, adm_prtusername, adm_prtpassword, adm_prtstatus)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Active');";
+		$sql = "INSERT INTO `adm_ParentUser`(adm_prtUserNum, adm_prtfname, adm_prtlname, adm_prtmname, adm_prtbday, adm_prtgender, adm_prtemail, adm_prtmobile, adm_prtaddress, adm_prtusername, adm_prtpassword, adm_prtstatus, adm_prtchildId)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Active', ?);";
 		
 		if($stmt = mysqli_prepare($db, $sql)){
-			mysqli_stmt_bind_param($stmt, "sssssssssss", $param_id,
+			mysqli_stmt_bind_param($stmt, "ssssssssssss", $param_id,
 			$param_fname, $param_lname, $param_mname,$param_bday,$param_gender, 
-			$param_email, $param_mobile, $param_address, $param_username, $param_pass);
+			$param_email, $param_mobile, $param_address, $param_username, $param_pass, $param_studentname);
 			
 			$param_id = $AD_adminID;  
 			$param_username = $pusername;
@@ -194,7 +206,7 @@ if(isset($_POST['goAdd'])){
 			$param_mobile = $pmobile;
 			$param_address = $paddress;
 			$param_gender = $pgender;
-			
+			$param_studentname = $studentname;
 			
 			if(mysqli_stmt_execute($stmt)){
                 alert("Adding Done");
@@ -334,11 +346,11 @@ if(isset($_POST['goAdd'])){
 												<div class="form-group">	
 														<label>Gender <span class="text-danger"></span></label>
 																			
-														<select name="gender" class="form-control <?php echo (!empty($pgender_err)) ? 'is-invalid': ''; ?>">
+														<select name="gender" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid': ''; ?>">
 															<option value="male">male</option>
 															<option value="female">female</option>
 														</select>
-														<span class="invalid-feedback"><?php echo $pgender_err;?></span>
+														<span class="invalid-feedback"><?php echo $gender_err;?></span>
 														
 													</div>
 												</td>
@@ -357,7 +369,7 @@ if(isset($_POST['goAdd'])){
 
 														<label>Email <span class="text-danger"></span></label>
 														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pemail; ?>" placeholder="Enter Email" >
-														<span class="invalid-feedback"><?php echo $email_err;?></span>
+														<span class="invalid-feedback"><?php echo $pemail_err;?></span>
 													</div>
 
 													<div class="form-group">
@@ -373,10 +385,13 @@ if(isset($_POST['goAdd'])){
 											<tr>
 												<td colspan = 3>Child Information<br><br>
 													<label>Student Number <span class="text-danger"></span></label>
-													<input type="text" name="studnumber" id="studnumber" placeholder="Enter Child ID" >
-													<label style="float:right" id="nameholder"></label>
+													<input type="text" name="studnumber" id="studnumber" class="form-control  <?php echo (!empty($studentname_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Child ID" value="<?php echo $studentname; ?>">
+													<label style="float:right" name ="nameholder" id="nameholder">No records found</label>
+													<span class="invalid-feedback"><?php echo $studentname_err;?></span>
+													<input type="hidden" name ="nameholderH" id= "nameholderH" value="No records found">
 													<script>
 													$(document).ready(function(){
+															
 														$("#studnumber").keyup(function(){
 															var id = $("#studnumber").val();
 															$.post("namequery.php",{
@@ -384,6 +399,7 @@ if(isset($_POST['goAdd'])){
 															},function(data, status){
 															$("#nameholder").empty();
 															$("#nameholder").html(data);
+															$("#nameholderH").val(data);
 															});			
 
 														});	
@@ -398,8 +414,8 @@ if(isset($_POST['goAdd'])){
 
 														<label>Username <span class="text-danger"></span></label>
 
-														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
-														<span class="invalid-feedback"><?php echo $username_err;?></span>
+														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($pusername_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
+														<span class="invalid-feedback"><?php echo $pusername_err;?></span>
 													</div>
 
 													<div class="form-group">

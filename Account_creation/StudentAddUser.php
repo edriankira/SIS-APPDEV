@@ -12,6 +12,9 @@ $pfname_err = $pmname_err = $plname_err = $pusername_err =
 $ppass_err = $prepass =$pbday_err = $gender_err = $pemail_err= $pmobile_err=$repassword =$address_err= $pid_err = "";
 
 
+$section = $year = $course = "";
+$section_err = $year_err = $course_err = "";
+
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }
@@ -167,6 +170,36 @@ if(isset($_POST['goAdd'])){
         $ppass = $input_password;
 		$ppassfinal = password_hash($ppass, PASSWORD_DEFAULT);
 	}
+
+	$input_section = $_POST["section"];
+    if (empty($input_section) || $input_section == "Select Section")
+    {
+        $section_err = "Please Enter a section";
+    }
+    else
+    {
+        $section = $input_section;
+    }
+
+    $input_year = $_POST["year"];
+    if (empty($input_year) || $input_year == "Select Year")
+    {
+        $year_err = "Please Enter a section";
+    }
+    else
+    {
+        $year = $input_year;
+    }
+
+    $input_course = $_POST["course"];
+    if (empty($input_course) || $input_course == "Select Course")
+    {
+        $course_err = "Please Enter a Course";
+    }
+    else
+    {
+        $course = $input_course;
+    }
 	
 
 	if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
@@ -174,13 +207,13 @@ if(isset($_POST['goAdd'])){
 	empty($pusername_err) &&empty($pgender_err) && empty($ppass_err) && !empty($input_password) && !empty($input_repassword)){
 
 
-		$sql = "INSERT INTO `adm_StudentUser`(adm_stdUserNum, adm_stdfname, adm_stdlname, adm_stdmname, adm_stdbday, adm_stdgender, adm_stdemail, adm_stdmobile, adm_stdaddress, adm_stdusername, adm_stdpassword, adm_stdstatus)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Active');";
+		$sql = "INSERT INTO `adm_StudentUser`(adm_stdUserNum, adm_stdfname, adm_stdlname, adm_stdmname, adm_stdbday, adm_stdgender, adm_stdemail, adm_stdmobile, adm_stdaddress, adm_stdusername, adm_stdpassword, adm_stdstatus, adm_stdCourse, adm_stdYear, adm_stdSection)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Active',?,?,?);";
 		
 		if($stmt = mysqli_prepare($db, $sql)){
-			mysqli_stmt_bind_param($stmt, "sssssssssss", $param_id,
+			mysqli_stmt_bind_param($stmt, "ssssssssssssss", $param_id,
 			$param_fname, $param_lname, $param_mname,$param_bday,$param_gender, 
-			$param_email, $param_mobile, $param_address, $param_username, $param_pass);
+			$param_email, $param_mobile, $param_address, $param_username, $param_pass,	$param_course  ,$param_year,$param_section);
 			
 			$param_id = $AD_adminID;  
 			$param_username = $pusername;
@@ -193,7 +226,10 @@ if(isset($_POST['goAdd'])){
 			$param_mobile = $pmobile;
 			$param_address = $paddress;
 			$param_gender = $pgender;
-			
+			$param_year = $year;
+			$param_section = $section;
+			$param_course = $course;
+		
 			
 			if(mysqli_stmt_execute($stmt)){
                 alert("Adding Done");
@@ -375,7 +411,7 @@ if(isset($_POST['goAdd'])){
 												<div class="form-group">
 														<label>Course<span class="text-danger"></span></label>
 														<select name ="course" id="course">
-														<option selected value ='select Course'>Select Course</option>
+														<option selected value =''>Select Course</option>
 															<?php include "coursestd.php"?>
 														</select>
 													</div>
@@ -384,7 +420,7 @@ if(isset($_POST['goAdd'])){
 													<div class="form-group">
 														<label>Year Level <span class="text-danger"></span></label>
 														<select name ="year" id="year">
-															<option selected value ="select Year">Select Year</option>
+															<option selected value ="">Select Year</option>
 															<option value ="1st Year">1st Year</option>
 															<option value ="2nd Year">2nd Year</option>
 															<option value ="3rd Year">3rd Year</option>
