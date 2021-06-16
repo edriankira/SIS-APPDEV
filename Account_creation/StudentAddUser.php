@@ -370,6 +370,68 @@ if(isset($_POST['goAdd'])){
 											</tr>
 											<tr></tr>
 											<tr>
+												<td>School Information<br><br>
+
+												<div class="form-group">
+														<label>Course<span class="text-danger"></span></label>
+														<select name ="course" id="course">
+														<option selected value ='select Course'>Select Course</option>
+															<?php include "coursestd.php"?>
+														</select>
+													</div>
+												</td>
+												<td><br><br>	
+													<div class="form-group">
+														<label>Year Level <span class="text-danger"></span></label>
+														<select name ="year" id="year">
+															<option selected value ="select Year">Select Year</option>
+															<option value ="1st Year">1st Year</option>
+															<option value ="2nd Year">2nd Year</option>
+															<option value ="3rd Year">3rd Year</option>
+															<option value ="4th Year">4th Year</option>
+														</select>	
+													</div>
+													
+												</td>
+												<td><br><br>	
+													<div class="form-group">
+														<label>Section<span class="text-danger"></span></label>
+														<select name ="section" id="section">
+														<option selected value ='select Section'>Select Section</option>
+															<script>
+															$(document).ready(function(){
+																$("#year").change(function(){
+																	var year = $("#year").val();
+																	var course = $("#course").val();
+																	$.post("getsection.php",{
+																		aYear: year,
+																		aCourse: course
+																	},function(data, status){
+																	$("#section").html(data);
+																	});
+
+																});	
+																$("#course").change(function(){
+																	$("#section").empty();
+																	var year = $("#year").val();
+																	var course = $("#course").val();
+																	$.post("getsection.php",{
+																		aYear: year,
+																		aCourse: course
+																	},function(data, status){
+																	$("#section").html(data);
+																	});
+
+																});											
+															});
+																
+															</script>
+														</select>
+													</div>
+												</td>
+											</tr>
+											<tr></tr>
+											<tr>
 												<td colspan = 3>Account Information<br><br>
 													<div class="form-group">
 
