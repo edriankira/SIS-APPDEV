@@ -233,16 +233,37 @@ if(isset($_POST['goAdd'])){
 			
 			if(mysqli_stmt_execute($stmt)){
                 alert("Adding Done");
+				$sql_subj = "SELECT sub_code FROM section
+					JOIN subjects ON
+					subjects.sub_course = section.Section_course
+					AND subjects.sub_year = section.Section_year
+					WHERE section.Section_name = '$section'";
+				$sectionresult = mysqli_query($db, $sql_subj);
+				if (mysqli_num_rows($sectionresult) > 0){
+					while($row = mysqli_fetch_assoc($sectionresult)){
+						$sqladding= "INSERT INTO fct_record(userid, Subject_code,term)
+						VALUES('$AD_adminID', '".$row["sub_code"]."', 'Prelim'),
+						('$AD_adminID', '".$row["sub_code"]."', 'Midterm'),
+						('$AD_adminID', '".$row["sub_code"]."', 'Finals')";
+
+						if(mysqli_query($db,$sqladding)){
+						}
+					}
+					
+				}else {
+					echo mysqli_error($db);
+				}
 				header("Refresh:0");
 			}else{
-                echo"error -1";
+				echo mysqli_error($db);
             }
 			mysqli_stmt_close($stmt);
+					}else{
+						echo mysqli_error($db);
+					}
 		}else echo"error 0";
+
 		
-	}else {
-        echo"error 1";
-    }
 }
 ?>
 
@@ -369,11 +390,11 @@ if(isset($_POST['goAdd'])){
 												<div class="form-group">	
 														<label>Gender <span class="text-danger"></span></label>
 																			
-														<select name="gender" class="form-control <?php echo (!empty($pgender_err)) ? 'is-invalid': ''; ?>">
+														<select name="gender" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid': ''; ?>">
 															<option value="male">male</option>
 															<option value="female">female</option>
 														</select>
-														<span class="invalid-feedback"><?php echo $pgender_err;?></span>
+														<span class="invalid-feedback"><?php echo $gender_err;?></span>
 														
 													</div>
 												</td>
@@ -391,8 +412,8 @@ if(isset($_POST['goAdd'])){
 													<div class="form-group">
 
 														<label>Email <span class="text-danger"></span></label>
-														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pemail; ?>" placeholder="Enter Email" >
-														<span class="invalid-feedback"><?php echo $email_err;?></span>
+														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($pemail_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pemail; ?>" placeholder="Enter Email" >
+														<span class="invalid-feedback"><?php echo $pemail_err;?></span>
 													</div>
 
 													<div class="form-group">
@@ -473,8 +494,8 @@ if(isset($_POST['goAdd'])){
 
 														<label>Username <span class="text-danger"></span></label>
 
-														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
-														<span class="invalid-feedback"><?php echo $username_err;?></span>
+														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($pusername_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
+														<span class="invalid-feedback"><?php echo $pusername_err;?></span>
 													</div>
 
 													<div class="form-group">
@@ -578,53 +599,3 @@ if(isset($_POST['goAdd'])){
 
 	</body>
 </html>
-
-
-<?php  
-
-function Display(){
-    require_once "connection/config.php";
-
-    $sql = "select * from adm_AdminUser";
-
-    if($result = mysqli_query($db, $sql)){
-        if(mysqli_num_rows($result) > 0){
-            while($row = mysqli_fetch_array($result)){
-                if($row['adm_mname'] == ""){
-                    $mnameholder = "";
-                }
-                else $mnameholder = ", ";
-				
-				if(isMobileDevice()){
-					echo "<tr>";
-						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
-						echo "<td>" . $row['adm_status'] . "</td>";
-						echo "<td>";
-						echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
-							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-						echo "</td>";
-					echo "</tr>";
-				}
-				else{
-					echo "<td>" . $row['adm_adminUserNum'] . "</td>";
-						echo "<td>" . $row['adm_lname'] ." " .$row['adm_fname'] ."$mnameholder" . $row['adm_mname']. "</td>";
-						echo "<td>" . $row['adm_username'] . "</td>";
-						echo "<td>" . $row['adm_status'] . "</td>";
-						echo "<td>";
-							echo '<a href="read.php?id='. $row['adm_AdminId'] .'"><button id="modify">View</button></a>';
-							// echo '<a href="update.php?id='. $row['adm_AdminId'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-							// echo '<a href="delete.php?id='. $row['adm_AdminId'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-						echo "</td>";
-					echo "</tr>";
-				}
-					
-            }
-        }
-    }
-    mysqli_close($db);
-}	
-
-echo "<tr>";
-
-?>

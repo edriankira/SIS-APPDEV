@@ -19,7 +19,7 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Faculty_account")
         //
         if (($dbusername == $loginuser) && ($loginpass == password_verify($loginpass, $dbpassword)))
         {
-            $_SESSION['FacultyId'] = $row['adm_fctId'];
+            $_SESSION['FacultyId'] = $row['adm_fctUserNum'];
             $_SESSION['FacultyName'] = $row['adm_fctfname'] ." " . $row['adm_fctlname'];
             //for correct credential of a users
             echo '<script type="text/javascript">

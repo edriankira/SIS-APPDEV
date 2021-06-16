@@ -24,7 +24,7 @@
   border-collapse: collapse;
 }
 
-td, th {
+table th, td {
   border: 1px solid #dddddd;
   text-align: center;
   padding: 8px;
@@ -59,150 +59,56 @@ tr:nth-child(even) {
 								<section id="banner">
 									<div class="content">
 
-	<form method="post" action="">
-    <br>
-    <br>
-    <br>
-    <center>
-    <h2>Attendance </h2>
+                                        <form method="post" action="">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <center>
+                                            <h2>Attendance </h2>
 
-    <?php
-        $mysqli = NEW mysqli('localhost', 'root', '', 'sisdb');
-        $resultSet = $mysqli->query("SELECT Section_name  FROM section");
-    ?>
+                                            <?php
+                                                $mysqli = NEW mysqli('localhost', 'root', '', 'sisdb');
+                                                $resultSet = $mysqli->query("SELECT Section_name  FROM section");
+                                            ?>
+                                            <input type="text" name="subj" id ="subj" value="<?php include "getsubj.php"?>" readonly>
+                                                <br>
+                                            <select name="term">
+                                                <option value="" >---Select Term---</option>
+                                                <option value="fct_prelim" > PRELIM </option>
+                                                <option value="fct_midterm" > MIDTERM </option><br>
+                                                <option value="fct_final" > FINALS </option><br>
+                                            </select>
+                                            <br>
+                                            <input type="submit" class = "btn" name="submit" id="submit" value="Confirm" />
+                                            <br><br>
+                                            <?php 
+                                            if (isset($_GET['error'])) { ?>
+                                                <p class="error"><?php echo $_GET['error']; ?></p>
+                                            <?php } ?>
 
-    <select name="sect">
-        <?php 
-            while ($rows =$resultSet->fetch_assoc()) {
-                $Section_name = $rows['Section_name'];
-                echo "<option value='$Section_name'> $Section_name </option>";
-            }
-        ?>
-    </select>
+                                            
+                                        </form>	
 
+                                        <table>
+                                            <tr>
+                                                <th rowspan='2'><br>USERID</th>
+                                                <th rowspan='2'><br>Fullname</th>
+                                                <th rowspan='2'><br>Section</th>
+                                                <th colspan='5'>ATTENDANCE </th>
+                                                <th rowspan='2'><br>Actions </th>
+                                            </tr>
+                                            <tr>
+                                                <td>D1 </td>
+                                                <td>D2 </td>
+                                                <td>D3 </td>
+                                                <td>D4 </td>
+                                                <td>D5 </td>
+                                            </tr>
+                                                
 
-    <select name="term">
-        <option value="" >---Select Term---</option>
-        <option value="fct_prelim" > PRELIM </option>
-        <option value="fct_midterm" > MIDTERM </option><br>
-        <option value="fct_final" > FINALS </option><br>
-    </select>
-    <br>
-    <input type="submit" class = "btn" name="submit" id="submit" value="Confirm" />
-    <br><br>
-    <?php 
-    if (isset($_GET['error'])) { ?>
-        <p class="error"><?php echo $_GET['error']; ?></p>
-    <?php } ?>
+                                        </table>
 
-		    <table>
-		  		<tr>
-		    		<th rowspan='2'>ID #</th>
-                    <th rowspan='2'>USERID</th>
-                    <th rowspan='2'>Fullname</th>
-                    <th rowspan='2'>Section </th>
-                    <th rowspan='2'>COURSE</th>
-                    <th colspan='5'>ATTENDANCE </th>
-                    <th rowspan='2'>STATUS </th>
-                    <th rowspan='2'>Actions </th>
-		  		</tr>
-		  		<tr>
-                    <td>D1 </td>
-                    <td>D2 </td>
-                    <td>D3 </td>
-                    <td>D4 </td>
-                    <td>D5 </td>
-                </tr>
-
-                 <?php
-    if(isset($_POST['submit']))
-    {
-        $_SESSION["term"] = $_POST['term'];
-        $getSection = $_POST['sect'];
-        $getTerm = $_POST['term'];
-        require_once "db_conn.php";
-        $sql = "SELECT * from ".$_POST['term']." where section='$getSection'; ";
-            if($result = mysqli_query($conn, $sql)){
-                if(mysqli_num_rows($result) > 0){
-
-                                     
-                    while($row = mysqli_fetch_array($result)){
-                        echo "<tr>";
-                        echo "<td>" . $row['id'] . "</td>";
-                        echo "<td>" . $row['userid'] . "</td>";
-                        echo "<td>" . $row['name'] . "</td>";
-                        echo "<td>" . $row['section'] . "</td>";
-                        echo "<td>" . $row['course'] . "</td>";
-                        echo "<td>" . $row['d1'] . "</td>";
-                        echo "<td>" . $row['d2'] . "</td>";
-                        echo "<td>" . $row['d3'] . "</td>";
-                        echo "<td>" . $row['d4'] . "</td>";
-                        echo "<td>" . $row['d5'] . "</td>";
-
-                        //checking the status of student
-                        $attendance = 0;
-                        $status = '';
-                        $at1 = $row['d1'] ;
-                        $at2 = $row['d2'] ;
-                        $at3 = $row['d3'] ;
-                        $at4 = $row['d4'] ;
-                        $at5 = $row['d5'] ;
-                        if($at1 == 'p' || $at1 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at2 == 'p' || $at2 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at3 == 'p' || $at3 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at4 == 'p' || $at4 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at5 == 'p' || $at5 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-
-                        if($attendance < 3)
-                        {
-                            $status = "INACTIVE";
-                            echo "<td>$status</td>";
-                        }
-                        else if ($attendance == 0) {
-                            $status = " ";
-                            echo "<td>$status</td>";
-                        }
-                        else{
-                            $status = "ACTIVE";
-                            echo "<td>$status</td>";
-                        }
-                        echo "<td>"; echo '<a href="fct_insertrecord.php?id='. $row['id'] .'" class="mr-3" title="Insert Record" data-toggle="tooltip"><span class="fa fa-pencil">Insert</span></a>';
-                        echo "</td>";
-                        echo "</tr>";
-                        }
-                    mysqli_free_result($result);
-                    } else{
-                     echo "No records found!";
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-        }
-    }
-?>
-			</table>
-
-	</form>	
-
-    			
-    						
-										
-										
-										
+                                    </div>
 								</section>
 
 						</div>

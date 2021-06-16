@@ -58,8 +58,9 @@
                         <form action="fct_upload.php" method="post" enctype="multipart/form-data" > 
                            <div class="form-group">
                               <label>Subject</label>
-                              <select name="subj" id ="subj">
-                                 <?php include "../Account_creation/coursestd.php"?>
+                              <input type="text" name="subj" id ="subj" value="<?php include "getsubj.php"?>" readonly>
+                            
+                                 
                               </select><br>
                            </div>
                            <label>Description</label>
