@@ -335,11 +335,11 @@ if(isset($_POST['goAdd'])){
 												<div class="form-group">	
 														<label>Gender <span class="text-danger"></span></label>
 																			
-														<select name="gender" class="form-control <?php echo (!empty($pgender_err)) ? 'is-invalid': ''; ?>">
+														<select name="gender" class="form-control <?php echo (!empty($gender_err)) ? 'is-invalid': ''; ?>">
 															<option value="male">male</option>
 															<option value="female">female</option>
 														</select>
-														<span class="invalid-feedback"><?php echo $pgender_err;?></span>
+														<span class="invalid-feedback"><?php echo $gender_err;?></span>
 														
 													</div>
 												</td>
@@ -357,8 +357,8 @@ if(isset($_POST['goAdd'])){
 													<div class="form-group">
 
 														<label>Email <span class="text-danger"></span></label>
-														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pemail; ?>" placeholder="Enter Email" >
-														<span class="invalid-feedback"><?php echo $email_err;?></span>
+														<input type="email" name="email" id="useremail" class="form-control <?php echo (!empty($pemail_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pemail; ?>" placeholder="Enter Email" >
+														<span class="invalid-feedback"><?php echo $pemail_err;?></span>
 													</div>
 
 													<div class="form-group">
@@ -372,13 +372,78 @@ if(isset($_POST['goAdd'])){
 											</tr>
 											<tr></tr>
 											<tr>
+												<td>School Information<br><br>
+
+													<div class="form-group">
+														<label>Year Level <span class="text-danger"></span></label>
+														<select name ="year" id="year">
+															<option selected value ="select Year">Select Year</option>
+															<option value ="1st Year">1st Year</option>
+															<option value ="2nd Year">2nd Year</option>
+															<option value ="3rd Year">3rd Year</option>
+															<option value ="4th Year">4th Year</option>
+														</select>	
+													</div>
+												</td>
+												<td><br><br>	
+													<div class="form-group">
+														<label>Section<span class="text-danger"></span></label>
+														<select name ="section" id="section">
+														<option selected value ='select Section'>Select Section</option>
+															<script>
+															$(document).ready(function(){
+																$("#year").change(function(){
+																	$("#section").empty();
+																	$("#subject").empty();
+																	var year = $("#year").val();
+																	$.post("getsectionfct.php",{
+																		aYear: year
+																	},function(data, status){
+																	$("#section").html(data);
+																	});
+
+																});											
+															});
+																
+															</script>
+														</select>
+													</div>
+												</td>
+												<td><br><br>	
+													<div class="form-group">
+														<label>Subject<span class="text-danger"></span></label>
+														<select name ="Subject" id="subject">
+														<option selected value ='select Subject'>Select Subject</option>
+															<script>
+																$(document).ready(function(){
+																	$("#section").change(function(){
+																		$("#subject").empty();
+																		var year =  $("#year").val();
+																		var section = $("#section").val();
+																		$.post("getSubjectfct.php",{
+																			aYear: year,
+																			aSection: section
+																		},function(data, status){
+																		$("#subject").html(data);
+																		});
+
+																	});											
+																});
+																	
+															</script>
+														</select>
+													</div>
+												</td>
+											</tr>
+											<tr></tr>
+											<tr>
 												<td colspan = 3>Account Information<br><br>
 													<div class="form-group">
 
 														<label>Username <span class="text-danger"></span></label>
 
-														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
-														<span class="invalid-feedback"><?php echo $username_err;?></span>
+														<input type="text" name="username" id="useremail" class="form-control <?php echo (!empty($pusername_err)) ? 'is-invalid': ''; ?>" value="<?php echo $pusername; ?>" placeholder="Enter Username" >
+														<span class="invalid-feedback"><?php echo $pusername_err;?></span>
 													</div>
 
 													<div class="form-group">
@@ -479,6 +544,7 @@ if(isset($_POST['goAdd'])){
 		<script src="../assets/js/breakpoints.min.js"></script>
 		<script src="../assets/js/util.js"></script>
 		<script src="../assets/js/main.js"></script>
+		
 
 	</body>
 </html>
