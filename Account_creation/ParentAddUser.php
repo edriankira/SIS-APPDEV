@@ -371,6 +371,28 @@ if(isset($_POST['goAdd'])){
 											</tr>
 											<tr></tr>
 											<tr>
+												<td colspan = 3>Child Information<br><br>
+													<label>Student Number <span class="text-danger"></span></label>
+													<input type="text" name="studnumber" id="studnumber" placeholder="Enter Child ID" >
+													<label style="float:right" id="nameholder"></label>
+													<script>
+													$(document).ready(function(){
+														$("#studnumber").keyup(function(){
+															var id = $("#studnumber").val();
+															$.post("namequery.php",{
+																getName: id
+															},function(data, status){
+															$("#nameholder").empty();
+															$("#nameholder").html(data);
+															});			
+
+														});	
+													});
+													</script>
+												</td>
+											</tr>
+											<tr></tr>
+											<tr>
 												<td colspan = 3>Account Information<br><br>
 													<div class="form-group">
 
