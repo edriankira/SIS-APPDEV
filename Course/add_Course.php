@@ -272,9 +272,9 @@ $isExist = true;
 										<span class="opener">Course Management</span>
 											<ul>
 												<li><a href="../Course/course_list.php">List of Courses</a></li>
-												<li><a href="../Course/course_list.php">List of Section</a></li>
-												<li><a href="../Course/course_list.php">List of Subject</a></li>
-												<li><a href="../Course/course_list.php">List of Co/Extracurricular</a></li>
+												<li><a href="../Course/section_list.php">List of Section</a></li>
+												<li><a href="../Course/subject_list.php">List of Subject</a></li>
+												<li><a href="../Course/extra_list.php">List of Co/Extracurricular</a></li>
 											</ul>
 										</li>							
 										<li><a href="../Map/map.php">Campus Map</a></li>

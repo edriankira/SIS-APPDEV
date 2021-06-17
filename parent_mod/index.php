@@ -157,6 +157,7 @@
 										<li><a href="ATTendance.php">ATTendance</a></li>
 										<li><a href="grades.php">Academic Perforamance</a></li>
 										<li><a href="extracuricular.php">Extracuricular Activities</a></li>
+										<li><a href="Stud_events/Event.php">Events</a></li>
 										
 										<li>
 											<span class="opener">General Reports</span>

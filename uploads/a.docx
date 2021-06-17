@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<!--
+   Editorial by HTML5 UP
+   html5up.net | @ajlkn
+   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+   -->
+<html>
+   <head>
+      <title> Records </title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <link rel="stylesheet" href="assets/css/main.css" />
+      <style type="text/css">
+         table {
+         font-family: arial, sans-serif;
+         border-collapse: collapse;
+         }
+         td, th {
+         border: 1px solid #dddddd;
+         text-align: center;
+         padding: 8px;
+         }
+         tr:nth-child(even) {
+         background-color: #fff;
+         }
+      </style>
+   </head>
+   <body class="is-preload">
+      <!-- Wrapper -->
+      <div id="wrapper">
+         <!-- Main -->
+         <div id="main">
+            <div class="inner">
+               <!-- Header -->
+               <header id="header">
+                  <a href="" class="logo"><strong>Faculty</strong> Module</a>
+                  <ul class="icons"><li>sir Edrian Magallanes</li>                     <li><a href="../logout.php">Sign Out</a></li>
+                     </ul>
+               </header>
+               <!-- Banner -->
+               <section id="banner">
+                  <div class="content">
+                     <header>
+                        <h2>Upload File</h2>
+                     </header>
+                     <div id="div">
+                        <form action="fct_upload.php" method="post" enctype="multipart/form-data" > 
+                           <div class="form-group">
+                              <label>Subject</label>
+                              <input type="text" name="subj" id ="subj" value="CCS1202" readonly>
+                            
+                                 
+                              </select><br>
+                           </div>
+                           <label>Description</label>
+                           <textarea name="desc"></textarea><br><br>
+                           <input type="file" name="myfile"> <br><br>
+                           <button type="submit" name="save">upload</button>
+                        </form>
+                        </center>
+                        <br>
+                        </form> 
+                     </div>
+                     <br />
+<b>Warning</b>:  filesize(): stat failed for uploads/PM-TEMPLATE-1-PROJECT-INITITIATION.docx in <b>D:\Xampp\htdocs\SIS-APPDEV(Development)\Faculty\fct_upload.php</b> on line <b>145</b><br />
+<br />
+<b>Warning</b>:  readfile(uploads/PM-TEMPLATE-1-PROJECT-INITITIATION.docx): Failed to open stream: No such file or directory in <b>D:\Xampp\htdocs\SIS-APPDEV(Development)\Faculty\fct_upload.php</b> on line <b>146</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "downloads" in <b>D:\Xampp\htdocs\SIS-APPDEV(Development)\Faculty\fct_upload.php</b> on line <b>149</b><br />

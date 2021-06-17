@@ -219,8 +219,9 @@ if(isset($_POST['goAdd'])){
 
 														<label>Course<span class="text-danger"></span></label>
 
-														<input type="text" name="scourse" id="useremail"class="form-control <?php echo (!empty($Scourse_err)) ? 'is-invalid': ''; ?>" value="<?php echo $SubjCourse; ?>" placeholder="Enter Last Name">
-														<span class="invalid-feedback"><?php echo $Scourse_err;?></span>
+														<select name ="scourse">
+                                                            <?php include "../Account_creation/coursestd.php" ?>
+                                                        </select>
 													</div>
 												</td>
 											</tr>

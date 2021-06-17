@@ -191,7 +191,9 @@ if(isset($_POST['goAdd'])){
 
 														<label>Course<span class="text-danger"></span></label>
 
-														<input type="text" name="scourse" id="useremail"class="form-control <?php echo (!empty($Scourse_err)) ? 'is-invalid': ''; ?>" value="<?php echo $Scourse; ?>" placeholder="Enter Last Name">
+														<select name ="scourse">
+                                                            <?php include "../Account_creation/coursestd.php" ?>
+                                                        </select>
 														<span class="invalid-feedback"><?php echo $Scourse_err;?></span>
 													</div>
 												</td>
@@ -254,10 +256,10 @@ if(isset($_POST['goAdd'])){
 										<li>
 										<span class="opener">Course Management</span>
 											<ul>
-												<li><a href="../Course/course_list.php">List of Courses</a></li>
-												<li><a href="../Course/course_list.php">List of Section</a></li>
-												<li><a href="../Course/course_list.php">List of Subject</a></li>
-												<li><a href="../Course/course_list.php">List of Co/Extracurricular</a></li>
+											<li><a href="../Course/course_list.php">List of Courses</a></li>
+												<li><a href="../Course/section_list.php">List of Section</a></li>
+												<li><a href="../Course/subject_list.php">List of Subject</a></li>
+												<li><a href="../Course/extra_list.php">List of Co/Extracurricular</a></li>
 											</ul>
 										</li>							
 										<li><a href="../Map/map.php">Campus Map</a></li>

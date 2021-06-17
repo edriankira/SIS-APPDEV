@@ -260,17 +260,17 @@
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="index.php">Home</a></li>
+									<li><a href="index.php">Home</a></li>
 										<li><a href="ATTendance.php">ATTendance</a></li>
 										<li><a href="grades.php">Academic Perforamance</a></li>
 										<li><a href="extracuricular.php">Extracuricular Activities</a></li>
+										<li><a href="Stud_events/Event.php">Events</a></li>
 										
 										<li>
 											<span class="opener">General Reports</span>
 											<ul>
 												<li><a href="Attendance1.php">Attendance Report</a></li>
 												<li><a href="general.php">Academic Report </a></li>
-												
 											</ul>
 										</li>
 									</ul>

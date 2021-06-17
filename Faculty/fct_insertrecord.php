@@ -384,7 +384,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 
             <script>
                 $(document).ready(function(){
-                    $("input").change(function(){
+                    $("input").keyup(function(){
                         
                         var d1 =  $("#d1").val();
                         var d2 = $("#d2").val();

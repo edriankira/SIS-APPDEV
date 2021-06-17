@@ -48,11 +48,11 @@ and open the template in the editor.
                                     <td>'.$row["Scode"].'</td>
                                     <td>'.$row["ST"].'</td>';
 //                                    <td>'.$row["subjects"].'</td>';
-                                    if ($row["D1"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D1"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D1"].'</td>'; $absent++;  }
-                                    if ($row["D2"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D2"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D2"].'</td>'; $absent++;  }
-                                    if ($row["D3"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D3"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D3"].'</td>'; $absent++;  }
-                                    if ($row["D4"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D4"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D4"].'</td>'; $absent++;  }
-                                    if ($row["D5"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D5"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D5"].'</td>'; $absent++;  } 
+                                    if (strcasecmp($row["D1"], "p") == 0) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D1"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D1"].'</td>'; $absent++;  }
+                                    if (strcasecmp($row["D2"], "p") == 0) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D2"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D2"].'</td>'; $absent++;  }
+                                    if (strcasecmp($row["D3"], "p") == 0) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D3"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D3"].'</td>'; $absent++;  }
+                                    if (strcasecmp($row["D4"], "p") == 0) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D4"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D4"].'</td>'; $absent++;  }
+                                    if (strcasecmp($row["D5"], "p") == 0) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D5"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D5"].'</td>'; $absent++;  } 
                             echo '<tr>'; 
                               }?>
                         
