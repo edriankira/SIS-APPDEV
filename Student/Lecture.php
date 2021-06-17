@@ -51,7 +51,9 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="index.html" class="logo"><strong>Lecture</strong> Lists</a>
-									
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['std_name']."</li>"
+									?></ul>
 								</header>
 
 							<!-- Content -->

@@ -14,7 +14,6 @@ and open the template in the editor.
             <table class="container">
                 <thead>
                         <tr>
-                            <th><h1>ID</h1></th>
                             <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
                             <th><h1>CODE</h1></th>
@@ -25,6 +24,8 @@ and open the template in the editor.
                             <th><h1>EVAL.</h1></th>
                             <th><h1>ASS.</h1></th>
                             <th><h1>EXAM</h1></th>
+                            <th><h1>TERM</h1></th>
+                            <th><h1>TERM GRADE</h1></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,18 +46,18 @@ and open the template in the editor.
                             while($row = $result->fetch_assoc()) 
                               {
                            echo '<tr>
-                                    <td >'.$row["ID"].'</td>
-                                    <td>'.$row["UID"].'</td>
-                                    <td>'.$_SESSION["std_name"].'</td>
-                                    <td>'.$row["Scode"].'</td>
-                                    <td>'.$row["ST"].'</td>';
-                                   
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["PA"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["GEN"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["AAE"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["EVAL"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["ASS"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["EXAM"].'</td>';
+                           <td>'.$row["UID"].'</td>
+                           <td>'.$_SESSION["std_name"].'</td>
+                           <td>'.$row["Scode"].'</td>
+                           <td>'.$row["ST"].'</td>';
+                           echo '<td class="p-3 mb-2  ">'.$row["PA"].'</td>'; 
+                               echo '<td class="p-3 mb-2 ">'.$row["GEN"].'</td>'; 
+                               echo '<td class="p-3 mb-2 ">'.$row["AAE"].'</td>'; 
+                               echo '<td class="p-3 mb-2 ">'.$row["EVAL"].'</td>'; 
+                               echo '<td class="p-3 mb-2 ">'.$row["ASS"].'</td>'; 
+                               echo '<td class="p-3 mb-2 ">'.$row["EXAM"].'</td>';
+                               echo '<td class="p-3 mb-2 ">'.$row["TERM"].'</td>';
+                               echo '<td class="p-3 mb-2 ">'.$row["Term_grade"].'</td>';
                                         $FinalAVE = $row["PA"] + $row["GEN"] + $row["AAE"] + $row["EVAL"] + $row["ASS"] + $row["EXAM"];
                                     
                             echo '<tr>'; 
@@ -112,8 +113,7 @@ and open the template in the editor.
                         
                     </tbody>
                     <tfoot>
-                           <th><h1>ID</h1></th>
-                            <th><h1>Student ID</h1></th>
+                    <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
                             <th><h1>CODE</h1></th>
                             <th><h1>SUBJECT</h1></th>
@@ -123,6 +123,8 @@ and open the template in the editor.
                             <th><h1>EVAL.</h1></th>
                             <th><h1>ASS.</h1></th>
                             <th><h1>EXAM</h1></th>
+                            <th><h1>TERM</h1></th>
+                            <th><h1>TERM GRADE</h1></th>
                     </tfoot>
 </table>
     </body>

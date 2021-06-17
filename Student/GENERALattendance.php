@@ -43,13 +43,9 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="index.html" class="logo"><strong>General</strong> Attendance</a>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
-									</ul>
+									<ul class="icons"><?php
+									echo "<li>".$_SESSION['std_name']."</li>"
+									?>
 								</header>
 
 							<!-- Content -->
@@ -60,62 +56,7 @@
             <!--<div id="chartContainer" style="height: 370px; width: 100%;"></div>-->
         </div>
     </div><br>
-    <div class="row">
-        <div class="col-sm-3">
-            <div id="attendance">
-                <h5 style="color:darkblue;">Name of event</h5>
-                <i class="fa fa-calendar" aria-hidden="true" style="
-                   font-size:
-                   35px; margin-left: -120px;
-                   "></i>
-                   <h5 
-                       style="margin-top: -22%;
-                              margin-left: 50px;
-                       ">Mathematics Month</h5>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div id="attendance">
-                <h5 style="color:darkblue;">Grades</h5>
-                <i class="far fa-bar-chart" aria-hidden="true" style="
-                   font-size:
-                   35px; margin-left: -60px;
-                   "></i>
-                   <h3 
-                       style="margin-top: -16%;
-                              margin-left: 70px;
-                       ">+10</h3>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div id="attendance">
-                <h5 style="color:darkblue;">Date of event</h5>
-                <i <i class="fas fa-cocktail" aria-hidden="true" style="
-                   font-size:
-                   35px; margin-left: -100px;
-                   "></i>
-                   <h5 
-                       style="margin-top: -16%;
-                              margin-left: 50px;
-                              
-                       ">June 12, 2021</h5>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div id="attendance">
-                <h5 style="color:darkblue;">Subject</h5>
-                <i class="fa fa-book" aria-hidden="true" style="
-                   font-size:
-                   35px; margin-left: -100px;
-                   "></i>
-                   <h5 
-                       style="margin-top: -16%;
-                              margin-left: 70px;
-                              
-                       ">Mathematics</h5>
-            </div>
-        </div>
-    </div><br>
+
 
     <!--<h3 style="color:black;"><span class="blue"></span>Student<span class="blue"></span> <span class="yellow">General Report</span></h3>-->
     <?php
@@ -191,47 +132,7 @@
 								</nav>
 
 							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Ante interdum</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
-								</section>
-
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-										<li class="icon solid fa-phone">(000) 000-0000</li>
-										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
-									</ul>
-								</section>
-
-							<!-- Footer -->
-								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer>
+							
 						</div>
 					</div>
 

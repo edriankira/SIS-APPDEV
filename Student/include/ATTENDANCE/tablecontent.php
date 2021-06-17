@@ -14,7 +14,6 @@ and open the template in the editor.
             <table class="container">
                 <thead>
                         <tr>
-                            <th><h1>ID</h1></th>
                             <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
                             <th><h1>Code</h1></th>
@@ -44,7 +43,6 @@ and open the template in the editor.
                               while($row = $result->fetch_assoc()) 
                               {
                            echo '<tr>
-                                    <td >'.$row["ID"].'</td>
                                     <td>'.$row["UID"].'</td>
                                     <td>'.$_SESSION["std_name"].'</td>
                                     <td>'.$row["Scode"].'</td>
@@ -90,8 +88,7 @@ and open the template in the editor.
                         </script> <?php }    ?>
                     </tbody>
                     <tfoot>
-                             <th><h1>ID</h1></th>
-                            <th><h1>Student ID</h1></th>
+                    <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
                             <th><h1>Code</h1></th>
                             <th><h1>SUBJECT</h1></th>
