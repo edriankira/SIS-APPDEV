@@ -20,7 +20,7 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Parent_account")
         if (($dbusername == $loginuser) && ($loginpass == password_verify($loginpass, $dbpassword)))
         {
             $_SESSION['ParentID'] = $row['adm_prtUserNum'];
-            $_SESSION['ChildStudID'] = $row['adm_prtchildid'];
+            $_SESSION['ChildStudID'] = $row['adm_prtchildId'];
             $_SESSION['ParentName'] = $row['adm_prtfname'] ." " . $row['adm_prtlname'];
 
             //for correct credential of a users

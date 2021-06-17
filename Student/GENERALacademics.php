@@ -2,7 +2,7 @@
 <html>
 <head> 
     
-   <?php include 'include/Session/session.php';?>
+   <?php include 'include/Session/session.php'; ?>
     <?php $present = $absent = 0;?>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -38,11 +38,13 @@
     
     <h1 style="color:black;"><span class="blue"></span>Student<span class="blue"></span> <span class="yellow">Personal Information</pan></h1>
     <?php
+        
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["optionSUB"]) )
         {
+            $_SESSION["shift_query"] = "Sub_code";
             include 'include/PERFORMANCE/tablecontentSELECTED.php';
         }
-        else    {  include 'include/PERFORMANCE/GeneralReportACADS.php';  } ?>
+        else    {  include 'include/PERFORMANCE/tablecontent.php';  } ?>
     <br>
     <div class="select_sub" style="
                             width: 300px;
@@ -54,14 +56,14 @@
             <?php
                             require_once 'include/Connection/DBconnect.php';
 //                            header("Refresh:5");
-                            $sqlOPTION = "SELECT * FROM fct_record";
+                            $sqlOPTION = "SELECT * FROM subjects";
                             $resultOPTION = $connect->query($sqlOPTION);
 
                             if ($resultOPTION->num_rows > 0) { 
                               // output data of each row
                               while($rows = $resultOPTION->fetch_assoc()) 
                               {
-                                  echo '<option value="'.$rows["subjects"].'">'.$rows["subjects"].'</option>';
+                                  echo '<option value="'.$rows["Sub_code"].'">'.$rows["Sub_title"].'</option>';
                               }
                             }     $connect->close();
             ?>

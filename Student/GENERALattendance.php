@@ -1,46 +1,9 @@
 
-
-<?php
- 
-
-$dataPoints = array(
-	array("label"=> "Student", "y"=> 390),
-	array("label"=> "Academics", "y"=> 261),
-	array("label"=> "Registration", "y"=> 158),
-	array("label"=> "Attendance", "y"=> 72),
-	array("label"=> "Enrolled", "y"=> 126)
-);
-	
-?>
 <!DOCTYPE HTML>
 <html>
 <head>  
     <title>General Attendance</title>
-<script>
-window.onload = function () {
- 
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	exportEnabled: true,
-	title:{
-		text: "Student General Report"
-	},
-	subtitles: [{
-		text: "Student Records"
-	}],
-	data: [{
-		type: "pie",
-		showInLegend: "true",
-		legendText: "{label}",
-		indexLabelFontSize: 16,
-		indexLabel: "{label} - #percent%",
-		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-	}]
-});
-chart.render();
- 
-}
-</script>
+
 <?php include 'include/Session/session.php';?>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -152,15 +115,14 @@ chart.render();
                        ">Mathematics</h5>
             </div>
         </div>
-    </div>
-        
-<br><br>
+    </div><br>
+
     <!--<h3 style="color:black;"><span class="blue"></span>Student<span class="blue"></span> <span class="yellow">General Report</span></h3>-->
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" ){ include 'include/ATTENDANCE/tablecontentSELECTED.php';  }
         else    {  include 'include/ATTENDANCE/tablecontent.php';  }
     ?>
-    <br>
+
         
 
     <div class="select_sub" style="
@@ -170,9 +132,9 @@ chart.render();
         <form method="POST" action="">
             <select class="form-select"  name="optionTERM">
                 <option selected>Select Term</option>
-                <option value="fct_prelim">Prelim</option>
-                <option value="fct_midterm">Midterm</option>
-                <option value="fct_final">Finals</option>
+                <option value="Prelim">Prelim</option>
+                <option value="Midterm">Midterm</option>
+                <option value="Finals">Finals</option>
             </select>
             <input name="SUBsubmit" type="submit" value="Submit" style="position: absolute; margin-top: -45px; margin-left: 320px">
         </form>

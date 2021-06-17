@@ -6,10 +6,16 @@
     <?php $present = $absent = 0;?>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="include/CSS/attendanceLayout.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Student Attendance</title>
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<title>Student Attendance</title>
+    <style>
+        .container th 
+        {
+            background-color: #ffcccc;
+        }
+    </style>
 	</head>
 	<body class="is-preload">
 
@@ -48,9 +54,9 @@
         <form method="POST" action="">
             <select class="form-select"  name="optionTERM">
                 <option selected>Select Term</option>
-                <option value="fct_prelim">Prelim</option>
-                <option value="fct_midterm">Midterm</option>
-                <option value="fct_final">Finals</option>
+                <option value="Prelim">Prelim</option>
+                <option value="Midterm">Midterm</option>
+                <option value="Finals">Finals</option>
             </select>
             <input name="SUBsubmit" type="submit" value="Submit" style="position: absolute; margin-top: -45px; margin-left: 320px">
         </form>

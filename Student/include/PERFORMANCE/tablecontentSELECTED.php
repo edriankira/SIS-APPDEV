@@ -17,8 +17,7 @@ and open the template in the editor.
                             <th><h1>ID</h1></th>
                             <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
-                            <th><h1>SECTION</h1></th>
-                            <th><h1>COURSE</h1></th>
+                            <th><h1>CODE</h1></th>
                             <th><h1>SUBJECT</h1></th>
                             <th><h1>Pre.</h1></th>
                             <th><h1>Gen.</h1></th>
@@ -30,11 +29,15 @@ and open the template in the editor.
                     </thead>
                     <tbody>
                         <?php
-                             
+                            
                             require_once 'include/Connection/DBconnect.php';
 //                            header("Refresh:5");
                             $present = $absent = 0;
-                            $sql = "SELECT * FROM fct_record WHERE subjects ='".$_POST["optionSUB"]."' AND userid ='".$_SESSION["stnID"]."' AND course ='".$_SESSION["stdCourse"]."'";
+                             $sql = "SELECT FAC.id AS ID, FAC.userid AS UID, FAC.Subject_code AS Scode, SUB.Sub_title AS ST,
+                                FAC.pa AS PA, FAC.gen AS GEN, FAC.aae AS AAE, FAC.eval AS EVAL,FAC.ass AS ASS , FAC.exam AS EXAM
+                                FROM fct_record AS FAC
+                                INNER JOIN subjects AS SUB
+                                ON FAC.Subject_code = SUB.Sub_code WHERE userid = '".$_SESSION["stnID"]."' AND ".$_SESSION["shift_query"]." ='".$_POST["optionSUB"]."'";
                             $result = $connect->query($sql);
 
                             if ($result->num_rows > 0) { 
@@ -42,20 +45,19 @@ and open the template in the editor.
                             while($row = $result->fetch_assoc()) 
                               {
                            echo '<tr>
-                                    <td >'.$row["id"].'</td>
-                                    <td>'.$row["userid"].'</td>
-                                    <td>'.$row["name"].'</td>
-                                    <td>'.$row["section"].'</td>
-                                    <td>'.$row["course"].'</td>
-                                    <td>'.$row["subjects"].'</td>';
-                                    
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["pa"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["gen"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["aae"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["eval"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["ass"].'</td>'; 
-                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["exam"].'</td>';
-                                        $FinalAVE = $row["pa"] + $row["gen"] + $row["aae"] + $row["eval"] + $row["ass"] + $row["exam"];
+                                    <td >'.$row["ID"].'</td>
+                                    <td>'.$row["UID"].'</td>
+                                    <td>'.$_SESSION["std_name"].'</td>
+                                    <td>'.$row["Scode"].'</td>
+                                    <td>'.$row["ST"].'</td>';
+                                   
+                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["PA"].'</td>'; 
+                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["GEN"].'</td>'; 
+                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["AAE"].'</td>'; 
+                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["EVAL"].'</td>'; 
+                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["ASS"].'</td>'; 
+                                        echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["EXAM"].'</td>';
+                                        $FinalAVE = $row["PA"] + $row["GEN"] + $row["AAE"] + $row["EVAL"] + $row["ASS"] + $row["EXAM"];
                                     
                             echo '<tr>'; 
                               } }else{
@@ -113,8 +115,7 @@ and open the template in the editor.
                            <th><h1>ID</h1></th>
                             <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
-                            <th><h1>SECTION</h1></th>
-                            <th><h1>COURSE</h1></th>
+                            <th><h1>CODE</h1></th>
                             <th><h1>SUBJECT</h1></th>
                             <th><h1>Pre.</h1></th>
                             <th><h1>Gen.</h1></th>

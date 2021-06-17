@@ -3,7 +3,7 @@
 require_once "db_conn.php";
 session_start();
 // Define variables and initialize with empty values
-$d1 = $d2 =  $d3 =  $d4 = $d5 = $pa = $gen = $aae = $eval = $ass = $exam  ="";
+$d1 = $d2 =  $d3 =  $d4 = $d5 = $pa = $gen = $aae = $eval = $ass = $exam  = $termgrade ="";
 $d1_err = $d2_err = $d3_err =  $d4_err = $d5_err = $pa_err = $gen_err = $aae_err = $eval_err  = $ass_err=  $exam_err ="";
  
 // Processing form data when form is submitted
@@ -89,15 +89,21 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         } else{
             $exam = $input_exam;
         }
+        $input_grade = trim($_POST["termgrade"]);
+        if(empty($input_d1)){  
+        } else{
+            $termgrade = $input_grade;
+        }
+
     // Check input errors before inserting in database
 
         // Prepare an update statement
-        $sql = "UPDATE ".$_SESSION["term"]." SET d1=?, d2=?, d3=?, d4=?, d5=?, pa=?, gen=?, aae=?, eval=?, ass=?, exam=? WHERE id=?";
+        $sql = "UPDATE fct_record SET d1=?, d2=?, d3=?, d4=?, d5=?, pa=?, gen=?, aae=?, eval=?, ass=?, exam=?, term_grade = ? WHERE id=?";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssssssssssi", $param_d1, $param_d2, $param_d3, $param_d4, $param_d5, $param_pa,
-                $param_gen, $param_aae, $param_eval, $param_ass, $param_exam, $param_id);
+            mysqli_stmt_bind_param($stmt, "sssssssssssds", $param_d1, $param_d2, $param_d3, $param_d4, $param_d5, $param_pa,
+                $param_gen, $param_aae, $param_eval, $param_ass, $param_exam,$param_termgrade, $param_id);
             
             // Set parameters
             $param_d1 = $d1;
@@ -112,6 +118,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             $param_ass = $ass;
             $param_exam = $exam;
             $param_id = $id;
+            $param_termgrade = $termgrade;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -173,6 +180,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     $eval = $row["eval"];
                     $ass = $row["ass"];
                     $exam = $row["exam"];
+                    $termgrade = $row["term_grade"];
                    
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
@@ -249,9 +257,9 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                                 <th rowspan='2' style="text-align: center;padding: 10px;">Section </th> -->
                                 <th colspan='5' style="text-align: center;padding: 10px;">ATTENDANCE </th>
                                 <th colspan='5' style="text-align: center;padding: 10px;">ACTIVITY </th>
-                                <th rowspan='2' style="text-align: center;padding: 10px;">EXAM </th>
-                                <th rowspan='2' style="text-align: center;padding: 10px;"> COEXTRA</th>
-                                <th rowspan='2' style="text-align: center;padding: 10px;">Actions </th>
+                                <th rowspan='2' style="text-align: center;padding: 10px;"><br>EXAM </th>
+                                <th rowspan='2' style="text-align: center;padding: 10px;"><br>COEXTRA</th>
+                                <th rowspan='2' style="text-align: center;padding: 10px;"><br>Term Grade </th>
                                 </tr>
                                 <tr>
                                 <td>D1 </td>
@@ -268,10 +276,13 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                                 </thead>
                                 <tbody>
                                 <tr>
-                    <h2 class="mt-5">Grading</h2>
-                    <h2 class="mt-5"><?php echo $row['FullName'] ?></h2>
-                    <h3 class="mt-5"><?php include "getsubj.php" ?></h2>
-                    <h3 class="mt-5"><?php  ?></h2>
+                    <h2 class="mt-5">Grading</h2><?php
+                    echo "<h2 class='mt-5'> ".$row['FullName']."</h2>";
+                    echo"<h3 class='mt-5'> ".$row['userid']."</h2>";
+                    
+                    ?>
+                    <h3 class="mt-5"><?php include "getsubj.php"; ?></h2>
+                    
                     <br>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                     
@@ -283,47 +294,47 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                                         // echo "<td>" . $row['section'] . "</td>";
                                         ?>
                                         <td>
-                                        <input type="text" style="width: 50px;height: 35px;" name="d1" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $d1;?>">
+                                        <input type="text" style="width: 50px;height: 35px;" id="d1" name="d1" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $d1;?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="d2" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value ="<?php echo $d2;?>">
+                                        <input type="text" id="d2" name="d2" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value ="<?php echo $d2;?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="d3" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value ="<?php echo $d3;?>">
+                                        <input type="text" id="d3" name="d3" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value ="<?php echo $d3;?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="d4" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $d4; ?>">
+                                        <input type="text" id="d4" name="d4" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $d4; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="d5" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $d5; ?>">
+                                        <input type="text" id="d5" name="d5" style="width: 50px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $d5; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="pa" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $pa; ?>">
+                                        <input type="number" id="pa" min="0" max="100" name="pa" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $pa; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="gen" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $gen; ?>">
+                                        <input type="number" id="gen" min="0" max="100" name="gen" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $gen; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="aae" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $aae; ?>">
+                                        <input type="number" min="0" max="100" id="aae" name="aae" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $aae; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="eval" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $eval; ?>">
+                                        <input type="number" min="0" max="100" id="eval" name="eval" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $eval; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="ass" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $ass; ?>">
+                                        <input type="number" min="0" max="100" id="ass" name="ass" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $ass; ?>">
                                         </td>
 
                                         <td>
-                                        <input type="text" name="exam" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $exam; ?>">
+                                        <input type="number" min="0" max="100" id="exam" name="exam" style="width: 60px;height: 35px;" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>" value = "<?php echo $exam; ?>">
                                         </td>
 
                                         <td>
@@ -333,20 +344,24 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                                                 <option value="fct_midterm" > Programming Contest </option><br>
                                                 <option value="fct_final" > Science Fair </option><br>
                                             </select>
-                                        </td>   
+                                        </td>  
+                                       
+                                        
+
 
                                         <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                                         <td>
-                                        <input type="submit" id="submit" value="Submit">
-
-                                        <br><br>
-                                        <a href="fct_grade.php">Cancel</a>
+                                        <input type= "text" id="termgrade" name='termgrade' value="<?php echo $termgrade ?>" readonly>
                                         </td>
                                         <?php
                                         echo "</tr>";
                                         echo "</tbody>";                            
                                         echo "</table>";
+                                        
                                         ?>
+                                         <center><input type="submit" id="submit" value="Submit"></center>
+                                        <br>
+                                        <center><a href="fct_grade.php">Cancel</a></center>
 										</form>
 
 										
@@ -366,6 +381,43 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+
+            <script>
+                $(document).ready(function(){
+                    $("input").change(function(){
+                        
+                        var d1 =  $("#d1").val();
+                        var d2 = $("#d2").val();
+                        var d3 =  $("#d3").val();
+                        var d4 = $("#d4").val();
+                        var d5 =  $("#d5").val();
+                        var pa = $("#pa").val();
+                        var gen =  $("#gen").val();
+                        var aae = $("#aae").val();
+                        var eval =  $("#eval").val();
+                        var ass = $("#ass").val();
+                        var exam =  $("#exam").val();
+
+                        $.post("gradecompute.php",{
+                            gd1 : d1,
+                            gd2 : d2,
+                            gd3 : d3,
+                            gd4 : d4,
+                            gd5: d5,
+                            gpa : pa,
+                            ggen : gen,
+                            gaae : aae,
+                            geval : eval, 
+                            gass : ass,
+                            gexam : exam
+                        },function(data, status){
+                        $("#termgrade").val(data);
+                        });
+
+                    });											
+                });
+																	
+            </script>
 
 	</body>
 </html>

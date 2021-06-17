@@ -14,11 +14,10 @@ and open the template in the editor.
             <table class="container">
                 <thead>
                         <tr>
-                            <th><h1>ID</h1></th>
+                          <th><h1>ID</h1></th>
                             <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
-                            <th><h1>SECTION</h1></th>
-                            <th><h1>COURSE</h1></th>
+                            <th><h1>Code</h1></th>
                             <th><h1>SUBJECT</h1></th>
                             <th><h1>DAY 1</h1></th>
                             <th><h1>DAY 2</h1></th>
@@ -33,26 +32,29 @@ and open the template in the editor.
                             require_once 'include/Connection/DBconnect.php';
 //                            header("Refresh:5");
                             $present = $absent = 0;
-                            $sql = "SELECT * FROM ".$_POST["optionTERM"]." WHERE  userid ='".$_SESSION["stnID"]."'";
+                              $sql = "SELECT FAC.id AS ID, FAC.userid AS UID, FAC.Subject_code AS Scode, SUB.Sub_title AS ST, FAC.d1 AS D1, FAC.d2 AS D2, FAC.d3 AS D3, FAC.d4 AS D4, FAC.d5 AS D5
+                                        FROM fct_record AS FAC
+                                        INNER JOIN subjects AS SUB
+                                        ON FAC.Subject_code = SUB.Sub_code WHERE userid = '".$_SESSION["stnID"]."' AND term ='".$_POST["optionTERM"]."'";
                             $result = $connect->query($sql);
 
                             if ($result->num_rows > 0) { 
                               // output data of each row
                               while($row = $result->fetch_assoc()) 
                               {
-                            echo '<tr>  
-                                    <td >'.$row["id"].'</td>
-                                    <td>'.$row["userid"].'</td>
-                                    <td>'.$row["name"].'</td>
-                                    <td>'.$row["section"].'</td>
-                                    <td>'.$row["course"].'</td>
-                                    <td>'.$row["subjects"].'</td>';
-                                    if ($row["d1"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["d1"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["d1"].'</td>'; $absent++;  }
-                                    if ($row["d2"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["d2"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["d2"].'</td>'; $absent++;  }
-                                    if ($row["d3"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["d3"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["d3"].'</td>'; $absent++;  }
-                                    if ($row["d4"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["d4"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["d4"].'</td>'; $absent++;  }
-                                    if ($row["d5"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["d5"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["d5"].'</td>'; $absent++;  } 
-                            echo '<tr>';        
+                            echo '<tr>
+                                    <td >'.$row["ID"].'</td>
+                                    <td>'.$row["UID"].'</td>
+                                    <td>'.$_SESSION["std_name"].'</td>
+                                    <td>'.$row["Scode"].'</td>
+                                    <td>'.$row["ST"].'</td>';
+//                                    <td>'.$row["subjects"].'</td>';
+                                    if ($row["D1"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D1"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D1"].'</td>'; $absent++;  }
+                                    if ($row["D2"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D2"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D2"].'</td>'; $absent++;  }
+                                    if ($row["D3"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D3"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D3"].'</td>'; $absent++;  }
+                                    if ($row["D4"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D4"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D4"].'</td>'; $absent++;  }
+                                    if ($row["D5"] == "P" ) { echo '<td class="p-3 mb-2 bg-primary text-white">'.$row["D5"].'</td>'; $present++;} else { echo '<td class="p-3 mb-2 bg-danger text-white">'.$row["D5"].'</td>'; $absent++;  } 
+                            echo '<tr>';     
                               }?>
                         
                          <?php
@@ -91,11 +93,10 @@ and open the template in the editor.
                         </script> <?php }    ?>
                     </tbody>
                     <tfoot>
-                            <th><h1>ID</h1></th>
+                          <th><h1>ID</h1></th>
                             <th><h1>Student ID</h1></th>
                             <th><h1>Full Name</h1></th>
-                            <th><h1>SECTION</h1></th>
-                            <th><h1>COURSE</h1></th>
+                            <th><h1>Code</h1></th>
                             <th><h1>SUBJECT</h1></th>
                             <th><h1>DAY 1</h1></th>
                             <th><h1>DAY 2</h1></th>

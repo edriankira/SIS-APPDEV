@@ -88,7 +88,7 @@ tr:nth-child(even) {
                                                 <th rowspan='2'><br>Section</th>
                                                 <th colspan='5'>ATTENDANCE </th>
                                                 <th rowspan='2'><br>Term</th>
-												<th rowspan='2'><br>Action</th>
+												<!-- <th rowspan='2'><br>Action</th> -->
                                             </tr>
                                             <tr>
                                                 <td>D1 </td>

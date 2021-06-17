@@ -6,11 +6,16 @@
     <?php $present = $absent = 0;?>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="include/CSS/attendanceLayout.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Student Performance</title>
-    
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<title>Student Performance</title>
+    <style>
+                .container th 
+        {
+            background-color: #ffcccc;
+        }
+    </style>
 	</head>
 	<body class="is-preload">
 
@@ -40,6 +45,7 @@
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["optionSUB"]) )
         {
+            $_SESSION["shift_query"] = "term";
             include 'include/PERFORMANCE/tablecontentSELECTED.php';
         }
         else    {  include 'include/PERFORMANCE/tablecontent.php';  } ?>
@@ -54,14 +60,14 @@
             <?php
                             require_once 'include/Connection/DBconnect.php';
 //                            header("Refresh:5");
-                            $sqlOPTION = "SELECT * FROM fct_record";
+                            $sqlOPTION = "SELECT term FROM fct_record WHERE userid = '".$_SESSION["stnID"]."' GROUP BY term";
                             $resultOPTION = $connect->query($sqlOPTION);
 
                             if ($resultOPTION->num_rows > 0) { 
                               // output data of each row
                               while($rows = $resultOPTION->fetch_assoc()) 
                               {
-                                  echo '<option value="'.$rows["subjects"].'">'.$rows["subjects"].'</option>';
+                                  echo '<option value="'.$rows["term"].'">'.$rows["term"].'</option>';
                               }
                             }     $connect->close();
             ?>

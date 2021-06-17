@@ -106,11 +106,10 @@
 											 <h3 id="titleview">Student Name:
                                            <?php 
                                                 $res="";
-                                                $student= $_SESSION['ChildStudID'];  
-                                                $sq="SELECT *FROM adm_studentuser WHERE adm_stdUserNum LIKE '%$student%' ";
+                                                $sq="SELECT * FROM adm_StudentUser WHERE adm_stdUserNum =  '".$_SESSION['ChildStudID']."' ";
                                                 $res = mysqli_query($link, $sq);
                                                  while($row = mysqli_fetch_array($res)){
-                                               echo $row['adm_stdfname']." ".$row['adm_stdlname'];
+                                              	  echo $row['adm_stdfname']." ".$row['adm_stdlname'];
                                                    }
                                                 ?>  
                                                 </h3>
@@ -135,8 +134,8 @@
 													if (isset($_POST['submit'])) {
 													 $term=$_POST['term'];
 
-                                                     $acc= $_SESSION['ChildStudID'];	
-													$sql="SELECT *FROM fct_record WHERE userid LIKE '%$acc%' AND term LIKE '%$term%'";
+                                                    $acc= $_SESSION['ChildStudID'];	
+													$sql="SELECT *FROM fct_record WHERE userid = '$acc' AND term LIKE '%$term%'";
 													if($result = mysqli_query($link, $sql)){
 														if(mysqli_num_rows($result) > 0){
 
@@ -175,6 +174,11 @@
 																		$count = "";
 																		$status = '';
 																		$remarks="";
+																		  if (empty($d1) || empty($d2) || empty($d3)||empty($d4)||empty($d5)) {
+                                                                             $total_count=0;
+                                                                             $count = 0;
+                                                                             }
+                                                                             else{
 																		if($d1 == 'p' || $d1 == 'P')
 																		{  
 
@@ -205,7 +209,7 @@
 																		else{
 																			$remarks="Failed";
 																		}
-																	
+																	}
 																		echo "<td>" .  $total_count ."%"."</td>";
 
 																		echo "<td>" . $remarks . "</td>";
@@ -264,9 +268,9 @@
 										<li>
 											<span class="opener">General Reports</span>
 											<ul>
-												<li><a href="#">Attendance Report</a></li>
+												<li><a href="Attendance1.php">Attendance Report</a></li>
 												<li><a href="general.php">Academic Report </a></li>
-												<li><a href="#">Extracuricular Report</a></li>
+												
 											</ul>
 										</li>
 									</ul>

@@ -20,7 +20,7 @@ and open the template in the editor.
    { 
          echo '<script type="text/javascript">
                                   swal("Signed out!", "Thank you!", "success").then(function() {
-                                  window.location = "index.php";});
+                                  window.location = "../login.php";});
                                   </script>';
          die();
    }

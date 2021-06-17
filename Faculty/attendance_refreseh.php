@@ -11,7 +11,7 @@
         FROM `fct_record` 
         JOIN adm_studentuser ON
         adm_studentuser.adm_stdUserNum = fct_record.userid
-        WHERE fct_record.Subject_code = '".$_POST['subj']."' AND term LIKE '%$term%";
+        WHERE fct_record.Subject_code = '".$_POST['subj']."' AND term LIKE '%$term%'";
 
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) > 0){
@@ -26,10 +26,12 @@
                 echo "<td> ".$row['d4']." </td>";
                 echo "<td> ".$row['d5']." </td>";
                 echo "<td> ".$row['term']." </td>";
-                echo "<td>"; echo '<a href="fct_insertrecord.php?id='. $row['id'] .'" class="mr-3" title="Insert Record" data-toggle="tooltip"><span class="fa fa-pencil">Insert</span></a>';
+                // echo "<td>"; echo '<a href="fct_insertrecord.php?id='. $row['id'] .'" class="mr-3" title="Insert Record" data-toggle="tooltip"><span class="fa fa-pencil">Insert</span></a>';
                 echo "</tr>";
 
             }
+        }else{
+            echo mysqli_error($conn);
         }
 
        }

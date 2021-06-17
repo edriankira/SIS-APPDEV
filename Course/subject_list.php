@@ -50,7 +50,7 @@
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
-									<button style="float:right;"><a href="add_section.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Create New Subject</button></a>
+									<button style="float:right;"><a href="add_subject.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Create New Subject</button></a>
                                     <br><br><br>
 									<?php
                                         // Include config file

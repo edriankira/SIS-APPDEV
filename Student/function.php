@@ -12,8 +12,11 @@ and open the template in the editor.
     <body>
         <?php   
             session_start();
-            $_SESSION["subject"] = "Mobile Application";
-            header("location: Lecture_View.php");
+            if (isset($_GET["link"]))
+            {   $subjects = $_GET["link"];
+                $_SESSION["subject"] = $subjects;
+                header("location: Lecture_View.php");
+            }
         ?>
     </body>
 </html>

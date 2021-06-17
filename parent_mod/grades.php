@@ -25,7 +25,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="assets/css/main.css" />	
-
 	</head>
 	<body class="is-preload">
 
@@ -123,83 +122,35 @@
                                     echo "<tr>";
                                         echo "<th>Term</th>";
                                         echo "<th>Subject</th>";
-                                        echo "<th>Grade</th>";
-                                        echo "<th>Remarks</th>";
-                                        
-                                    echo "</tr>";
-                                echo "</thead>";
+                                       
+                                         echo "<th>Preliminary</th>";
+                                          echo "<th>Generalization</th>";
+                                           echo "<th>Analysis</th>";
+                                            echo "<th>Assignment</th>";
+                                             echo "<th>Exam</th>";
+                                              echo "<th>Average</th>";
+                                         echo "<th>Remarks</th>";
+                                         echo "</tr>";
+                                         echo "</thead>";
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
                                         echo "<tr>";
                                         echo "<td>" . $row['term'] . "</td>";
                                         echo "<td>" . $row['Subject_code'] . "</td>";
-                                        //vclass
-                                            $d1 = $row['d1'] ;
-                                            $d2 = $row['d2'] ;
-                                            $d3 = $row['d3'] ;
-                                            $d4 = $row['d4'] ;
-                                            $d5 = $row['d5'] ;
-                                            $count = "";
-                                            $status = '';
-                                             $remarks="";
-                                              if($d1 == 'p' || $d1 == 'P')
-                                              {  
-                                                $count = (int)$count + 1;
-                                              }
-                                              if($d2 == 'p' || $d2 == 'P')
-                                              {   
-                                              $count = (int)$count + 1;
-                                              }
-                                              if($d3 == 'p' || $d3 == 'P')
-                                              {   
-                                                $count = (int)$count + 1;
-                                              }
-                                              if($d4 == 'p' || $d4 == 'P')
-                                              {   
-                                                 $count = (int)$count + 1;
-                                               }
-                                               if($d5 == 'p' || $d5 == 'P')
-                                               {   
-                                               $count = (int)$count + 1;
-                                               }
-                                                $total_count=$count*20;
-
-                                                $att=$total_count*.05;
-
-                                        $pa=$row['pa'];
-                                        $pa_total=$pa*.05;
-
-                                        $gen=$row['gen'];
-                                        $gen_total=$gen*.05;
-
-                                        $vclass=$pa_total+$gen_total+$att;
-                                         
-                                        
-                                         //learning conpetency
-                                         $aae=$row['aae'];
-                                          $aae_total=$aae *.20;
-
-                                        $eval=$row['eval'];
-                                         $eval_total=$eval *.15;
-
-                                         $ass=$row['ass'];
-                                         $ass_total=$ass*.05;                                        
-                                          $Lcom=$aae_total+$eval_total+$ass_total;
-
-                                         //exam total
-                                        $exam=$row['exam'];
-                                         $exam_total=$exam *.35;
-
-
-                                        $total_average=$vclass+$Lcom+$exam_total;
-                                        $remarks="";
+                                        echo "<td>" . $row['pa'] . "</td>";
+                                        echo "<td>" . $row['gen'] . "</td>";
+                                        echo "<td>" . $row['aae'] . "</td>";
+                                        echo "<td>" . $row['ass'] . "</td>";
+                                        echo "<td>" . $row['exam'] . "</td>";
+                                        echo "<td>" . $row['term_grade'] ."%". "</td>";
+                                        $total_average=$row['term_grade']; 
                                         if ( $total_average>=75) {
                                            $remarks="Passed";
-                                        }
+                                          }
                                         else{
                                             $remarks="Failed";
                                         }
-                                        echo "<td>" .  $total_average ."%". "</td>";
+                                        
                                         echo "<td>" . $remarks . "</td>";
                                     echo "</tr>";
                                 
@@ -270,9 +221,9 @@
 										<li>
                                             <span class="opener">General Reports</span>
                                             <ul>
-                                                <li><a href="#">Attendance Report</a></li>
+                                                <li><a href="Attendance1.php">Attendance Report</a></li>
                                                 <li><a href="general.php">Academic Report </a></li>
-                                                <li><a href="#">Extracuricular Report</a></li>
+                                               
                                             </ul>
                                         </li>
 									</ul>

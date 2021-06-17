@@ -1,79 +1,101 @@
-<!-- <?php 
+	<?php
 	session_start();
-	if(!isset($_SESSION['ParentName'])){
-		session_destroy();
-		header("location: ../login.php");
-		exit();
-	}
-?> -->
+    $ac= $_SESSION['ChildStudID'];
+  $con=mysqli_connect("localhost:3306","root","","sisappdev");
+   $count = "";
+   $absent="";
+     $query1="SELECT Sub_code FROM subjects 
+JOIN adm_studentUser ON
+adm_StudentUser.adm_stdYear = subjects.sub_year AND
+adm_StudentUser.adm_stdCourse = subjects.sub_course
+ WHERE adm_studentuser.adm_stdUserNum LIKE '%$ac%'";
+$result1=mysqli_query($con,$query1);
+  if (isset($_POST['submit'])) {
+    $acc= $_SESSION['ChildStudID'];
+   $term=$_POST['name'];
+   $sub=$_POST['subject'];
+   $query="SELECT * FROM `fct_record` WHERE term LIKE '%$term%' AND userid LIKE '%$acc%' AND Subject_code LIKE '%$sub%'";
+    $total_count="";
+    $fi=mysqli_query($con,$query);
+    while ($row=mysqli_fetch_assoc($fi)) {
+          $d1 = $row['d1'] ;
+          $d2 = $row['d2'] ;
+          $d3 = $row['d3'] ;
+          $d4 = $row['d4'] ;
+          $d5 = $row['d5'] ;
+         
+           if (empty($d1) || empty($d2) || empty($d3)||empty($d4)||empty($d5)) {
+             $count=0; $absent=0;
+             }
+            else{
+             if($d1 == 'p' || $d1 == 'P')
+             {   
+                  $count = (int)$count + 1;
+              }
+              else{
+              	  $absent = (int)$absent + 1;
+                 }
+            if($d2 == 'p' || $d2 == 'P')
+              {   
+                $count = (int)$count + 1;
+              }
+               else{
+              	  $absent = (int)$absent + 1;
+              }
+               if($d3 == 'p' || $d3 == 'P')
+               {   
+                 $count = (int)$count + 1;
+                 }
+                  else{
+              	  $absent = (int)$absent + 1;
+                }
+               if($d4 == 'p' || $d4 == 'P')
+                {   
+                 $count = (int)$count + 1;
+               }
+                else{
+              	  $absent = (int)$absent + 1;
+                   }
+                if($d5 == 'p' || $d5 == 'P')
+                {   
+                 $count = (int)$count + 1;
+                }
+                 else{
+              	   $absent = (int)$absent + 1;
+                   }
+                                            
+                
+                }
+           } 
+       }
+  ?>			
+ 
 <!DOCTYPE HTML>
-
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 	<head>
-		<title>Final Attendace</title>
+		<title>Generic - Editorial by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="../assets/css/mainAdmin.css" />
-		
-
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		
-		
-
-	<style>
-		#addbtn{
-			text-align: center;
-			width: 60px;
-			height: 35px;
-			font-size: 12px;
-			float: right;
-			margin: 0;
-			text-decoration: none;
-		}
-		a{
-			text-decoration: none;	
-		}
-		#titleview{
-			display:block;
-		}
-		#viewAdmin{
-			display:block;
-		}
-		#modify{
-			width:65px;
-			height: 30px;
-			outline: none;
-		}
-		table th,td{
-			text-align: center;
-			width: 700px;
-		}
-		table{
-			border-right:solid 1px rgba(210, 215, 217, 0.75);
-			border-left: solid 1px rgba(210, 215, 217, 0.75);;
-		}
-		/* #viewScreen{
-			width: 500px;
-			height: 500px;
-			display: block;
-			background-color: black;
-			z-index: 1;
-			border: 1px solid black;
-
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		} */
-	</style>
-
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style >
+				section are{
+				height: 200px
+				width 100px
+			}
+			body {
+				align-self: center;
+                width: 1500px;
+			}
+			   
+		</style>
 	</head>
 	<body class="is-preload">
-		<!-- <div id="viewScreen">
-			aaaaaaaaaaaa
-		</div> -->
+
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -83,190 +105,142 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Attendance </strong></a>
-									<ul class="icons"><?php
-									echo "<li>".$_SESSION['ParentName']."</li>"
-									?>
-										<li><a href="../logout.php">Sign Out</a></li>
+									<a href="#" class="logo"><strong>Parent View</strong> information of student</a>
+								  <ul class="icons"><?php
+                  echo "<li>".$_SESSION['ParentName']."</li>"
+                  ?>
+                    <li><a href="../logout.php">Sign Out</a></li>
+                  
+                  </ul>
 								</header>
-
-							<!-- Banner -->
-								<section id="banner">
+								<br>
+								<br>
+								<section id="banner" >
 									<div class="content">
-										<header>
-											<h2 id="titleview">Midterm Attendance</h2>
-										</header>
-                                        
-                                            <div class="container-fluid">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                        
-                                                                        <a href="Attendance.php"><input type="submit"  value="Prelim"></a>
-                                                                        <a href="Attendance1.php"><input type="submit"  value="Midterm"></a>
-                                                                        <a href="Attendance2.php"><input type="submit"  value="Finals"></a>
-                                                                          <br><br><br>
-                                                                <?php
-                                                                // Include config file
-                                                                require_once "config.php";
-                                                            
-                                                                //this line of code create a search bar
-                                                                  $acc="";
-                                                               	 $prtname=$_SESSION['ParentName'];
-                                                                 $wert="SELECT * FROM adm_parentuser WHERE adm_prtusername LIKE '%$prtname%'";
-                                                                 $res=mysqli_query($link,$wert);
-                                                                  while ($row=mysqli_fetch_array($res)) {
-                                                                     $acc=$row['adm_childld'];
-                                                                      }
-													                 //if the inputed number of the user is equal to usir_id and section
-													                $sql="SELECT *FROM fct_midterm  WHERE userid LIKE '%$acc%'";
-                                                                if($result = mysqli_query($link, $sql)){
-                                                                   if(mysqli_num_rows($result) > 0){
-
-															echo '<table class="table table-bordered table-striped">';
-																echo "<thead>";
-																	echo "<tr>";
-																		echo "<th>Name</th>";
-																		echo "<th>SUBJECT</th>";
-																	
-																		echo "<th>Day 1</th>";
-																		echo "<th>Day 2</th>";
-																		echo "<th>Day 3</th>";
-																		echo "<th>Day 4</th>";
-																		echo "<th>Day 5</th>";
-																	    echo "<th>Attendance</th>";
-																		echo "<th>Remarks</th>";
-																		
-																	echo "</tr>";
-																echo "</thead>";
-																echo "<tbody>";
-																while($row = mysqli_fetch_array($result)){
-																		echo "<tr>";
-																		echo "<td>" . $row['name'] . "</td>";
-																		echo "<td>" . $row['course'] . "</td>";
-																		echo "<td>" . $row['d1'] . "</td>";
-																		echo "<td>" . $row['d2'] . "</td>";
-																		echo "<td>" . $row['d3'] . "</td>";
-																		echo "<td>" . $row['d4'] . "</td>";
-																		echo "<td>" . $row['d5'] . "</td>";
-
-																		$d1 = $row['d1'] ;
-																		$d2 = $row['d2'] ;
-																		$d3 = $row['d3'] ;
-																		$d4 = $row['d4'] ;
-																		$d5 = $row['d5'] ;
-																		$count = 0;
-																		$status = '';
-																		$remarks="";
-																		if($d1 == 'p' || $d1 == 'P')
-																		{  
-
-																		$count = (int)$count + 1;
-																		}
-																		if($d2 == 'P' || $d2 == 'P')
-																			{   
-																			$count = (int)$count + 1;
-																			}
-																			if($d3 == 'p' || $d3 == 'P')
-																			{   
-																				$count = (int)$count + 1;
-																					}
-																				if($d4 == 'p' || $d4 == 'P')
-																				{   
-																				$count = (int)$count + 1;
-																				}
-																				if($d5 == 'p' || $d5 == 'P')
-																				{   
-																				$count = (int)$count + 1;
-																				}
-																				
-																			$total_count=$count*20;
-																			$remarks="";
-																		if ( $total_count>=75) {
-																		$remarks="Passed";
-																		}
-																		else{
-																			$remarks="Failed";
-																		}
-																	
-																		echo "<td>" .  $total_count ."%"."</td>";
-
-																		echo "<td>" . $remarks . "</td>";
-																		
-																	echo "</tr>";
-																
-																}
-                                                                            echo "</tbody>";                            
-                                                                        echo "</table>";
-                                                                        // Free result set
-                                                                        mysqli_free_result($result);
-                                                                    }
-
-
-                                                                     else{
-                                                                        echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
-                                                                    }
-                                                                } else{
-                                                                    echo "Oops! Please Enter the Details Above";
-                                                                }
-                                                                // Close connection
-                                                                mysqli_close($link);
-                                                                ?>
-                                                            </div>
-                                                        </div>        
-                                                    </div>
-									</div>
 									
-								</section>
-						</div>
-					</div>
+									
+                              <head>
+                                  <h3 id="titleview">Student Name:
+                        <?php 
+                          $res="";
+                           $student= $_SESSION['ChildStudID'];  
+                          $sq="SELECT *FROM adm_studentuser WHERE adm_stdUserNum LIKE '%$student%' ";
+                          $res = mysqli_query($con, $sq);
+                            while($row = mysqli_fetch_array($res)){
+                             echo $row['adm_stdfname']." ".$row['adm_stdlname'];
+                            }
+                         ?>  
+                         </h3>
+                           <h5 id="titleview">Please select a term to display the student attendance chart</h5>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+                          <?php
+                                if (empty($count)) {
+                                	 echo "['Absent',". $absent."],";
+                                }
+                                elseif (empty($absent)) {
+                                	 echo "['Present',". $count."],";
+                                }
+                                else{
+                                echo "['Present',". $count."],";
+                                 echo "['Absent',". $absent."],";
+                                }
+                             ?>
+        ]);
+        var options = {
+          title: 'Attendance Performance '
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>   
+   <body>   
+    <form action="Attendance1.php" method="POST">
+       <label>Term</label>
+      <select name="name"  style="width: 200px; height: 50px;">
+        <option value="Prelim">Prelim</option>
+         <option value="Midterm">Midterm</option>
+          <option value="Finals">Finals</option>
+     
+      </select>
+       <label>Subject</label>
+        <select name="subject"  style="width: 200px; height: 50px;">
+                         <?php while ($row1=mysqli_fetch_array($result1)) :;?>
+                        <option><?php echo $row1['Sub_code'];  ?>  </option>
+                        <?php endwhile;?>
+             </select>
+     
+      <input type="submit" name="submit" value="find here!" width="100px">
+    </form>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    </body>
+</section>
+            </div>
+            </div>      
+</section>
 				<!-- Sidebar -->
 					<div id="sidebar">
 						<div class="inner">
-
+                                  
 							<!-- Search -->
 								<section id="search" class="alt">
 									<form method="post" action="#">
+										<img src="img/bcp.png" alt="Trulli" align="center" width="50" height="50" margin-right="100px">
 										<input type="text" name="query" id="query" placeholder="Search" />
+
 									</form>
 								</section>
 
 							<!-- Menu -->
+								<!-- Menu -->
 								<nav id="menu">
 									<header class="major">
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="index.php">Home</a></li>
-										<li><a href="ATTendance.php">ATTendance</a></li>
-										<li><a href="grades.php">Academic Perforamance</a></li>
-										<li><a href="extracuricular.php">Extracuricular Activities</a></li>
-										
+										<li><a href="index.php?">Home</a></li>
+										<li><a href="ATTendance.php?">ATTendance</a></li>
+										<li><a href="grades.php?">Academic Perforamance</a></li>
+										<li><a href="extracuricular.php?">Extracuricular Activities</a></li>
 										<li>
 											<span class="opener">General Reports</span>
 											<ul>
 												<li><a href="#">Attendance Report</a></li>
-												<li><a href="#">Academic Report </a></li>
+												<li><a href="general.php">Academic Report </a></li>
 												<li><a href="#">Extracuricular Report</a></li>
 											</ul>
 										</li>
 									</ul>
 								</nav>
+
+							
+								
+
 							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
 						</div>
 					</div>
-
+                  
 			</div>
-		
-			
 
 		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
-
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

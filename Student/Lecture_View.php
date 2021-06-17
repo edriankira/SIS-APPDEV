@@ -32,7 +32,12 @@
             border-radius: 30px;
             box-shadow: 5px 5px #cccccc;
         }
-        
+
+        .container th 
+        {
+            background-color: #ffcccc;
+        }
+
     </style>
 	</head>
 	<body class="is-preload">
@@ -67,7 +72,10 @@
                                                                             </nav>
                                                                             <?php
                                                                             require_once 'include/Connection/DBconnect.php';
-                                                                            $sql = "SELECT * FROM lecture WHERE subject ='".$_SESSION["subject"]."'";
+                                                                            $sql = "SELECT * FROM subjects 
+                                                                            JOIN lecture ON
+                                                                            lecture.subject = subjects.Sub_code
+                                                                            WHERE subjects.Sub_title  ='".$_SESSION["subject"]."'";
                                                                                if($result = mysqli_query($connect, $sql)){
                                                                                    if(mysqli_num_rows($result) > 0){
                                                                                        
@@ -91,11 +99,11 @@
                                                                                                    echo "<td>" . $row['description'] . "</td>";
                                                                                                    echo "<td>" . $row['subject'] . "</td>";
                                                                                                    echo '<td>'
-                                                                                                   . ' <a href="download.php?id='. $row['id'] .'"><li  style="text-decoration: none;" class="fa fa-download"></li></a>'
+                                                                                                   . ' <a href="download.php?link='. $row['name'] .'"><li  style="text-decoration: none;" class="fa fa-download"></li></a>'
                                                                                                    . '</td>'; 
                                                                                                    
                                                                                                    echo '<td>'
-                                                                                                   . ' <a href="View.php?id='. $row['id'] .'"><li  style="text-decoration: none;" class="fa fa-eye"></li></a>'
+                                                                                                   . ' <a href="views.php?link='. $row['name'] .'"><li  style="text-decoration: none;" class="fa fa-eye"></li></a>'
                                                                                                    . '</td>'; 
                                                                                                
                                                                                                   echo "</tr></tbody>";
