@@ -136,7 +136,14 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         $id =  trim($_GET["id"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM ".$_SESSION["term"]." WHERE id = ?";
+        $sql = "SELECT id, userid, 
+		CONCAT(adm_studentuser.adm_stdfname, ' ', adm_studentuser.adm_stdlname) AS FullName, 
+        adm_studentuser.adm_stdSection,
+        d1,d2,d3,d4,d5,pa,gen,aae,eval,ass,extracur,exam, term_grade,term
+        FROM `fct_record` 
+        JOIN adm_studentuser ON
+        adm_studentuser.adm_stdUserNum = fct_record.userid
+        WHERE id =  ?";
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -233,15 +240,13 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 							<!-- Banner -->
 								<section id="banner">
 									<div class="content">
-    			                     
-    						      <h1>Welcome to Faculty</h1>
 									
 								<table class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                <th rowspan='2' style="text-align: center;padding: 10px;">USERID</th>
+                                <!-- <th rowspan='2' style="text-align: center;padding: 10px;">Student Number</th>
                                 <th rowspan='2' style="text-align: center;padding: 10px;">Full name</th>
-                                <th rowspan='2' style="text-align: center;padding: 10px;">Section </th>
+                                <th rowspan='2' style="text-align: center;padding: 10px;">Section </th> -->
                                 <th colspan='5' style="text-align: center;padding: 10px;">ATTENDANCE </th>
                                 <th colspan='5' style="text-align: center;padding: 10px;">ACTIVITY </th>
                                 <th rowspan='2' style="text-align: center;padding: 10px;">EXAM </th>
@@ -263,16 +268,19 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                                 </thead>
                                 <tbody>
                                 <tr>
-                    <h2 class="mt-5">Insert Record</h2>
+                    <h2 class="mt-5">Grading</h2>
+                    <h2 class="mt-5"><?php echo $row['FullName'] ?></h2>
+                    <h3 class="mt-5"><?php include "getsubj.php" ?></h2>
+                    <h3 class="mt-5"><?php  ?></h2>
                     <br>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                     
                     
                                         <?php
-                                        echo "<tr>";
-                                        echo "<td>" . $row['userid'] . "</td>";
-                                        echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['section'] . "</td>";
+                                        // echo "<tr>";
+                                        // echo "<td>" . $row['userid'] . "</td>";
+                                        // echo "<td>" . $row['name'] . "</td>";
+                                        // echo "<td>" . $row['section'] . "</td>";
                                         ?>
                                         <td>
                                         <input type="text" style="width: 50px;height: 35px;" name="d1" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $d1;?>">

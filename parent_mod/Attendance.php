@@ -1,5 +1,6 @@
 <!-- <?php 
 	session_start();
+	require_once "config.php"; 
 	if(!isset($_SESSION['ParentName'])){
 		session_destroy();
 		header("location: ../login.php");
@@ -23,6 +24,9 @@
 		
 
 	<style>
+		.wrapper{
+			width: 700px;
+		}
 		#addbtn{
 			text-align: center;
 			width: 60px;
@@ -48,6 +52,13 @@
 		}
 		table th,td{
 			text-align: center;
+
+		}
+		.scr{
+			width: 200px;
+		}
+		.btn{
+			width: 100px;
 		}
 		table{
 			border-right:solid 1px rgba(210, 215, 217, 0.75);
@@ -67,7 +78,6 @@
 			transform: translate(-50%, -50%);
 		} */
 	</style>
-
 	</head>
 	<body class="is-preload">
 		<!-- <div id="viewScreen">
@@ -82,7 +92,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Attendace </strong></a>
+									<a href="" class="logo"><strong>Attendance </strong></a>
 									<ul class="icons"><?php
 									echo "<li>".$_SESSION['ParentName']."</li>"
 									?>
@@ -93,45 +103,55 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h2 id="titleview">Prelim Attendace</h2>
+											 <h3 id="titleview">Student Name:
+                                           <?php 
+                                                $res="";
+                                                $student= $_SESSION['ChildStudID'];  
+                                                $sq="SELECT *FROM adm_studentuser WHERE adm_stdUserNum LIKE '%$student%' ";
+                                                $res = mysqli_query($link, $sq);
+                                                 while($row = mysqli_fetch_array($res)){
+                                               echo $row['adm_stdfname']." ".$row['adm_stdlname'];
+                                                   }
+                                                ?>  
+                                                </h3>
 										</header>
 										<div class="container-fluid">
 											<div class="row">
 												<div class="col-md-12">
-															<a href="Attendance.php"><input type="submit"  value="Prelim"></a>
-															<a href="Attendance1.php"><input type="submit"  value="Midterm"></a>
-															<a href="Attendance2.php"><input type="submit"  value="Finals"></a>
-													<div class="mt-5 mb-3 clearfix">
-
-														<p  class="pull-top">Please provide a following student details</p>
-														<form action="Attendance.php" class="src" method="POST" > 
-														<input type="text" name="search" placeholder="student number ">
-														<input type="text" name="searchi" placeholder="section">
-														<br>
-														<input type="submit" value="search">
-														</form>
-													</div>
+													          <h5 id="titleview">Please select a term to display the student Attendance</h5>
+													          <form action="Attendance.php"class="src" method="POST">
+													          	<select name="term" >
+													          		
+													          		<option value="Prelim">Prelim</option>
+													          		<option value="Midterm">Midterm</option>
+													          		<option value="Finals">Finals</option>	
+													          	</select>
+													          	<input type="submit" class="btn" name="submit" value="Find">
+													          </form>
+                               
 													<?php
 													// Include config file
-													require_once "config.php"; 
-													//this line of code create a search bar
-													if (isset($_POST['search']) && isset($_POST['searchi'])) {
-													$searching = $_POST['search'];
-													$searching=preg_replace("#[^0-9a-z]#i", "", $searching);
-													$lname = $_POST['searchi'];
-													$lname=preg_replace("#[^0-9a-z]#i", "", $lname);
-													//if the inputed number of the user is equal to usir_id and section
-													$sql="SELECT *FROM fct_prelim WHERE userid LIKE '%$searching%' AND section LIKE '%$lname%'";
-												
+													
+													if (isset($_POST['submit'])) {
+													 $term=$_POST['term'];
+
+                                                     $acc= $_SESSION['ChildStudID'];	
+													$sql="SELECT *FROM fct_record WHERE userid LIKE '%$acc%' AND term LIKE '%$term%'";
 													if($result = mysqli_query($link, $sql)){
 														if(mysqli_num_rows($result) > 0){
 
 															echo '<table class="table table-bordered table-striped">';
 																echo "<thead>";
 																	echo "<tr>";
-																		echo "<th>Name</th>";
+																		echo "<th>Term</th>";
 																		echo "<th>SUBJECT</th>";
-																		echo "<th>Attendance</th>";
+																	
+																		echo "<th>Day 1</th>";
+																		echo "<th>Day 2</th>";
+																		echo "<th>Day 3</th>";
+																		echo "<th>Day 4</th>";
+																		echo "<th>Day 5</th>";
+																	    echo "<th>Attendance</th>";
 																		echo "<th>Remarks</th>";
 																		
 																	echo "</tr>";
@@ -139,21 +159,28 @@
 																echo "<tbody>";
 																while($row = mysqli_fetch_array($result)){
 																		echo "<tr>";
-																		echo "<td>" . $row['name'] . "</td>";
-																		echo "<td>" . $row['course'] . "</td>";
+																		echo "<td>" . $row['term'] . "</td>";
+																		echo "<td>" . $row['Subject_code'] . "</td>";
+																		echo "<td>" . $row['d1'] . "</td>";
+																		echo "<td>" . $row['d2'] . "</td>";
+																		echo "<td>" . $row['d3'] . "</td>";
+																		echo "<td>" . $row['d4'] . "</td>";
+																		echo "<td>" . $row['d5'] . "</td>";
+
 																		$d1 = $row['d1'] ;
 																		$d2 = $row['d2'] ;
 																		$d3 = $row['d3'] ;
 																		$d4 = $row['d4'] ;
 																		$d5 = $row['d5'] ;
-																		$count = 0;
+																		$count = "";
 																		$status = '';
 																		$remarks="";
 																		if($d1 == 'p' || $d1 == 'P')
-																		{   
+																		{  
+
 																		$count = (int)$count + 1;
 																		}
-																		if($d2 == 'P' || $d2 == 'P')
+																		if($d2 == 'p' || $d2 == 'P')
 																			{   
 																			$count = (int)$count + 1;
 																			}
@@ -179,28 +206,27 @@
 																			$remarks="Failed";
 																		}
 																	
-																	
-																	
 																		echo "<td>" .  $total_count ."%"."</td>";
 
 																		echo "<td>" . $remarks . "</td>";
 																		
 																	echo "</tr>";
-																
 																}
+																
 																echo "</tbody>";                            
 															echo "</table>";
 															// Free result set
 															mysqli_free_result($result);
-														}
+														
 
-
-														} else{
+                                                       }
+                                                   }
+														 else{
 															echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
-														}
-													} else{
-														echo "Oops! Please Enter the Details Above";
+														
 													}
+												}
+													
 													// Close connection
 													mysqli_close($link);
 													?>
@@ -239,7 +265,7 @@
 											<span class="opener">General Reports</span>
 											<ul>
 												<li><a href="#">Attendance Report</a></li>
-												<li><a href="#">Academic Report </a></li>
+												<li><a href="general.php">Academic Report </a></li>
 												<li><a href="#">Extracuricular Report</a></li>
 											</ul>
 										</li>

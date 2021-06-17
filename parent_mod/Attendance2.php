@@ -82,7 +82,7 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="" class="logo"><strong>Attendace </strong></a>
+									<a href="" class="logo"><strong>Attendance </strong></a>
 									<ul class="icons"><?php
 									echo "<li>".$_SESSION['ParentName']."</li>"
 									?>
@@ -93,7 +93,7 @@
 								<section id="banner">
 									<div class="content">
 										<header>
-											<h2 id="titleview">Midterm Attendace</h2>
+											<h2 id="titleview">Final Attendance</h2>
 										</header>
 
                                         
@@ -104,110 +104,111 @@
                                                             <a href="Attendance.php"><input type="submit"  value="Prelim"></a>
                                                             <a href="Attendance1.php"><input type="submit"  value="Midterm"></a>
                                                             <a href="Attendance2.php"><input type="submit"  value="Finals"></a>
-                                                    <div class="mt-5 mb-3 clearfix">
-
-                                                        <p  class="pull-top
-                                                        ">Please provide a following student details</p>
-                                                        <form action="Attendance2.php" class="src" method="POST" > 
-                                                        <input type="text" name="search" placeholder="student number ">
-                                                        <input type="text" name="searchi" placeholder="section">
-                                                        <br>
-                                                        <input type="submit" value="search">
-                                                        </form>
-                                                    </div>
+                                                            <br><br><br>
+                                                   
                                                     <?php
                                                     // Include config file
                                                     require_once "config.php";
-                                                
-                                                    //this line of code create a search bar
-                                                    
-                                                    if (isset($_POST['search']) && isset($_POST['searchi'])) {
-                                                    $searching = $_POST['search'];
-                                                    $searching=preg_replace("#[^0-9a-z]#i", "", $searching);
-                                                    $lname = $_POST['searchi'];
-                                                    $lname=preg_replace("#[^0-9a-z]#i", "", $lname);
+                                                       $acc="";
+                                                   	 $prtname=$_SESSION['ParentName'];
+                                                    $wert="SELECT * FROM adm_parentuser WHERE adm_prtusername LIKE '%$prtname%'";
+                                                    $res=mysqli_query($link,$wert);
+                                                    while ($row=mysqli_fetch_array($res)) {
+                                                     $acc=$row['adm_prtchildld'];
+                                                      }
+													//if the inputed number of the user is equal to usir_id and section
+													$sql="SELECT *FROM fct_final  WHERE userid LIKE '%$acc%'";
                                                     
                                                     //if the inputed number of the user is equal to usir_id and section
-
-                                                    $sql="SELECT *FROM fct_final WHERE userid LIKE '%$searching%' AND section LIKE '%$lname%'";
-                                                
                                                     if($result = mysqli_query($link, $sql)){
-                                                        if(mysqli_num_rows($result) > 0){
+                                                      if(mysqli_num_rows($result) > 0){
 
-                                                            echo '<table class="table table-bordered table-striped">';
-                                                                echo "<thead>";
-                                                                    echo "<tr>";
-                                                                        echo "<th>Name</th>";
-                                                                        echo "<th>SUBJECT</th>";
-                                                                        echo "<th>Attendance</th>";
-                                                                        echo "<th>Remarks</th>";
-                                                                        
-                                                                    echo "</tr>";
-                                                                echo "</thead>";
-                                                                echo "<tbody>";
-                                                                while($row = mysqli_fetch_array($result)){
-                                                                        echo "<tr>";
-                                                                        echo "<td>" . $row['name'] . "</td>";
-                                                                        echo "<td>" . $row['course'] . "</td>";
-                                                                        $d1 = $row['d1'] ;
-                                                                        $d2 = $row['d2'] ;
-                                                                        $d3 = $row['d3'] ;
-                                                                        $d4 = $row['d4'] ;
-                                                                        $d5 = $row['d5'] ;
-                                                                        $count = 0;
-                                                                        $status = '';
-                                                                        $remarks="";
-                                                                        if($d1 == 'p' || $d1 == 'P')
-                                                                        {   
-                                                                        $count = (int)$count + 1;
-                                                                        }
-                                                                        if($d2 == 'P' || $d2 == 'P')
-                                                                            {   
-                                                                            $count = (int)$count + 1;
-                                                                            }
-                                                                            if($d3 == 'p' || $d3 == 'P')
-                                                                            {   
-                                                                                $count = (int)$count + 1;
-                                                                                    }
-                                                                                if($d4 == 'p' || $d4 == 'P')
-                                                                                {   
-                                                                                $count = (int)$count + 1;
-                                                                                }
-                                                                                if($d5 == 'p' || $d5 == 'P')
-                                                                                {   
-                                                                                $count = (int)$count + 1;
-                                                                                }
-                                                                                
-                                                                            
-                                                                            $total_count=$count*20;
-                                                                            $remarks="";
-                                                                        if ( $total_count>=75) {
-                                                                        $remarks="Passed";
-                                                                        }
-                                                                        else{
-                                                                            $remarks="Failed";
-                                                                        }
-                                                                    
-                                                                    
-                                                                    
-                                                                        echo "<td>" .  $total_count ."%"."</td>";
+															echo '<table class="table table-bordered table-striped">';
+																echo "<thead>";
+																	echo "<tr>";
+																		echo "<th>Name</th>";
+																		echo "<th>SUBJECT</th>";
+																	
+																		echo "<th>Day 1</th>";
+																		echo "<th>Day 2</th>";
+																		echo "<th>Day 3</th>";
+																		echo "<th>Day 4</th>";
+																		echo "<th>Day 5</th>";
+																	    echo "<th>Attendance</th>";
+																		echo "<th>Remarks</th>";
+																		
+																	echo "</tr>";
+																echo "</thead>";
+																echo "<tbody>";
+																while($row = mysqli_fetch_array($result)){
+																		echo "<tr>";
+																		echo "<td>" . $row['name'] . "</td>";
+																		echo "<td>" . $row['course'] . "</td>";
+																		echo "<td>" . $row['d1'] . "</td>";
+																		echo "<td>" . $row['d2'] . "</td>";
+																		echo "<td>" . $row['d3'] . "</td>";
+																		echo "<td>" . $row['d4'] . "</td>";
+																		echo "<td>" . $row['d5'] . "</td>";
 
-                                                                        echo "<td>" . $remarks . "</td>";
-                                                                        
-                                                                    echo "</tr>";
-                                                                
-                                                                }
+																		$d1 = $row['d1'] ;
+																		$d2 = $row['d2'] ;
+																		$d3 = $row['d3'] ;
+																		$d4 = $row['d4'] ;
+																		$d5 = $row['d5'] ;
+																		$count = 0;
+																		$status = '';
+																		$remarks="";
+																		if($d1 == 'p' || $d1 == 'P')
+																		{  
+
+																		$count = (int)$count + 1;
+																		}
+																		if($d2 == 'P' || $d2 == 'P')
+																			{   
+																			$count = (int)$count + 1;
+																			}
+																			if($d3 == 'p' || $d3 == 'P')
+																			{   
+																				$count = (int)$count + 1;
+																					}
+																				if($d4 == 'p' || $d4 == 'P')
+																				{   
+																				$count = (int)$count + 1;
+																				}
+																				if($d5 == 'p' || $d5 == 'P')
+																				{   
+																				$count = (int)$count + 1;
+																				}
+																				
+																			$total_count=$count*20;
+																			$remarks="";
+																		if ( $total_count>=75) {
+																		$remarks="Passed";
+																		}
+																		else{
+																			$remarks="Failed";
+																		}
+																	
+																		echo "<td>" .  $total_count ."%"."</td>";
+
+																		echo "<td>" . $remarks . "</td>";
+																		
+																	echo "</tr>";
+																
+																}
                                                                 echo "</tbody>";                            
                                                             echo "</table>";
                                                             // Free result set
                                                             mysqli_free_result($result);
                                                         }
 
-
-                                                        } else{
+                                                          
+                                                         else{
                                                             echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
-                                                        }
-                                                    } else{
+                                                       
+                                                         }
+                                                       }
+                                                     else{
                                                         echo "Oops! Please Enter the Details Above";
                                                     }
                                                     // Close connection

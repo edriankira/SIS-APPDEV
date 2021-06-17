@@ -1,8 +1,47 @@
-				
-  <?php
-  $con=mysqli_connect("localhost:3306","root","","tuklas_db");
+	<?php
+	session_start();
+  $con=mysqli_connect("localhost:3306","root","","sisappdev");
+  if (isset($_POST['submit'])) {
+    $acc= $_SESSION['ChildStudID'];
+   $term=$_POST['name'];
+   $query="SELECT * FROM `fct_record` WHERE term LIKE '%$term%' AND userid LIKE '%$acc%'";
+    $total_count="";
+    $fi=mysqli_query($con,$query);
+    while ($row=mysqli_fetch_assoc($fi)) {
+          $d1 = $row['d1'] ;
+          $d2 = $row['d2'] ;
+          $d3 = $row['d3'] ;
+          $d4 = $row['d4'] ;
+          $d5 = $row['d5'] ;
+          $count = 0;
+          $status = '';
+           $remarks="";
+          if($d1 == 'p' || $d1 == 'P')
+             {   
+                  $count = (int)$count + 1;
+              }
+            if($d2 == 'p' || $d2 == 'P')
+              {   
+                $count = (int)$count + 1;
+              }
+               if($d3 == 'p' || $d3 == 'P')
+               {   
+                 $count = (int)$count + 1;
+                 }
+               if($d4 == 'p' || $d4 == 'P')
+                {   
+                 $count = (int)$count + 1;
+               }
+                if($d5 == 'p' || $d5 == 'P')
+                {   
+                 $count = (int)$count + 1;
+                }
+                                            
+                $total_count=$count*20;
+    }
+  }
+  ?>			
  
-  ?>
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -15,6 +54,17 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style >
+				section are{
+				height: 200px
+				width 100px
+			}
+			body {
+				align-self: center;
+                width: 1500px;
+			}
+			   
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -39,48 +89,60 @@
 								</header>
 								<br>
 								<br>
-								<section id="banner">
-                                <head>
-                               <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                                  <script type="text/javascript">
-                                 google.charts.load('current', {'packages':['corechart']});
-                                google.charts.setOnLoadCallback(drawChart);
+								<section id="banner" >
+									<div class="content">
+									
+									
+                              <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-                                      function drawChart() {
+      function drawChart() {
 
-                                var data = google.visualization.arrayToDataTable([
-                                      ['Subject', 'Attendance'],
-                                     <?php
-
-                            $sql="SELECT SUBJECT,ATTENDED FROM `att_report`";
-                             $fire=mysqli_query($con,$sql);
-
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+         <?php
+                           
+                             $fire=mysqli_query($con,$query);
                          while ($result=mysqli_fetch_assoc($fire)) {
-                         echo "['".$result['SUBJECT']."',".$result['ATTENDED']."],";
-          
+                                       
+                         echo "['Prelimary',".$result['pa']."],";
+                           echo "['Generalization',".$result['gen']."],";
+                             echo "['Analysis',".$result['aae']."],";
+                              echo "['Assignment',".$result['ass']."],";
+                              echo "['Examination',".$result['exam']."],";
+                                echo "['Attendance',". $total_count."],";
                              }
-                               ?>
-                                  ]);
-                         var options = {
-                         title: 'Student Attendance Report'
-                            };
-                         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                             ?>
+        ]);
+        var options = {
+          title: 'Acdemic PerFormance'
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-                      chart.draw(data, options);
-                       }
-                        </script>
-                        
-                           </head>
-                              <body>
-                               <div id="piechart" style="width: 900px; height: 500px;"></div>
-                               </body>
-								</section>
-							<!-- Content -->
-						</div>
-					</div>
-                  </section>
-                  
-
+        chart.draw(data, options);
+      }
+    </script>
+  </head>   
+   <body>   
+    <form action="general.php" method="POST">
+      <select name="name"  style="width: 200px; height: 50px;">
+        <option value="Prelim">Prelim</option>
+         <option value="Midterm">Midterm</option>
+          <option value="Finals">Finals</option>
+     
+      </select>
+     
+      <input type="submit" name="submit" value="find here!" width="100px">
+    </form>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    </body>
+</section>
+            </div>
+            </div>      
+</section>
 				<!-- Sidebar -->
 					<div id="sidebar">
 						<div class="inner">
@@ -109,7 +171,7 @@
 											<span class="opener">General Reports</span>
 											<ul>
 												<li><a href="#">Attendance Report</a></li>
-												<li><a href="#">Academic Report </a></li>
+												<li><a href="general.php">Academic Report </a></li>
 												<li><a href="#">Extracuricular Report</a></li>
 											</ul>
 										</li>
@@ -126,7 +188,7 @@
 
 						</div>
 					</div>
-
+                  
 			</div>
 
 		<!-- Scripts -->

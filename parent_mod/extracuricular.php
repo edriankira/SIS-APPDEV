@@ -162,7 +162,7 @@
 											<span class="opener">General Reports</span>
 											<ul>
 												<li><a href="#">Attendance Report</a></li>
-												<li><a href="#">Academic Report </a></li>
+												<li><a href="general.php">Academic Report </a></li>
 												<li><a href="#">Extracuricular Report</a></li>
 											</ul>
 										</li>

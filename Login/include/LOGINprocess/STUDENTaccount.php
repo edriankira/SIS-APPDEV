@@ -35,7 +35,7 @@ if (isset($_POST["LOGIN"]) && $_POST['roles'] == "Student_account")
             //for correct credential of a users
             echo '<script type="text/javascript">
             swal("' . $row['adm_stdfname'] . '' . " " . '' . $row['adm_stdlname'] . '!", "Welcome back Student", "success").then(function() {
-            window.location = "Homepage.php";});
+            window.location = "Student/Homepage.php";});
             </script>';
             exit();
         }

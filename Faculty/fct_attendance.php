@@ -31,7 +31,7 @@ table th, td {
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #fff;
 }
     </style>
 		
@@ -60,23 +60,15 @@ tr:nth-child(even) {
 									<div class="content">
 
                                         <form method="post" action="">
-                                            <br>
-                                            <br>
-                                            <br>
                                             <center>
                                             <h2>Attendance </h2>
-
-                                            <?php
-                                                $mysqli = NEW mysqli('localhost', 'root', '', 'sisdb');
-                                                $resultSet = $mysqli->query("SELECT Section_name  FROM section");
-                                            ?>
                                             <input type="text" name="subj" id ="subj" value="<?php include "getsubj.php"?>" readonly>
-                                                <br>
+                                            <br>
                                             <select name="term">
-                                                <option value="" >---Select Term---</option>
-                                                <option value="fct_prelim" > PRELIM </option>
-                                                <option value="fct_midterm" > MIDTERM </option><br>
-                                                <option value="fct_final" > FINALS </option><br>
+                                                <option value="" >General</option>
+                                                <option value="PRELIM" > PRELIM </option>
+                                                <option value="MIDTERM" > MIDTERM </option><br>
+                                                <option value="FINALS" > FINALS </option><br>
                                             </select>
                                             <br>
                                             <input type="submit" class = "btn" name="submit" id="submit" value="Confirm" />
@@ -95,7 +87,8 @@ tr:nth-child(even) {
                                                 <th rowspan='2'><br>Fullname</th>
                                                 <th rowspan='2'><br>Section</th>
                                                 <th colspan='5'>ATTENDANCE </th>
-                                                <th rowspan='2'><br>Actions </th>
+                                                <th rowspan='2'><br>Term</th>
+												<th rowspan='2'><br>Action</th>
                                             </tr>
                                             <tr>
                                                 <td>D1 </td>
@@ -104,6 +97,8 @@ tr:nth-child(even) {
                                                 <td>D4 </td>
                                                 <td>D5 </td>
                                             </tr>
+
+                                            <?php include "attendance_refreseh.php" ?>
                                                 
 
                                         </table>

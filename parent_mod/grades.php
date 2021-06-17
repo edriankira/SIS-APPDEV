@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+   require_once "config.php";
 	if(!isset($_SESSION['ParentName'])){
 		session_destroy();
 		header("location: ../login.php");
@@ -48,8 +49,8 @@
 							<!-- Content -->
 								<section>
 								
-    <head>
-    <style>
+                              <head>
+                               <style>
         .table{
             color: black;
              font: Century Gothic;
@@ -80,39 +81,39 @@
 
         <div class="container-fluid">
                     <header>
-                        <h2 id="titleview">Prelim Grade</h2>
+
+                        <h3 id="titleview">Student Name:
+                        <?php 
+                          $res="";
+                           $student= $_SESSION['ChildStudID'];  
+                          $sq="SELECT *FROM adm_studentuser WHERE adm_stdUserNum LIKE '%$student%' ";
+                          $res = mysqli_query($link, $sq);
+                            while($row = mysqli_fetch_array($res)){
+                             echo $row['adm_stdfname']." ".$row['adm_stdlname'];
+                            }
+                         ?>  
+                         </h3>
                     </header>
             <div class="row">
                 <div class="col-md-12">
-                	        <a href="grades.php"><input type="submit"  value="Prelim"></a>
-                            <a href="grades1.php"><input type="submit"  value="Midterm"></a>
-                            <a href="grades2.php"><input type="submit"  value="Finals"></a>
-                    <div class="mt-5 mb-3 clearfix">
-
-                     
-                        <p  class="pull-top
-                        ">Please provide student details</p>
-                        <form action="grades.php"  class="src" method="POST"> 
-                         <input type="text" name="search" placeholder="id number ">
-                         <input type="text" name="searchi" placeholder="id number ">
-                         <br>
-                          <input type="submit" value="search">
-
-
-                        </form>
-                    </div>
+                  <h5 id="titleview">Please select a term to display the student grades</h5>
+                	       <form action="grades.php"class="src" method="POST">
+                           <select name="term" >
+                           <option value="Prelim">Prelim</option>
+                           <option value="Midterm">Midterm</option>
+                           <option value="Finals">Finals</option>  
+                           </select>
+                           <input type="submit" class="btn" name="submit" value="Find">
+                           </form>
+                  
                     <?php
                     // Include config file
-                    require_once "config.php";
-
+                   
                      //this line of code create a search bar
-                    if (isset($_POST['search']) && isset($_POST['searchi'])) {
-                    $searching = $_POST['search'];
-                    $searching=preg_replace("#[^0-9a-z]#i", "", $searching);
-                     $lname = $_POST['searchi'];
-                    $lname=preg_replace("#[^0-9a-z]#i", "", $lname);
-                      //if the inputed number of the user is equal to usir_id and section
-                    $sql="SELECT *FROM fct_prelim WHERE userid LIKE '%$searching%' AND section LIKE '%$lname%'";
+                           if (isset($_POST['submit'])) {
+                              $term=$_POST['term'];
+                              $acc= $_SESSION['ChildStudID'];    
+                              $sql="SELECT *FROM fct_record WHERE userid LIKE '%$acc%' AND term LIKE '%$term%'";
                 
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -120,7 +121,7 @@
                             echo '<table class="table table-bordered table-striped">';
                                 echo "<thead>";
                                     echo "<tr>";
-                                        echo "<th>Name</th>";
+                                        echo "<th>Term</th>";
                                         echo "<th>Subject</th>";
                                         echo "<th>Grade</th>";
                                         echo "<th>Remarks</th>";
@@ -130,16 +131,48 @@
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
                                         echo "<tr>";
-                                        echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['course'] . "</td>";
+                                        echo "<td>" . $row['term'] . "</td>";
+                                        echo "<td>" . $row['Subject_code'] . "</td>";
                                         //vclass
+                                            $d1 = $row['d1'] ;
+                                            $d2 = $row['d2'] ;
+                                            $d3 = $row['d3'] ;
+                                            $d4 = $row['d4'] ;
+                                            $d5 = $row['d5'] ;
+                                            $count = "";
+                                            $status = '';
+                                             $remarks="";
+                                              if($d1 == 'p' || $d1 == 'P')
+                                              {  
+                                                $count = (int)$count + 1;
+                                              }
+                                              if($d2 == 'p' || $d2 == 'P')
+                                              {   
+                                              $count = (int)$count + 1;
+                                              }
+                                              if($d3 == 'p' || $d3 == 'P')
+                                              {   
+                                                $count = (int)$count + 1;
+                                              }
+                                              if($d4 == 'p' || $d4 == 'P')
+                                              {   
+                                                 $count = (int)$count + 1;
+                                               }
+                                               if($d5 == 'p' || $d5 == 'P')
+                                               {   
+                                               $count = (int)$count + 1;
+                                               }
+                                                $total_count=$count*20;
+
+                                                $att=$total_count*.05;
+
                                         $pa=$row['pa'];
                                         $pa_total=$pa*.05;
 
                                         $gen=$row['gen'];
                                         $gen_total=$gen*.05;
 
-                                        $vclass=$pa_total+$gen_total;
+                                        $vclass=$pa_total+$gen_total+$att;
                                          
                                         
                                          //learning conpetency
@@ -175,16 +208,13 @@
                             echo "</table>";
                             // Free result set
                             mysqli_free_result($result);
+                           
                            }
-
 
                         } else{
                             echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
                         }
-                    } else{
-                        echo "Oops! Something went wrong. Please try again later.";
                     }
-                
                     // Close connection
                     mysqli_close($link);
                     ?>
@@ -241,7 +271,7 @@
                                             <span class="opener">General Reports</span>
                                             <ul>
                                                 <li><a href="#">Attendance Report</a></li>
-                                                <li><a href="#">Academic Report </a></li>
+                                                <li><a href="general.php">Academic Report </a></li>
                                                 <li><a href="#">Extracuricular Report</a></li>
                                             </ul>
                                         </li>

@@ -87,31 +87,20 @@
                 	        <a href="grades.php"><input type="submit"  value="Prelim"></a>
                             <a href="grades1.php"><input type="submit"  value="Midterm"></a>
                             <a href="grades2.php"><input type="submit"  value="Finals"></a>
-                    <div class="mt-5 mb-3 clearfix">
-
-                     
-                        <p  class="pull-top
-                        ">Please provide student details</p>
-                        <form action="grades2.php"  class="src" method="POST"> 
-                         <input type="text" name="search" placeholder="id number ">
-                         <input type="text" name="searchi" placeholder="id number ">
-                         <br>
-                          <input type="submit" value="search">
-
-
-                        </form>
-                    </div>
+                  
                     <?php
                     // Include config file
                     require_once "config.php";
                      //this line of code create a search bar
-                    if (isset($_POST['search']) && isset($_POST['searchi'])) {
-                    $searching = $_POST['search'];
-                    $searching=preg_replace("#[^0-9a-z]#i", "", $searching);
-                     $lname = $_POST['searchi'];
-                    $lname=preg_replace("#[^0-9a-z]#i", "", $lname);
-                      //if the inputed number of the user is equal to usir_id and section
-                    $sql="SELECT *FROM fct_final WHERE userid LIKE '%$searching%' AND section LIKE '%$lname%'";
+                   $acc="";
+                    $prtname=$_SESSION['ParentName'];
+                   $wert="SELECT * FROM adm_parentuser WHERE adm_prtusername LIKE '%$prtname%'";
+                   $res=mysqli_query($link,$wert);
+                    while ($row=mysqli_fetch_array($res)) {
+                     $acc=$row['adm_childld'];
+                      }
+                    //if the inputed number of the user is equal to usir_id and section
+                    $sql="SELECT *FROM fct_final  WHERE userid LIKE '%$acc%'";
                 
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -174,7 +163,7 @@
                             echo "</table>";
                             // Free result set
                             mysqli_free_result($result);
-                           }
+                           
 
 
                         } else{

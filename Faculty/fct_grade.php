@@ -25,14 +25,14 @@
   
 }
 
-td, th {
+table th, td {
   border: 1px solid #dddddd;
   text-align: center;
   padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #fff;
 }
     </style>
 		
@@ -71,25 +71,21 @@ tr:nth-child(even) {
         $mysqli = NEW mysqli('localhost', 'root', '', 'sisdb');
         $resultSet = $mysqli->query("SELECT Section_name  FROM section");
     ?>
+    <input type="text" name="subj" id ="subj" value="<?php include "getsubj.php"?>" readonly>
 
-    <select name="sect">
-        <?php 
-            while ($rows =$resultSet->fetch_assoc()) {
-                $Section_name = $rows['Section_name'];
-                echo "<option value='$Section_name'> $Section_name </option>";
-            }
-        ?>
-    </select>
+    <br>
 
 
     <select name="term">
-        <option value="" >---Select Term---</option>
-        <option value="fct_prelim" > PRELIM </option>
-        <option value="fct_midterm" > MIDTERM </option><br>
-        <option value="fct_final" > FINALS </option><br>
+        <option value="" >All Term</option>
+        <option value="Prelim" > PRELIM </option>
+        <option value="Midterm" > MIDTERM </option><br>
+        <option value="Final" > FINALS </option><br>
     </select>
-    <br>
+
+<br>
     <input type="submit" class = "btn" name="submit" id="submit" value="Confirm" />
+                                           
     <br><br>
     <?php 
     if (isset($_GET['error'])) { ?>
@@ -98,14 +94,15 @@ tr:nth-child(even) {
 
 		    <table>
 		  		<tr>
-                    <th rowspan='2'>Student Number</th>
-                    <th rowspan='2'>Full Name</th>
-                    <th rowspan='2'>Subject Code</th>
+                    <th rowspan='2'><br>Student Number</th>
+                    <th rowspan='2'><br>Full Name</th>
+                    <th rowspan='2'><br>Section</th>
                     <th colspan='5'>ACTIVITY </th>
-                    <th rowspan='2'>EXAM </th>
-                    <th rowspan='2'> Coextra<br>curricular</th>
-                    <th rowspan='2'>TOTAL </th>
-                    <th rowspan='2'>Actions </th>
+                    <th rowspan='2'><br>EXAM </th>
+                    <th rowspan='2'><br>Coextra curricular</th>
+                    <th rowspan='2'><br>Term </th>
+                    <th rowspan='2'><br>Term Grade </th>
+                    <th rowspan='2'><br>Actions </th>
 		  		</tr>
 		  		<tr>
                     <td>PA </td>
@@ -118,10 +115,16 @@ tr:nth-child(even) {
                  <?php
     if(isset($_POST['submit']))
     {
-        $_SESSION["term"] = $_POST['term'];
-        $getSection = $_POST['sect'];
+        $term= $_POST['term'];
+        $getSubj = $_POST['subj'];
         require_once "db_conn.php";
-        $sql = "SELECT * from ".$_POST['term']." where section='$getSection'; ";
+        $sql = "SELECT id,userid, CONCAT(adm_studentuser.adm_stdfname, ' ', adm_studentuser.adm_stdlname) AS FullName, 
+        adm_studentuser.adm_stdSection,
+        pa,gen,aae,eval,ass,exam,extracur,term, term_grade
+        FROM `fct_record` 
+        JOIN adm_studentuser ON
+        adm_studentuser.adm_stdUserNum = fct_record.userid
+        WHERE fct_record.Subject_code = '".$getSubj."' AND term LIKE '%$term%'";
             if($result = mysqli_query($conn, $sql)){
                 if(mysqli_num_rows($result) > 0){
 
@@ -129,86 +132,22 @@ tr:nth-child(even) {
                     while($row = mysqli_fetch_array($result)){
                         echo "<tr>";
                         echo "<td>" . $row['userid'] . "</td>";
-                        echo "<td>" . $row['Subject_code'] . "</td>";
+                        echo "<td>" . $row['FullName'] . "</td>";
+                        echo "<td>" . $row['adm_stdSection'] . "</td>";
                         echo "<td>" . $row['pa'] . "</td>";
                         echo "<td>" . $row['gen'] . "</td>";
                         echo "<td>" . $row['aae'] . "</td>";
                         echo "<td>" . $row['eval'] . "</td>";
                         echo "<td>" . $row['ass'] . "</td>";
                         echo "<td>" . $row['exam'] . "</td>";
-                        echo "<td> " . $row['coextra'] . "</td>";
-
-                        //calculating the grade
-                        $attendance = 0;
-                        $vc = 0;
-                        $at1 = $row['d1'] ;
-                        $at2 = $row['d2'] ;
-                        $at3 = $row['d3'] ;
-                        $at4 = $row['d4'] ;
-                        $at5 = $row['d5'] ;
-                        $pa = $row['pa'] ;
-                        $gen = $row['gen'] ;
-                        $aae = $row['aae'] ;
-                        $eval = $row['eval'] ;
-                        $ass = $row['ass'] ;
-                        $exam = $row['exam'] ;
-                        if($at1 == 'p' || $at1 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at2 == 'p' || $at2 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at3 == 'p' || $at3 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at4 == 'p' || $at4 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        if($at5 == 'p' || $at5 == 'P')
-                        {   
-                            $attendance = (int)$attendance + 1;
-                        }
-                        $getattendance = $attendance; //.05
-                        $getpa = (float)0;
-                        $getgen = (float)0;
-                        $getaae = (float)0;
-                        $geteval = (float)0;
-                        $getass = (float)0;
-                        $getexam = (float)0;
-
-                        if($pa > 0) {
-                            $getpa = $pa * (float)0.10;
-                        }
-
-                        if($gen > 0) {
-                            $getgen = $gen * (float)0.10;
-                        }
-
-                        if($aae > 0) {
-                            $getaae = $aae * (float).20;
-                        }
-
-                        if($eval > 0) {
-                            $geteval = $eval * (float).15;
-                        }
-
-                        if($ass > 0) {
-                            $getass = $ass * (float).05;
-                        }
-
-                        if($exam > 0) {
-                            $getexam = $exam * (float).35;
-                        }
-
-                        $vc=  $getattendance + $getpa+ $getgen +$getaae + $geteval + $getass + $getexam;
-                        echo "<td>$vc</td>";
-
+                        echo "<td> " . $row['extracur'] . "</td>";
+                        echo "<td> " . $row['term'] . "</td>";
+                        echo "<td> " . $row['term_grade'] . "</td>";
                         echo "<td>"; echo '<a href="fct_insertrecord.php?id='. $row['id'] .'" class="mr-3" title="Insert Record" data-toggle="tooltip"><span class="fa fa-pencil">Insert</span></a>';
-                        echo "</td>";
+                                            
+
+
+
                         echo "</tr>";
                         }
                     mysqli_free_result($result);

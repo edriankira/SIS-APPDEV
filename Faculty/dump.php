@@ -78,6 +78,75 @@
     // }
     // //attendance
 
+    //calculating the grade
+    // $attendance = 0;
+    // $vc = 0;
+    // $at1 = $row['d1'] ;
+    // $at2 = $row['d2'] ;
+    // $at3 = $row['d3'] ;
+    // $at4 = $row['d4'] ;
+    // $at5 = $row['d5'] ;
+    // $pa = $row['pa'] ;
+    // $gen = $row['gen'] ;
+    // $aae = $row['aae'] ;
+    // $eval = $row['eval'] ;
+    // $ass = $row['ass'] ;
+    // $exam = $row['exam'] ;
+    // if($at1 == 'p' || $at1 == 'P')
+    // {   
+    //     $attendance = (int)$attendance + 1;
+    // }
+    // if($at2 == 'p' || $at2 == 'P')
+    // {   
+    //     $attendance = (int)$attendance + 1;
+    // }
+    // if($at3 == 'p' || $at3 == 'P')
+    // {   
+    //     $attendance = (int)$attendance + 1;
+    // }
+    // if($at4 == 'p' || $at4 == 'P')
+    // {   
+    //     $attendance = (int)$attendance + 1;
+    // }
+    // if($at5 == 'p' || $at5 == 'P')
+    // {   
+    //     $attendance = (int)$attendance + 1;
+    // }
+    // $getattendance = $attendance; //.05
+    // $getpa = (float)0;
+    // $getgen = (float)0;
+    // $getaae = (float)0;
+    // $geteval = (float)0;
+    // $getass = (float)0;
+    // $getexam = (float)0;
+
+    // if($pa > 0) {
+    //     $getpa = $pa * (float)0.10;
+    // }
+
+    // if($gen > 0) {
+    //     $getgen = $gen * (float)0.10;
+    // }
+
+    // if($aae > 0) {
+    //     $getaae = $aae * (float).20;
+    // }
+
+    // if($eval > 0) {
+    //     $geteval = $eval * (float).15;
+    // }
+
+    // if($ass > 0) {
+    //     $getass = $ass * (float).05;
+    // }
+
+    // if($exam > 0) {
+    //     $getexam = $exam * (float).35;
+    // }
+
+    // $vc=  $getattendance + $getpa+ $getgen +$getaae + $geteval + $getass + $getexam;
+    // echo "<td>$vc</td>";
+
     include "../connection/config.php";
 
     $sql_subj = "SELECT sub_code FROM section
