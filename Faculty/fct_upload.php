@@ -84,7 +84,7 @@
                            
                             $desc = $_POST['desc'];
                             // destination of the file on the server
-                            $destination = 'uploads/' . $filename;
+                            $destination = '../uploads/' . $filename;
 
                             // get the file extension
                             $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -132,7 +132,7 @@
                             $result = mysqli_query($conn, $sql);
 
                             $file = mysqli_fetch_assoc($result);
-                            $filepath = 'uploads/' . $file['name'];
+                            $filepath = '../uploads/' . $file['name'];
 
                             if (file_exists($filepath))
                             {
@@ -142,8 +142,8 @@
                                 header('Expires: 0');
                                 header('Cache-Control: must-revalidate');
                                 header('Pragma: public');
-                                header('Content-Length: ' . filesize('uploads/' . $file['name']));
-                                readfile('uploads/' . $file['name']);
+                                header('Content-Length: ' . filesize('../uploads/' . $file['name']));
+                                readfile('../uploads/' . $file['name']);
 
                                 // Now update downloads count
                                 $newCount = $file['downloads'] + 1;

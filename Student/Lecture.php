@@ -62,7 +62,7 @@
                                                     //                            header("Refresh:5");
                                                                                 $present = $absent = 0;
                                                                                   $sql = "SELECT Sub_code, Sub_title FROM `subjects` 
-																				  JOIN adm_studentUser ON
+																				  INNER JOIN adm_studentUser ON
 																				  adm_StudentUser.adm_stdYear = subjects.sub_year AND
 																				  adm_StudentUser.adm_stdCourse = subjects.sub_course
 																				  WHERE adm_studentuser.adm_stdUserNum = '".$_SESSION['stnID']."' ";
@@ -73,10 +73,10 @@
                                                                                   while($row = $result->fetch_assoc()){?>
                                                                                      
                                                                                     <div class="col-sm">
-                                                                                        <a href="function.php?link=<?php echo $row["Sub_title"]?>">
+                                                                                        <a href="function.php?link=<?php echo $row["Sub_code"]?>">
                                                                                             <div id="mobile">
                                                                                                 <i id="icon" class="fa fa-book" aria-hidden="true" style="font-size:100px; "></i><br>
-                                                                                                <h4><?php echo $row["Sub_title"]?></h4>
+                                                                                                <h4><?php echo $row["Sub_code"]?></h4>
                                                                                             </div>
                                                                                             </a>
                                                                                           </div>    <?php  }} ?>

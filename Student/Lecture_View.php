@@ -72,10 +72,7 @@
                                                                             </nav>
                                                                             <?php
                                                                             require_once 'include/Connection/DBconnect.php';
-                                                                            $sql = "SELECT * FROM subjects 
-                                                                            JOIN lecture ON
-                                                                            lecture.subject = subjects.Sub_code
-                                                                            WHERE subjects.Sub_title  ='".$_SESSION["subject"]."'";
+                                                                            $sql = "SELECT * FROM lecture WHERE subject ='".$_SESSION["subject"]."'";
                                                                                if($result = mysqli_query($connect, $sql)){
                                                                                    if(mysqli_num_rows($result) > 0){
                                                                                        
@@ -114,7 +111,7 @@
                                                                                                 <th><h1>Description</h1></th>
                                                                                                 <th><h1>Subject</h1></th>
                                                                                                 <th><h1>Copy</h1></th>
-                                                                                                <th><h1>View</h1></th>';
+                                                                                                <th><h1>View</h1></th>
                                                                                             </tfoot>
                                                                         
                                                                                            <?php

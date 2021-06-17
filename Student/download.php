@@ -4,7 +4,7 @@ if(isset($_GET['link']))
     $var_1 = $_GET['link'];
 //    $file = $var_1;
 
-$dir = "uploads/"; // trailing slash is important
+$dir = "../uploads/"; // trailing slash is important
 $file = $dir . $var_1;
 
 if (file_exists($file))
