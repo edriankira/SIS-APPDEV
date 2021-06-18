@@ -48,7 +48,7 @@
                                         require_once "config.php";
                                         
                                     
-                                        $sql = "SELECT * FROM adm_announcement WHERE `adm_anRole` = 'Parent'";
+                                        $sql = "SELECT * FROM adm_announcement WHERE `adm_anRole` = 'Students'";
                                         if($result = mysqli_query($link, $sql)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo '<table class="table table-bordered table-striped">';
@@ -104,30 +104,39 @@
 									</form>
 								</section>
 
-						<!-- Menu -->
+							<!-- Menu -->
 								<nav id="menu">
 									<header class="major">
 										<h2>Menu</h2>
 									</header>
 									<ul>
-										<li><a href="../index.php">Home</a></li>
-										<li><a href="../Attendance.php">Attendance</a></li>
-										<li><a href="announcement.php">Announcements</a></li>
-										<li><a href="../grades.php">Academic Perforamance</a></li>
-										<li><a href="../extracuricular.php">Extracuricular Activities</a></li>
-										 <li><a href="../Events/Event.php">Events</a></li>
-										
+                                                                            <li><a href="../Homepage.php">Homepage</a></li>
+                                                                            <li><a href="../announcement.php">Announcements</a></li>
+                                                                            <li><a href="../Lecture.php">Lecture</a></li>
+                                                                            <li><a href="../Attendance.php">Attendance Report</a></li>                                                                          
+                                                                            <li><a href="../AcademicPerformance.php">Academic Performance Report </a></li>
+                                                                            <li><a href="../Extracuricular.php">Co/extracurricular Activities Report</a></li>
+                                                                             <li><a href="../Events/Event.php">Events</a></li>
 										<li>
-											<span class="opener">General Reports</span>
+											<span class="opener">General Report</span>
 											<ul>
-												<li><a href="../Attendance1.php">Attendance Report</a></li>
-												<li><a href="../general.php">Academic Report </a></li>
-												
+                                                                                            <li><a href="GENERALattendance.php">Attendance</a></li>
+                                                                                            <li><a href="GENERALacademics.php">Academic Performance</a></li>
+                                                                                            <li><a href="GENERALextracuricular.php">Co/extracurricular Activities</a></li>
 											</ul>
 										</li>
+<!--										<li><a href="#">Etiam Dolore</a></li>
+										<li><a href="#">Adipiscing</a></li>-->
+										<li>
+											<span class="opener">Account Settings</span>
+											<ul>
+												<li><a href="#">View information</a></li>
+												<li><a href="Signout.php">Sign out</a></li>
+											</ul>
+										</li>
+
 									</ul>
 								</nav>
-
 							<!-- Footer -->
 								<footer id="footer">
 									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>

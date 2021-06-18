@@ -75,6 +75,7 @@
                                                                             <li><a href="Homepage.php">Homepage</a></li>
                                                                             <li><a href="Lecture.php">Lecture</a></li>
                                                                             <li><a href="Attendance.php">Attendance Report</a></li>
+                                                                            <li><a href="Stud_ann/announcement.php">Announcements</a></li>
                                                                             <li><a href="AcademicPerformance.php">Academic Performance Report </a></li>
                                                                             <li><a href="Extracuricular.php">Co/extracurricular Activities Report</a></li>
                                                                              <li><a href="Events/Event.php">Events</a></li>
