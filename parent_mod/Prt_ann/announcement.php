@@ -1,4 +1,7 @@
-
+<?php
+	session_start();
+    $ac= $_SESSION['ChildStudID'];
+	?>
 <!DOCTYPE HTML>
 
 <html>
@@ -33,8 +36,10 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="index.html" class="logo"><strong>Announcement</strong></a>
-								
-										<li><a href="../logout.php">Sign Out</a></li>
+									<ul class="icons"><?php
+										echo "<li>".$_SESSION['ParentName']."</li>"
+										?>
+										<li><a href="../../logout.php">Sign Out</a></li>
 									</ul>
 								</header>
 
