@@ -64,75 +64,52 @@
     <li data-target="#demo" data-slide-to="2"></li>
   </ul>
             
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-        <img src="include/Images/BCP.jpg" alt="Malilinkmo" width="1100" height="500" ">
-      <div class="carousel-caption">
-       
-      </div>   
-    </div>
-    <div class="carousel-item">
-      <img src="include/Images/BCP.jpg" alt="Malilinkmo" width="1100" height="500">
-      <div class="carousel-caption">
-       
-      </div>   
-    </div>
-    <div class="carousel-item">
-      <img src="include/Images/BCP.jpg" alt="Malilinkmo" width="1100" height="500">
-      <div class="carousel-caption">
-       
-      </div>   
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
-</div> <br>
+  <?php
+			$connection= mysqli_connect("localhost","root","");
+			$db= mysqli_select_db($connection,'sisappdev');
 
+			$query="SELECT *FROM extracur";
+			$query_run=mysqli_query($connection,$query);
+			$count=0;
+		?>
 
+			<table class="table">
+			<br><br>
+				  <thead>
+				    <tr>
+				      <th scope="col">EVENT NAME </th>
+				      <th scope="col">SUBJECT</th>
+				      <th scope="col">GRADE</th>
+				      
+				    </tr>
+				</thead>
 
-
-  <div id="event">
-      <div id="picture">
-          <img src="include/Images/eventpicture.jpg"width="350" height="200" style="border-radius: 20px;">
-      </div>
-      <h4 style="text-align:center;">Mathematics Month - MTOP</h4>
-      <h5 style="text-align:center;">Extra grades: +10points</h5>
-      <p style="text-align:center; padding: 25px; text-justify: auto;">-Month where students could test there mathematical Skills,
-          Mathematics and Statistics Awareness Month is held each year in April
-          . Its goal is to increase public understanding of and appreciation for 
-          mathematics and statistics. Mathematics and Statistics Awareness Month began 
-          in 1986 as Mathematics Awareness Week with a proclamation by President Ronald Reagan.
-      </p>
-      <button type="button" style="text-align:center; margin-left: 350px;">Join now!</button><br><br>
-      <footer style="text-align:center;">
-          <h5>Event would start - FEBUARY 22, 2022 @ 10:00pm</h5>
-      </footer>
-  </div>
-
- <div id="event">
-      <div id="picture">
-          <img src="include/Images/eventpicture.jpg"width="350" height="200" style="border-radius: 20px;">
-      </div>
-      <h4 style="text-align:center;">Core Slendor - Core</h4>
-      <h5 style="text-align:center;">Extra grades: +10points</h5>
-      <p style="text-align:center; padding: 25px; text-justify: auto;">-Month where students could test there mathematical Skills,
-          Mathematics and Statistics Awareness Month is held each year in April
-          . Its goal is to increase public understanding of and appreciation for 
-          mathematics and statistics. Mathematics and Statistics Awareness Month began 
-          in 1986 as Mathematics Awareness Week with a proclamation by President Ronald Reagan.
-      </p>
-      <button type="button" style="text-align:center; margin-left: 350px;">Join now!</button><br><br>
-      <footer style="text-align:center;">
-          <h5>Event would start - FEBUARY 22, 2022 @ 10:00pm</h5>
-      </footer>
-  </div>
-
-
-
+		 <?php
+			if($query_run)
+			{
+				foreach($query_run as $row)
+			{
+			
+		 ?>
+				  <tbody>
+				    <tr>
+				     
+				      <td> <?php echo $row['extra_code'];?></td>
+				      <td> <?php echo $row['extra_name']; ?></td>
+				      <td> <?php echo "+".$row['extra_grade']; ?></td>
+				    
+				      
+				    </tr>
+				  </tbody>
+				  <?php
+				}
+		
+			}
+			else{
+				echo "No Data Found!";
+			}
+		?>
+				</table>
 
 </section>
 

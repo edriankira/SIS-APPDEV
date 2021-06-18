@@ -33,7 +33,7 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="index.html" class="logo"><strong>Announcement</strong></a>
-										<li><a href="../logout.php">Sign Out</a></li>
+										<li><a href="../../logout.php">Sign Out</a></li>
 								</header>
 
 							<!-- Banner -->
