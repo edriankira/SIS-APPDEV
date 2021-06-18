@@ -56,7 +56,7 @@
                                         require_once "Event_config.php";
                                         
                                     
-                                        $sql = "SELECT * FROM adm_events WHERE `adm_evtRole` = 'Students'";
+                                        $sql = "SELECT * FROM adm_events WHERE `adm_evtRole` = 'Students' or `adm_evtRole` = 'Parent' ";
                                         if($result = mysqli_query($link, $sql)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo '<table class="table table-bordered table-striped">';

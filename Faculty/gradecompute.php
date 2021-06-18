@@ -12,6 +12,8 @@ $aae = $_POST['gaae'];
 $eval = $_POST['geval'];
 $ass = $_POST['gass'];
 $exam = $_POST['gexam'];
+$extra = $_POST['gextra'];
+$extrapoints = 0;
 
 if($at1 == 'p' || $at1 == 'P')
 {   
@@ -40,6 +42,7 @@ $getaae = (float)0;
 $geteval = (float)0;
 $getass = (float)0;
 $getexam = (float)0;
+$getextra = (float)0;
 
 if($pa > 0) {
     $getpa = $pa * (float)0.10;
@@ -65,6 +68,17 @@ if($exam > 0) {
     $getexam = $exam * (float).35;
 }
 
-$vc=  $getattendance + $getpa+ $getgen +$getaae + $geteval + $getass + $getexam;
+include "../connection/config.php";
+
+$sql ="select extra_name, extra_grade from extracur where extra_name like '%$extra%'";
+$result =  mysqli_query($db, $sql);
+if($row = mysqli_fetch_assoc($result)){
+    $extrapoints = $row['extra_grade'];
+}
+if($extrapoints > 0){
+    $getextra = $extrapoints * (float).10;
+}
+
+$vc=  $getattendance + $getpa+ $getgen +$getaae + $geteval + $getass + $getexam + $getextra;
 echo $vc;
 ?>

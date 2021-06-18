@@ -3,7 +3,7 @@
 require_once "db_conn.php";
 session_start();
 // Define variables and initialize with empty values
-$d1 = $d2 =  $d3 =  $d4 = $d5 = $pa = $gen = $aae = $eval = $ass = $exam  = $termgrade ="";
+$d1 = $d2 =  $d3 =  $d4 = $d5 = $pa = $gen = $aae = $eval = $ass = $exam  = $termgrade = $extra ="";
 $d1_err = $d2_err = $d3_err =  $d4_err = $d5_err = $pa_err = $gen_err = $aae_err = $eval_err  = $ass_err=  $exam_err ="";
  
 // Processing form data when form is submitted
@@ -95,15 +95,18 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             $termgrade = $input_grade;
         }
 
+        $input_extra = trim($_POST["coextra"]);
+        $extra = $input_extra;
+
     // Check input errors before inserting in database
 
         // Prepare an update statement
-        $sql = "UPDATE fct_record SET d1=?, d2=?, d3=?, d4=?, d5=?, pa=?, gen=?, aae=?, eval=?, ass=?, exam=?, term_grade = ? WHERE id=?";
+        $sql = "UPDATE fct_record SET d1=?, d2=?, d3=?, d4=?, d5=?, pa=?, gen=?, aae=?, eval=?, ass=?, exam=?, term_grade = ?, extracur = ? WHERE id=?";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssssssssssds", $param_d1, $param_d2, $param_d3, $param_d4, $param_d5, $param_pa,
-                $param_gen, $param_aae, $param_eval, $param_ass, $param_exam,$param_termgrade, $param_id);
+            mysqli_stmt_bind_param($stmt, "sssssssssssdsi", $param_d1, $param_d2, $param_d3, $param_d4, $param_d5, $param_pa,
+                $param_gen, $param_aae, $param_eval, $param_ass, $param_exam,$param_termgrade, $param_extracur, $param_id);
             
             // Set parameters
             $param_d1 = $d1;
@@ -119,6 +122,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
             $param_exam = $exam;
             $param_id = $id;
             $param_termgrade = $termgrade;
+            $param_extracur = $extra;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -338,11 +342,8 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                                         </td>
 
                                         <td>
-                                            <select name="coextra">
-                                                <option value="" ></option>
-                                                <option value="fct_prelim" > Sportsfest </option>
-                                                <option value="fct_midterm" > Programming Contest </option><br>
-                                                <option value="fct_final" > Science Fair </option><br>
+                                            <select name="coextra" id="coextra">
+                                                <?php include "getcoextra.php" ?>
                                             </select>
                                         </td>  
                                        
@@ -397,6 +398,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                         var eval =  $("#eval").val();
                         var ass = $("#ass").val();
                         var exam =  $("#exam").val();
+                        var extra = $("#coextra").val();
 
                         $.post("gradecompute.php",{
                             gd1 : d1,
@@ -409,12 +411,45 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                             gaae : aae,
                             geval : eval, 
                             gass : ass,
-                            gexam : exam
+                            gexam : exam,
+                            gextra : extra
                         },function(data, status){
                         $("#termgrade").val(data);
                         });
 
-                    });											
+                    });	
+                    $("select").change(function(){
+                        
+                        var d1 =  $("#d1").val();
+                        var d2 = $("#d2").val();
+                        var d3 =  $("#d3").val();
+                        var d4 = $("#d4").val();
+                        var d5 =  $("#d5").val();
+                        var pa = $("#pa").val();
+                        var gen =  $("#gen").val();
+                        var aae = $("#aae").val();
+                        var eval =  $("#eval").val();
+                        var ass = $("#ass").val();
+                        var exam =  $("#exam").val();
+                        var extra = $("#coextra").val();
+                        $.post("gradecompute.php",{
+                            gd1 : d1,
+                            gd2 : d2,
+                            gd3 : d3,
+                            gd4 : d4,
+                            gd5: d5,
+                            gpa : pa,
+                            ggen : gen,
+                            gaae : aae,
+                            geval : eval, 
+                            gass : ass,
+                            gexam : exam,
+                            gextra : extra
+                        },function(data, status){
+                        $("#termgrade").val(data);
+                        });
+
+                    });														
                 });
 																	
             </script>
