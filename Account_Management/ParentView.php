@@ -214,6 +214,11 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <tr>
                 <td colspan = 3 id="emailt"><?php echo $row["adm_prtaddress"] ?><br><b>Address</b></td>
             </tr>
+            <tr>
+                <td colspan = 3><?php echo $row["adm_prtchildId"]; ?><br><b>Child ID</b></td>
+                
+            </tr>
+
         </table>
         <input type="submit" class="backread" value="Back" onClick="location.href='ParentManagement.php'"/>
     </div>

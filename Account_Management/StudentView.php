@@ -214,6 +214,12 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <tr>
                 <td colspan = 3 id="emailt"><?php echo $row["adm_stdaddress"] ?><br><b>Address</b></td>
             </tr>
+            <tr>
+                <td><?php echo $row["adm_stdYear"]; ?><br><b>Year<b></td>
+                <td><?php echo $row["adm_stdSection"]; ?><br><b>Section<b></td>
+                <td><?php echo $row["adm_stdCourse"]; ?><br><b>Course</b></td>
+                
+            </tr>
         </table>
         <input type="submit" class="backread" value="Back" onClick="location.href='StudentManagement.php'"/>
     </div>
