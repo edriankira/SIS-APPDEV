@@ -169,6 +169,37 @@
 			}else{
 				$paddress = $input_address;
 			}
+
+
+			$input_section = $_POST["section"];
+    if (empty($input_section) || $input_section == "Select Section")
+    {
+        $section_err = "Please Enter a section";
+    }
+    else
+    {
+        $section = $input_section;
+    }
+
+    $input_year = $_POST["year"];
+    if (empty($input_year) || $input_year == "Select Year")
+    {
+        $year_err = "Please Enter a section";
+    }
+    else
+    {
+        $year = $input_year;
+    }
+
+    $input_subject = $_POST["Subject"];
+    if (empty($input_subject) || $input_subject == "Select Section")
+    {
+        $subject_err = "Please Enter a section";
+    }
+    else
+    {
+        $subject = $input_subject;
+    }
 		
 			
 		
@@ -176,13 +207,13 @@
 			empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
 			empty($pusername_err) &&empty($pgender_err)){
 				$sql = "UPDATE adm_FacultyUser SET adm_fctusername=?, adm_fctbday=?,  adm_fctfname = ?,adm_fctmname = ?, 
-				adm_fctlname = ?,adm_fctemail = ?, adm_fctmobile = ?, adm_fctaddress = ?, adm_fctgender =?
+				adm_fctlname = ?,adm_fctemail = ?, adm_fctmobile = ?, adm_fctaddress = ?, adm_fctgender =?, adm_fctYear = ?, adm_fctSection = ?, adm_fctSubjHandle = ?
 				 WHERE adm_fctId = ?";
 				
 				if($stmt = mysqli_prepare($db, $sql)){
-					mysqli_stmt_bind_param($stmt, "sssssssssi",
+					mysqli_stmt_bind_param($stmt, "ssssssssssssi",
 					$param_username, $param_bday,$param_fname,$param_mname,$param_lname,
-					$param_email,$param_mobile,$param_address,$param_gender, $param_id);
+					$param_email,$param_mobile,$param_address,$param_gender,$param_year,$param_section,$param_subject, $param_id);
 					
 					  
 					$param_username = $pusername;
@@ -194,6 +225,9 @@
 					$param_mobile = $pmobile;
 					$param_address = $paddress;
 					$param_gender = $pgender;
+					$param_section = $section;
+					$param_year = $year;
+					$param_subject = $subject;
 					$param_id = $id;
 					
 					
@@ -373,6 +407,72 @@
 
 														<input type="text" name="address" id="useremail" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_fctaddress"]; ?>"placeholder="Enter Address" >
 														<span class="invalid-feedback"><?php echo $address_err;?></span>
+													</div>
+												</td>
+											</tr>
+											<tr></tr>
+											<tr>
+												<td>School Information<br><br>
+
+													<div class="form-group">
+														<label>Year Level <span class="text-danger"></span></label>
+														<select name ="year" id="year">
+															<option selected value ="">Select Year</option>
+															<option value ="1st Year">1st Year</option>
+															<option value ="2nd Year">2nd Year</option>
+															<option value ="3rd Year">3rd Year</option>
+															<option value ="4th Year">4th Year</option>
+														</select>	
+													</div>
+												</td>
+												<td><br><br>	
+													<div class="form-group">
+														<label>Section<span class="text-danger"></span></label>
+														<select name ="section" id="section">
+															<option selected value =''>Select Section</option>
+															<script>
+															$(document).ready(function(){
+																$("#year").change(function(){
+																	$("#section").empty();
+																	$("#subject").empty();
+																	var year = $("#year").val();
+																	$.post("getsectionfct.php",{
+																		aYear: year
+																	},function(data, status){
+																	$("#section").html(data);
+																	});
+
+																});											
+															});
+																
+															</script>
+														</select>
+														<span class="invalid-feedback"><?php echo $section_err;?></span>
+													</div>
+												</td>
+												<td><br><br>	
+													<div class="form-group">
+														<label>Subject<span class="text-danger"></span></label>
+														<select name ="Subject" id="subject">
+														<option selected value =''>Select Subject</option>
+															<script>
+																$(document).ready(function(){
+																	$("#section").change(function(){
+																		$("#subject").empty();
+																		var year =  $("#year").val();
+																		var section = $("#section").val();
+																		$.post("getSubjectfct.php",{
+																			aYear: year,
+																			aSection: section
+																		},function(data, status){
+																		$("#subject").html(data);
+																		});
+
+																	});											
+																});
+																	
+															</script>
+														</select>
 													</div>
 												</td>
 											</tr>

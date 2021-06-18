@@ -10,7 +10,7 @@
 	require_once "../connection/config.php";
 	$pfname = $pmname = $plname = $pbday = $pgender = $pemail= $pmobile = $paddress= $pid= $pusername = "";
 	$pfname_err = $pmname_err = $plname_err = $pusername =$pbday_err = $gender_err = $pemail_err= $pmobile_err= $address_err= $pid_err = "";
-	
+	$studentname = $studentname_err =  "";
 	
 		function alert($msg) {
 			echo "<script type='text/javascript'>alert('$msg');</script>";
@@ -40,6 +40,7 @@
 						$pemail = $row['adm_prtemail'];
 						$paddress = $row['adm_prtaddress'];
 						$pusername = $row['adm_prtusername'];
+						$studentname = $row['adm_prtchildId'];
 						
 						$newdate = date('d-m-Y', strtotime($row['adm_prtbday']));
 						
@@ -169,20 +170,21 @@
 			}else{
 				$paddress = $input_address;
 			}
-		
+			$input_student = trim($_POST['studnumber']);
+				$studentname = $input_student;
 			
 		
 			if(empty($pfname_err) && empty($pmname_err) &&empty($plname_err) && 
 			empty($pbday_err) && empty($pemail_err) && empty($address_err) &&
 			empty($pusername_err) &&empty($pgender_err)){
 				$sql = "UPDATE adm_ParentUser SET adm_prtusername=?, adm_prtbday=?,  adm_prtfname = ?,adm_prtmname = ?, 
-				adm_prtlname = ?,adm_prtemail = ?, adm_prtmobile = ?, adm_prtaddress = ?, adm_prtgender =?
+				adm_prtlname = ?,adm_prtemail = ?, adm_prtmobile = ?, adm_prtaddress = ?, adm_prtgender =?, adm_prtchildId = ?
 				 WHERE adm_prtId = ?";
 				
 				if($stmt = mysqli_prepare($db, $sql)){
-					mysqli_stmt_bind_param($stmt, "sssssssssi",
+					mysqli_stmt_bind_param($stmt, "ssssssssssi",
 					$param_username, $param_bday,$param_fname,$param_mname,$param_lname,
-					$param_email,$param_mobile,$param_address,$param_gender, $param_id);
+					$param_email,$param_mobile,$param_address,$param_gender,$param_student, $param_id);
 					
 					  
 					$param_username = $pusername;
@@ -195,6 +197,7 @@
 					$param_address = $paddress;
 					$param_gender = $pgender;
 					$param_id = $id;
+					$param_student = $studentname;
 					
 					
 					if(mysqli_stmt_execute($stmt)){
@@ -374,6 +377,32 @@
 														<input type="text" name="address" id="useremail" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid': ''; ?>" value="<?php echo $row["adm_prtaddress"]; ?>"placeholder="Enter Address" >
 														<span class="invalid-feedback"><?php echo $address_err;?></span>
 													</div>
+												</td>
+											</tr>
+											<tr></tr>
+											<tr>
+												<td colspan = 3>Child Information<br><br>
+													<label>Student Number <span class="text-danger"></span></label>
+													<input type="text" name="studnumber" id="studnumber" class="form-control  <?php echo (!empty($studentname_err)) ? 'is-invalid': ''; ?>" placeholder="Enter Child ID" value="<?php echo $studentname; ?>">
+													<label style="float:right" name ="nameholder" id="nameholder"></label>
+													<span class="invalid-feedback"><?php echo $studentname_err;?></span>
+													<input type="hidden" name ="nameholderH" id= "nameholderH" value="No records found">
+													<script>
+													$(document).ready(function(){
+															
+														$("#studnumber").keyup(function(){
+															var id = $("#studnumber").val();
+															$.post("namequery.php",{
+																getName: id
+															},function(data, status){
+															$("#nameholder").empty();
+															$("#nameholder").html(data);
+															$("#nameholderH").val(data);
+															});			
+
+														});	
+													});
+													</script>
 												</td>
 											</tr>
 											<tr></tr>

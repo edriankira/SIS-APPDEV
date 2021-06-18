@@ -171,7 +171,6 @@ if(isset($_POST['goAdd'])){
 	}
 
 	$input_student = trim($_POST['studnumber']);
-	var_dump($input_student); 
 	$namehold = $_POST['nameholderH'];
 	if(empty($input_student)  || $namehold == "Child ID already taken" || $namehold == "No records found"){
 	$studentname_err = $namehold;
