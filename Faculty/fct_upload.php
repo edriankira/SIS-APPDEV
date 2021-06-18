@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION['FacultyName'])){
 		session_destroy();
-		header("location: ../login.php");
+		header("location: ../../login.php");
 		exit();
 	}
 ?>
@@ -45,7 +45,7 @@
                   <ul class="icons"><?php
                      echo "<li>".$_SESSION['FacultyName']."</li>"
                      ?>
-                     <li><a href="../logout.php">Sign Out</a></li>
+                     <li><a href="../../logout.php">Sign Out</a></li>
                      </ul>
                </header>
                <!-- Banner -->
