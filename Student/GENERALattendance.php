@@ -110,6 +110,7 @@
                                                                             <li><a href="Attendance.php">Attendance Report</a></li>
                                                                             <li><a href="AcademicPerformance.php">Academic Performance Report </a></li>
                                                                             <li><a href="Extracuricular.php">Co/extracurricular Activities Report</a></li>
+                                                                             <li><a href="Events/Event.php">Events</a></li>
 										<li>
 											<span class="opener" style="color:#ff6666;">General Report</span>
 											<ul>

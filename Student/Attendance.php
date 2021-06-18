@@ -84,6 +84,7 @@
                                                                             <li style="color:#ff6666;"><a href="Attendance.php">Attendance Report<i class="fa fa-caret-left" aria-hidden="true" style="margin-left: 105px; font-size: 20px;"></i></a></li>
                                                                             <li><a href="AcademicPerformance.php">Academic Performance Report </a></li>
                                                                             <li><a href="Extracuricular.php">Co/extracurricular Activities Report</a></li>
+                                                                             <li><a href="Events/Event.php">Events</a></li>
 										<li>
 											<span class="opener"">General Report</span>
 											<ul>

@@ -1,11 +1,4 @@
-<!-- <?php 
-	session_start();
-	if(!isset($_SESSION['ParentName'])){
-		session_destroy();
-		header("location: login.php");
-		exit();
-	}
-?> -->
+
 <!DOCTYPE HTML>
 
 <html>
@@ -40,11 +33,8 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="#" class="logo"><strong>Event</strong> </a>
-									<ul class="icons"><?php
-									echo "<li>".$_SESSION['ParentName']."</li>"
-									?>
 										<li><a href="../../logout.php">Sign Out</a></li>
-									</ul>
+						
 								</header>
 
 							<!-- Banner -->
@@ -56,7 +46,7 @@
                                         require_once "Event_config.php";
                                         
                                     
-                                        $sql = "SELECT * FROM adm_events WHERE `adm_evtRole` = 'Students' or `adm_evtRole` = 'Parent' ";
+                                        $sql = "SELECT * FROM adm_events WHERE `adm_evtRole` = 'Students'";
                                         if($result = mysqli_query($link, $sql)){
                                             if(mysqli_num_rows($result) > 0){
                                                 echo '<table class="table table-bordered table-striped">';
@@ -112,24 +102,24 @@
 									</form>
 								</section>
 
-							<!-- Menu -->
+								<!-- Menu -->
 								<nav id="menu">
 									<header class="major">
 										<h2>Menu</h2>
 									</header>
 									<ul>
-                                                                            <li><a href="Homepage.php">Homepage</a></li>
-                                                                            <li><a href="Lecture.php">Lecture</a></li>
-                                                                            <li><a href="Attendance.php">Attendance Report</a></li>
-                                                                            <li><a href="AcademicPerformance.php">Academic Performance Report </a></li>
-                                                                            <li><a href="Extracuricular.php">Co/extracurricular Activities Report</a></li>
+                                                                            <li><a href="../Homepage.php">Homepage</a></li>
+                                                                            <li><a href="../Lecture.php">Lecture</a></li>
+                                                                            <li><a href="../Attendance.php">Attendance Report</a></li>
+                                                                            <li><a href="../AcademicPerformance.php">Academic Performance Report </a></li>
+                                                                            <li><a href="../Extracuricular.php">Co/extracurricular Activities Report</a></li>
+                                                                            <li><a href="Event.php">Events</a></li>
 										<li>
 											<span class="opener">General Report</span>
 											<ul>
-                                                                                            <li><a href="GENERALattendance.php">Attendance</a></li>
-                                                                                            <li><a href="GENERALacademics.php">Academic Performance</a></li>
-                                                                                            <li><a href="GENERALextracuricular.php">Co/extracurricular Activities</a></li>
-                                                                                            <li><a href="Event.php">Events</a></li>
+                                                                                            <li><a href="../GENERALattendance.php">Attendance</a></li>
+                                                                                            <li><a href="../GENERALacademics.php">Academic Performance</a></li>
+                                                                                            <li><a href="../GENERALextracuricular.php">Co/extracurricular Activities</a></li>
 											</ul>
 										</li>
 <!--										<li><a href="#">Etiam Dolore</a></li>
@@ -138,7 +128,7 @@
 											<span class="opener">Account Settings</span>
 											<ul>
 												<li><a href="#">View information</a></li>
-												<li><a href="Signout.php">Sign out</a></li>
+												<li><a href="../Signout.php">Sign out</a></li>
 											</ul>
 										</li>
 

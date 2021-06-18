@@ -139,6 +139,7 @@
                                                                             <li><a href="AcademicPerformance.php">Academic Performance Report</a></li>
                                                                             <li style="color:#ff6666;"><a href="Extracuricular.php">Co/extracurricular Activities Report
                                                                             <i class="fa fa-caret-left" aria-hidden="true" style="margin-left: 200px; font-size: 20px;"></i></a></li>
+                                                                             <li><a href="Events/Event.php">Events</a></li>
                                                                                     
 										<li>
 											<span class="opener"">General Report</span>
