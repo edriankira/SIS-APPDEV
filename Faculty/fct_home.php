@@ -73,7 +73,7 @@
 						<li><a href="fct_upload.php">Upload</a></li>
 						<li><a href="fct_attendance.php">Attendance</a></li>
 						<li><a href="fct_grade.php">Grade</a></li>
-						<li><a href="fct_announcement.php">Announcement</a></li>
+						<li><a href="Announcement/announcement.php">Announcement</a></li>
 					</ul>
 				</nav>
 		

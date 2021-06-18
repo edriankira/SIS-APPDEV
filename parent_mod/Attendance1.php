@@ -194,7 +194,6 @@ $result1=mysqli_query($con,$query1);
 							<!-- Search -->
 								<section id="search" class="alt">
 									<form method="post" action="#">
-										<img src="img/bcp.png" alt="Trulli" align="center" width="50" height="50" margin-right="100px">
 										<input type="text" name="query" id="query" placeholder="Search" />
 
 									</form>
@@ -208,15 +207,16 @@ $result1=mysqli_query($con,$query1);
 									</header>
 									<ul>
 										<li><a href="index.php?">Home</a></li>
-										<li><a href="ATTendance.php?">ATTendance</a></li>
+										<li><a href="Attendance.php?">Attendance</a></li>
+                      <li><a href="Prt_ann/announcement.php">Announcements</a></li>
 										<li><a href="grades.php?">Academic Perforamance</a></li>
 										<li><a href="extracuricular.php?">Extracuricular Activities</a></li>
+                    <li><a href="Events/Event.php">Events</a></li>
 										<li>
 											<span class="opener">General Reports</span>
 											<ul>
 												<li><a href="#">Attendance Report</a></li>
-												<li><a href="general.php">Academic Report </a></li>
-												<li><a href="#">Extracuricular Report</a></li>
+                        <li><a href="general.php">Academic Report </a></li>
 											</ul>
 										</li>
 									</ul>
